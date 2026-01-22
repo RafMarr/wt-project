@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <title><?php echo $templateParams["titolo"]; ?></title>
+</head>
+
+<body class="container-fluid p-0 m-0">
+    <header class="text-center text-bg-primary py-2 mb-1">
+        <h1>Campus+</h1>
+    </header>
+    <?php
+    if (!isset($templateParams["no-nav"])) {
+        require 'template/page-nav.php';
+    }
+    ?>
+
+    <main>
+        <?php
+        if(isset($templateParams["nome"])){
+            require($templateParams["nome"]);
+        }
+        ?>
+    </main>
+
+    <!-- Footer -->
+
+    <!-- JS -->
+    <?php
+    if(isset($templateParams["js"])):
+        foreach($templateParams["js"] as $script):
+    ?>
+        <script src="<?php echo $script; ?>"></script>
+    <?php
+        endforeach;
+    endif;
+    ?>
+
+    <!-- Bootstrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+</body>
+
+
+</html>
