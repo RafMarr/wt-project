@@ -13,6 +13,7 @@
 </head>
 
 <body class="container-fluid p-0 m-0">
+    <a href="#main-content" class="visually-hidden">Vai al contenuto principale</a>
     <header class="text-center text-bg-primary py-2 mb-1">
         <h1>Campus+</h1>
     </header>
@@ -22,7 +23,7 @@
     }
     ?>
 
-    <main>
+    <main id="main-content">
         <?php
         if(isset($templateParams["nome"])){
             require($templateParams["nome"]);
