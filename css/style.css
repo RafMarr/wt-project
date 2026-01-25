@@ -1,0 +1,39 @@
+:root {
+    --main-red: #A7393B;
+    --main-white: #FEF8EC;
+    --main-bg-light: var(--main-white);
+    --main-text-light: #141414;
+
+    /* Colori del tema principale / Secondario immutabili */
+    --theme-bg: var(--main-red);
+    --theme-text: var(--main-white);
+    
+    /* Colori del tema principale / Secondario mutabili chiaro e scuro */
+    --mode-theme-bg: var(--main-bg-light);
+    --mode-theme-text: var(--main-text-light);
+
+
+    transition: background-color 0.3s;
+}
+
+/* Colori del background e del contenuto che non variano tra chiaro e scuro */
+.theme-bg-text {
+    color: var(--theme-text);
+    background-color: var(--theme-bg);
+}
+
+.theme-text {
+    color: var(--theme-text);
+}
+
+/*
+.nav-link:hover {
+    color: var(--theme-text-hover);
+}
+*/
+
+/* Colori del background e del contenuto che variano tra chiaro e scuro */
+.mode-bg-text {
+    color: var(--mode-theme-text);
+    background-color: var(--mode-theme-bg);
+}
