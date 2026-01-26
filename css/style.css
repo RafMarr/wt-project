@@ -10,6 +10,7 @@
     --theme-bg: var(--main-red);
     --theme-bg-rgb: var(--main-red-rgb);
     --theme-text: var(--main-white);
+    --theme-text-rgb: var(--main-white-rgb);
     
     /* Colori del tema principale / Secondario mutabili chiaro e scuro */
     --mode-theme-bg: var(--main-bg-light);
@@ -28,12 +29,6 @@
 .theme-text {
     color: var(--theme-text);
 }
-
-/*
-.nav-link:hover {
-    color: var(--theme-text-hover);
-}
-*/
 
 /* Colori del background e del contenuto che variano tra chiaro e scuro */
 .mode-bg-text {
@@ -69,6 +64,6 @@ a.nav-link.theme-text:hover {
 
 @import url('https://fonts.cdnfonts.com/css/seaford');
 
-body.container-fluid {
+body {
     font-family: 'Seaford', sans-serif;
 }
