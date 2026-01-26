@@ -23,7 +23,7 @@
     }
     ?>
 
-    <main id="main-content">
+    <main id="main-content" class="pt-3 pb-5">
         <?php
         if(isset($templateParams["nome"])){
             require($templateParams["nome"]);

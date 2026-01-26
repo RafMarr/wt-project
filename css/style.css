@@ -40,6 +40,18 @@
     background-color: var(--mode-theme-bg);
 }
 
+.mode-text {
+    color: var(--mode-theme-text);
+}
+
+.border-mode-text {
+    border-color: var(--mode-theme-text);
+}
+
+.border-solid {
+    border-style: solid;
+}
+
 
 .btn.theme-bg-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
