@@ -2,6 +2,7 @@
     --main-red: #A7393B;
     --main-red-rgb: 167, 57, 59;
     --main-white: #FEF8EC;
+    --main-white-rgb: 254, 248, 236;
     --main-bg-light: var(--main-white);
     --main-text-light: #141414;
 
@@ -44,6 +45,8 @@
     color: var(--mode-theme-text);
 }
 
+/* Classi simil-bootstrap custom */
+
 .border-mode-text {
     border-color: var(--mode-theme-text);
 }
@@ -52,7 +55,20 @@
     border-style: solid;
 }
 
+/* Comportamenti custom */
+
+a.nav-link.theme-text:hover {
+    color: rgba(var(--theme-text-rgb), 0.9);
+}
 
 .btn.theme-bg-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
+}
+
+/* Css Custom */
+
+@import url('https://fonts.cdnfonts.com/css/seaford');
+
+body.container-fluid {
+    font-family: 'Seaford', sans-serif;
 }
