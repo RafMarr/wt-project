@@ -2,7 +2,7 @@
     <h2>Benvenuto in Campus+!</h2>
     <p>Il sito web per gli studenti dell'Universita' di Bologna</p>
     <!-- Carosello, da intervenire poi con AJAX per le risorse -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-3">
         <div id="carosello" class="carousel slide col-10 col-md-8">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carosello" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -42,9 +42,14 @@
             </button>
         </div>
     </div>
-    <p>Accedi o registrati per usufruire dei servizi creati appositamente per te!</p>
-    <div class="d-flex flex-column align-items-center gap-2">
-        <a href="login.php?action=login" class="btn btn-primary theme-bg-text border-0 fw-semibold">Accedi</a>
-        <a href="login.php?action=register" class="btn btn-primary theme-bg-text border-0 fw-semibold">Registrati</a>
+    <div class="row justify-content-center">
+        <div class="col-md-5 text-md-start">
+            <p>Accedi o registrati per usufruire dei servizi creati appositamente per te!</p>
+        </div>
+        <div class="d-flex flex-column align-items-center gap-2 col-md-5">
+            <a href="login.php?action=login" class="w-50 btn btn-primary theme-bg-text border-0 fw-semibold">Accedi</a>
+            <a href="login.php?action=register" class="w-50 btn btn-primary theme-bg-text border-0 fw-semibold">Registrati</a>
+        </div>
     </div>
+    
 </div>
