@@ -44,7 +44,7 @@
     </div>
     <p>Accedi o registrati per usufruire dei servizi creati appositamente per te!</p>
     <div class="d-flex flex-column align-items-center gap-2">
-        <a href="login.php?action=login" class="btn btn-primary">Accedi</a>
-        <a href="login.php?action=register" class="btn btn-primary">Registrati</a>
+        <a href="login.php?action=login" class="btn btn-primary theme-bg-text border-0">Accedi</a>
+        <a href="login.php?action=register" class="btn btn-primary theme-bg-text border-0">Registrati</a>
     </div>
 </div>

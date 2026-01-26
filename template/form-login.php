@@ -13,6 +13,6 @@
       in input aggiungere aria-describedby="passwordHelp"
       <div id="passwordHelp" class="form-text">La password deve contenere almeno...</div>-->
     </div>
-    <button type="submit" class="btn btn-primary">Accedi</button>
+    <button type="submit" class="btn btn-primary theme-bg-text border-0">Accedi</button>
   </form>
 </div>

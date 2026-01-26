@@ -40,6 +40,6 @@
       </select>
     </div>
         
-    <button type="submit" class="btn btn-primary">Registrati</button>
+    <button type="submit" class="btn btn-primary theme-bg-text border-0">Registrati</button>
   </form>
 </div>

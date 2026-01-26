@@ -1,11 +1,13 @@
 :root {
     --main-red: #A7393B;
+    --main-red-rgb: 167, 57, 59;
     --main-white: #FEF8EC;
     --main-bg-light: var(--main-white);
     --main-text-light: #141414;
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--main-red);
+    --theme-bg-rgb: var(--main-red-rgb);
     --theme-text: var(--main-white);
     
     /* Colori del tema principale / Secondario mutabili chiaro e scuro */
@@ -36,4 +38,9 @@
 .mode-bg-text {
     color: var(--mode-theme-text);
     background-color: var(--mode-theme-bg);
+}
+
+
+.btn.theme-bg-text:hover {
+    background-color: rgba(var(--theme-bg-rgb), 0.9);
 }
