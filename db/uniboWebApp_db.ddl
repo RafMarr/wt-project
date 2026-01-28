@@ -39,10 +39,14 @@ create table COURSES (
      CFU tinyint unsigned not null,
      ResourcesURL varchar(500) not null,
      ExamMethod varchar(5000) not null,
-     TeachingMaterial varchar(5000) not null,
      Semester tinyint unsigned not null,
      constraint SEMESTER_CHECK check (Semester in (1, 2)),
      constraint IDCOURSE_ID primary key (CourseID));
+     
+create table COURSE_MATERIAL (
+     TeachingMaterial int unsigned not null,
+     CourseID char(5) not null,
+     primary key (TeachingMaterial, CourseID));
 
 create table COURSE_MODULES (
      CourseID char(5) not null,
@@ -153,6 +157,11 @@ create table STUDY_PLANS (
      DegreeCourseID int unsigned not null,
      Year int unsigned not null, -- the year in which the course is taught in the degree course: for example, its value can be "1", "2" or "3" for degree courses whose type is "Laurea triennale"
      constraint IDstudy_plans primary key (CourseID, DegreeCourseID));
+     
+create table TEACHING_MATERIAL (
+     TeachingMaterialID int unsigned not null auto_increment,
+     Name varchar(500) not null,
+     primary key (TeachingMaterialID));
 
 create table TEACHING_PLACES (
      Type varchar(50) not null,
@@ -167,6 +176,14 @@ create table TEACHING_PLACES (
 alter table ADMINS add constraint FKaccount_admin_FK
      foreign key (Email)
      references ACCOUNTS (Email);
+     
+alter table COURSE_MATERIAL add constraint FKcou_COU
+     foreign key (CourseID)
+     references COURSES (CourseID);
+     
+alter table COURSE_MATERIAL add constraint FKcou_TEA
+     foreign key (TeachingMaterial)
+     references TEACHING_MATERIAL (TeachingMaterialID);
 
 alter table COURSE_MODULES add constraint FKteaches
      foreign key (Professor)
