@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/seaford');
+
 :root {
     --main-red: #A7393B;
     --main-red-rgb: 167, 57, 59;
@@ -61,8 +63,6 @@ a.nav-link.theme-text:hover {
 }
 
 /* Css Custom */
-
-@import url('https://fonts.cdnfonts.com/css/seaford');
 
 body {
     font-family: 'Seaford', sans-serif;
