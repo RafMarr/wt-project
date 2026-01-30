@@ -67,6 +67,15 @@ class DatabaseHelper {
         return (bool)$found;
     }
 
+    public function getCourses() {
+        $query = "SELECT DegreeCourseID, Name FROM degree_courses";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 ?>

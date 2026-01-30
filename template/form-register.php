@@ -40,9 +40,9 @@
       <label for="corso-laurea" class="form-label">Corso di Laurea <span class="mandatory">*</span></label>
       <select name="corso-laurea" id="corso-laurea" class="form-select" aria-label="Default select example" required="">
         <option value="">Corso di laurea</option>
-        <option value="1">Ingegneria e Scienze Informatiche</option>
-        <option value="2">Architettura</option>
-        <option value="3">Psicologia</option>
+        <?php foreach ($templateParams["corsi"] as $corso): ?>
+          <option value="<?php echo $corso["DegreeCourseID"] ?>"><?php echo $corso["Name"] ?></option>
+        <?php endforeach; ?>
       </select>
     </div>
 

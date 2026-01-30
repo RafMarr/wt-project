@@ -42,7 +42,8 @@ else {
                 exit();
             }
         }
-        //Qualcosa è andato storto
+        //-Qualcosa è andato storto
+        $templateParams["corsi"] = $dbh->getCourses();
         $templateParams["nome"] = "form-register.php";
         $templateParams["js"] = array("./js/register.js");
     }
