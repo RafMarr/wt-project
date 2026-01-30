@@ -53,4 +53,20 @@ class DatabaseHelper {
         return (bool)$found;
     }
 
+    public function checkIdNumberRegistered($idNumber) {
+
+        $query = "SELECT EXISTS(SELECT 1 FROM students WHERE IdNumber = ? LIMIT 1)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idNumber);
+        $stmt->execute();
+
+        $stmt->bind_result($found);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$found;
+    }
+
 }
+
+?>
