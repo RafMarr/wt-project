@@ -22,6 +22,7 @@ else {
         //Qualcosa è andato storto
         //Aggiungere campo email per UX tramite js;
         $templateParams["nome"] = "form-login.php";
+        $templateParams["js"] = array("./js/login.js");
     }
     else if ($_GET['action'] == 'register') {
         if (isset($_POST['email-utente']) && isset($_POST['password-utente']) && isset($_POST['conferma-password']) && isset($_POST['nome']) && isset($_POST['cognome']) && isset($_POST['matricola']) && isset($_POST['corso-laurea'])) {
