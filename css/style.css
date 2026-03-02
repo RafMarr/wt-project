@@ -67,3 +67,18 @@ a.nav-link.theme-text:hover {
 body {
     font-family: 'Seaford', sans-serif;
 }
+
+
+/* Classi custom per implementare il comportamento con i BreakPoint di Bootstrap
+    non presenti di default */
+@media (min-width: 768px) {
+
+    .static-md {
+        position: static;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        z-index: auto;
+    }
+
+}

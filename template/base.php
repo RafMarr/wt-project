@@ -14,7 +14,7 @@
 
 <body class="container-fluid mode-bg-text p-0 m-0">
     <a href="#main-content" class="visually-hidden">Vai al contenuto principale</a>
-    <header class="text-center theme-bg-text py-2 mb-1">
+    <header class="text-center theme-bg-text py-2">
         <a class="nav-link" href="index.php"><h1>Campus+</h1></a>
     </header>
     <?php
@@ -23,7 +23,7 @@
     }
     ?>
 
-    <main id="main-content" class="pt-3 pb-5">
+    <main id="main-content" class="pt-3 pb-5 mt-1">
         <?php
         if(isset($templateParams["nome"])){
             require($templateParams["nome"]);
