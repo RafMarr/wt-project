@@ -56,6 +56,18 @@
     transition: background-color 0.3s;
 }
 
+/* Selezionato il tema secondario */
+:root[data-theme="secondary"] {
+    --current-theme-bg: var(--secondary-green);
+    --current-theme-bg-rgb: var(--secondary-green-rgb);
+    --current-theme-text: var(--secondary-white);
+    --current-theme-text-rgb: var(--secondary-white-rgb);
+    --current-mode-theme-bg-light: var(--secondary-bg-light);
+    --current-mode-theme-text-light: var(--secondary-text-light);
+    --current-mode-theme-bg-dark: var(--secondary-bg-dark);
+    --current-mode-theme-text-dark: var(--secondary-text-dark);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --mode-theme-bg: var(--current-mode-theme-bg-dark);
