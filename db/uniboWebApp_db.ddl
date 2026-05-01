@@ -157,7 +157,7 @@ create table STUDY_PLANS (
 create table TEACHING_PLACES (
      Type varchar(50) not null,
      TeachingPlaceID varchar(10) not null,
-     constraint TEACHING_PLACES_TYPE_CHECK check (Type in ('Aula', 'Laboratorio')),
+     constraint TEACHING_PLACES_TYPE_CHECK check (Type in ('AULA', 'LAB.')),
      constraint IDTEACHING_PLACE primary key (TeachingPlaceID));
 
 
