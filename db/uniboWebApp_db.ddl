@@ -38,7 +38,7 @@ create table COURSES (
      Name varchar(256) not null,
      CFU tinyint unsigned not null,
      ResourcesURL varchar(500) not null,
-     ExamMethod varchar(5000) not null,
+     ExamMethod varchar(10000) not null,
      TeachingMaterial varchar(5000) not null,
      Semester tinyint unsigned not null,
      constraint SEMESTER_CHECK check (Semester in (1, 2)),
@@ -157,7 +157,7 @@ create table STUDY_PLANS (
 create table TEACHING_PLACES (
      Type varchar(50) not null,
      TeachingPlaceID varchar(10) not null,
-     constraint TEACHING_PLACES_TYPE_CHECK check (Type in ('Aula', 'Laboratorio')),
+     constraint TEACHING_PLACES_TYPE_CHECK check (Type in ('AULA', 'LAB.')),
      constraint IDTEACHING_PLACE primary key (TeachingPlaceID));
 
 
