@@ -41,7 +41,7 @@
       <select name="corso-laurea" id="corso-laurea" class="form-select" aria-label="Default select example" required="">
         <option value="">Corso di laurea</option>
         <?php foreach ($templateParams["corsi"] as $corso): ?>
-          <option value="<?php echo $corso["DegreeCourseID"] ?>"><?php echo $corso["Name"] ?></option>
+          <option value="<?php echo $corso["DegreeCourseID"] ?>"><?php echo $corso["Name"] . " (" . $corso["Type"] . ")"?></option>
         <?php endforeach; ?>
       </select>
     </div>
