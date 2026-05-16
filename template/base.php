@@ -15,7 +15,7 @@
 <body class="container-fluid mode-bg-text p-0 m-0">
     <a href="#main-content" class="visually-hidden">Vai al contenuto principale</a>
     <header class="text-center theme-bg-text py-2">
-        <a class="nav-link" href="index.php"><h1>Campus+</h1></a>
+        <a class="nav-link" href="index.php"><h1 class="mb-0">Campus+</h1></a>
     </header>
     <?php
     if (!isset($templateParams["no-nav"])) {

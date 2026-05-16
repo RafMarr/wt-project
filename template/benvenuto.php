@@ -1,6 +1,6 @@
 <div class="container-fluid text-center">
     <h2>Benvenuto in Campus+!</h2>
-    <p>Il sito web per gli studenti dell'Universita' di Bologna</p>
+    <p>Il sito web per gli studenti dell'Università di Bologna</p>
     <!-- Carosello, da intervenire poi con AJAX per le risorse -->
     <div class="row justify-content-center mb-3">
         <div id="carosello" class="carousel slide col-10 col-md-8">
