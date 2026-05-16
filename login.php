@@ -21,6 +21,7 @@ else {
         }
         //Qualcosa è andato storto
         //Aggiungere campo email per UX tramite js;
+        $templateParams["titolo"] = "Accedi a Campus+";
         $templateParams["nome"] = "form-login.php";
         $templateParams["js"] = array("./js/login.js");
     }
@@ -45,12 +46,11 @@ else {
         }
         //-Qualcosa è andato storto
         $templateParams["corsi"] = $dbh->getCourses();
+        $templateParams["titolo"] = "Registrati a Campus+";
         $templateParams["nome"] = "form-register.php";
         $templateParams["js"] = array("./js/register.js");
     }
 }
-
-$templateParams["titolo"] = "Campus+";
 
 $templateParams["no-nav"] = "";
 

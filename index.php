@@ -5,7 +5,7 @@ if(!isUserLoggedIn()) {
     header("location: preview.php");
 }
 
-$templateParams["titolo"] = "Home";
+$templateParams["titolo"] = "Campus+ - Home";
 
 
 $templateParams["nome"] = "home.php";
