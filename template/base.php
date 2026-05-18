@@ -12,7 +12,7 @@
     <title><?php echo $templateParams["titolo"]; ?></title>
 </head>
 
-<body class="container-fluid mode-bg-text p-0 m-0">
+<body class="container-fluid mode-bg-text px-0 pb-5 pb-md-1 m-0">
     <a href="#main-content" class="visually-hidden">Vai al contenuto principale</a>
     <header class="text-center theme-bg-text py-2">
         <a class="d-flex justify-content-center align-items-center nav-link" href="index.php">
