@@ -3023,3 +3023,7 @@ values ("09454", 5834, 3),
        ("00251", 5834, 3),
        ("02126", 5834, 3),
        ("10907", 5834, 3);
+
+insert into ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description)
+values ("Minnesota", "Faroe pony", 5, "minnesota.jpg", "ama le carote", null),
+       ("Danny", "Shetland pony", 6.5, "danny.jpg", "ama le mele", "Danny è un cavallo sensibile e super coccoloso");

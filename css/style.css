@@ -12,10 +12,14 @@
     --main-white-rgb: 254, 248, 236;
     --main-bg-light: var(--main-white);
     --main-text-light: #141414;
+    --main-container-border-light: #B0B0B0;
+    --main-container-fill-light: #E7E7E7;
 
     /* Palette Tema Rosso Principale Scuro */ 
     --main-bg-dark: var(--main-text-light);
     --main-text-dark: var(--main-bg-light);
+    --main-container-border-dark: var(--main-bg-light);
+    --main-container-fill-dark: var(--main-text-light);
 
     /* Palette Tema Verde Secondario Chiaro */
     --secondary-green: #34642E;
@@ -24,11 +28,14 @@
     --secondary-white-rgb: 236, 249, 216;
     --secondary-bg-light: var(--secondary-white);
     --secondary-text-light: #201D1D;
+    --secondary-container-border-light: #B0B0B0;
+    --secondary-container-fill-light: #E7E7E7;
 
     /* Palette Tema Verde Secondario Scuro */
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
-
+    --secondary-container-border-dark: var(--secondary-bg-light);
+    --secondary-container-fill-dark: var(--secondary-text-light);
 
     /* -- Dichiarazione variabili del tema -- */
 
@@ -39,8 +46,12 @@
     --current-theme-text-rgb: var(--main-white-rgb);
     --current-mode-theme-bg-light: var(--main-bg-light);
     --current-mode-theme-text-light: var(--main-text-light);
+    --current-mode-theme-container-border-light: var(--main-container-border-light);
+    --current-mode-theme-container-fill-light: var(--main-container-fill-light);
     --current-mode-theme-bg-dark: var(--main-bg-dark);
     --current-mode-theme-text-dark: var(--main-text-dark);
+    --current-mode-theme-container-border-dark: var(--main-container-border-dark);
+    --current-mode-theme-container-fill-dark: var(--main-container-fill-dark);
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--current-theme-bg);
@@ -51,6 +62,8 @@
     /* Colori del tema principale / Secondario mutabili chiaro e scuro */
     --mode-theme-bg: var(--current-mode-theme-bg-light);
     --mode-theme-text: var(--current-mode-theme-text-light);
+    --mode-theme-container-border: var(--current-mode-theme-container-border-light);
+    --mode-theme-container-fill: var(--current-mode-theme-container-fill-light);
 
 
     transition: background-color 0.3s;
@@ -64,14 +77,20 @@
     --current-theme-text-rgb: var(--secondary-white-rgb);
     --current-mode-theme-bg-light: var(--secondary-bg-light);
     --current-mode-theme-text-light: var(--secondary-text-light);
+    --current-mode-theme-container-border-light: var(--secondary-container-border-light);
+    --current-mode-theme-container-fill-light: var(--secondary-container-fill-light);
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
+    --current-mode-theme-container-border-dark: var(--secondary-container-border-dark);
+    --current-mode-theme-container-fill-dark: var(--secondary-container-fill-dark);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --mode-theme-bg: var(--current-mode-theme-bg-dark);
     --mode-theme-text: var(--current-mode-theme-text-dark);
+    --mode-theme-container-border: var(--current-mode-theme-container-border-dark);
+    --mode-theme-container-fill: var(--current-mode-theme-container-fill-dark);
   }
 }
 
@@ -95,6 +114,19 @@
     color: var(--mode-theme-text);
 }
 
+.mode-container {
+    border-color: var(--mode-theme-container-border) !important; /* "!important" is needed in order to override bootstrap's default border color */
+    background-color: var(--mode-theme-container-fill);
+}
+
+.mode-modal {
+    background-color: var(--mode-theme-container-fill);
+}
+
+.mode-input-border-color {
+    border-color: var(--mode-theme-text);
+}
+
 /* Classi simil-bootstrap custom */
 
 .border-mode-text {
@@ -113,6 +145,11 @@ a.nav-link.theme-text:hover {
 
 .btn.theme-bg-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
+}
+
+.link-disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 /* Css Custom */
