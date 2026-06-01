@@ -105,7 +105,7 @@ create table PONIES (
      Breed varchar(256) not null,
      HourlyFee decimal(4,2) not null,
      Image varchar(256) not null,
-     SpecMarks varchar(20),
+     SpecMarks varchar(100),
      Description varchar(100),
      constraint IDPONY primary key (PonyID));
 
