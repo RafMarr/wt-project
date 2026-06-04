@@ -14,12 +14,14 @@
     --main-text-light: #141414;
     --main-container-border-light: #B0B0B0;
     --main-container-fill-light: #E7E7E7;
+    --main-link-color: #0d6efd;
 
     /* Palette Tema Rosso Principale Scuro */ 
     --main-bg-dark: var(--main-text-light);
     --main-text-dark: var(--main-bg-light);
     --main-container-border-dark: var(--main-bg-light);
     --main-container-fill-dark: var(--main-text-light);
+    --main-link-color-dark: #99c3ff;
 
     /* Palette Tema Verde Secondario Chiaro */
     --secondary-green: #34642E;
@@ -30,12 +32,14 @@
     --secondary-text-light: #201D1D;
     --secondary-container-border-light: #B0B0B0;
     --secondary-container-fill-light: #E7E7E7;
+    --secondary-link-color: #0d6efd;
 
     /* Palette Tema Verde Secondario Scuro */
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
     --secondary-container-border-dark: var(--secondary-bg-light);
     --secondary-container-fill-dark: var(--secondary-text-light);
+    --secondary-link-color-dark: #99c3ff;
 
     /* -- Dichiarazione variabili del tema -- */
 
@@ -52,6 +56,8 @@
     --current-mode-theme-text-dark: var(--main-text-dark);
     --current-mode-theme-container-border-dark: var(--main-container-border-dark);
     --current-mode-theme-container-fill-dark: var(--main-container-fill-dark);
+    --current-mode-theme-link-color-light: var(--main-link-color);
+    --current-mode-theme-link-color-dark: var(--main-link-color-dark);
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--current-theme-bg);
@@ -64,7 +70,7 @@
     --mode-theme-text: var(--current-mode-theme-text-light);
     --mode-theme-container-border: var(--current-mode-theme-container-border-light);
     --mode-theme-container-fill: var(--current-mode-theme-container-fill-light);
-
+    --mode-theme-link-color: var(--current-mode-theme-link-color-light);
 
     transition: background-color 0.3s;
 }
@@ -83,6 +89,8 @@
     --current-mode-theme-text-dark: var(--secondary-text-dark);
     --current-mode-theme-container-border-dark: var(--secondary-container-border-dark);
     --current-mode-theme-container-fill-dark: var(--secondary-container-fill-dark);
+    --current-mode-theme-link-color-light: var(--secondary-link-color);
+    --current-mode-theme-link-color-dark: var(--secondary-link-color-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -91,13 +99,14 @@
     --mode-theme-text: var(--current-mode-theme-text-dark);
     --mode-theme-container-border: var(--current-mode-theme-container-border-dark);
     --mode-theme-container-fill: var(--current-mode-theme-container-fill-dark);
+    --mode-theme-link-color: var(--current-mode-theme-link-color-dark);
   }
 }
 
 /* Colori del background e del contenuto che non variano tra chiaro e scuro */
 .theme-bg-text {
-    color: var(--theme-text);
-    background-color: var(--theme-bg);
+    color: var(--theme-text) !important;
+    background-color: var(--theme-bg) !important;
 }
 
 .theme-text {
@@ -127,6 +136,10 @@
     border-color: var(--mode-theme-text);
 }
 
+.mode-link-color {
+    color: var(--mode-theme-link-color);
+}
+
 /* Classi simil-bootstrap custom */
 
 .border-mode-text {
@@ -147,6 +160,11 @@ a.nav-link.theme-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
 }
 
+.opacity-50 {
+    opacity: 0.5 !important;
+}
+
+/* TODO: remove */
 .link-disabled {
     pointer-events: none;
     opacity: 0.5;
