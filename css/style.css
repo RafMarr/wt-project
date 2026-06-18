@@ -4,6 +4,7 @@
 
     /* -- Palette -- */
 
+    --invalid-error-dark: #FF3344;
     /* Palette Tema Rosso Principale Chiaro */
     /* Palette di default */
     --main-red: #A7393B;
@@ -51,7 +52,7 @@
     /* Colori del tema principale / Secondario mutabili chiaro e scuro */
     --mode-theme-bg: var(--current-mode-theme-bg-light);
     --mode-theme-text: var(--current-mode-theme-text-light);
-
+    --mode-invalid-error: var(--main-red);
 
     transition: background-color 0.3s;
 }
@@ -72,6 +73,7 @@
   :root {
     --mode-theme-bg: var(--current-mode-theme-bg-dark);
     --mode-theme-text: var(--current-mode-theme-text-dark);
+    --mode-invalid-error: var(--invalid-error-dark);
   }
 }
 
@@ -121,6 +123,10 @@
     background-color: transparent;
     margin-left: auto;
     border: 0;
+}
+
+.invalid-feedback {
+    color: var(--mode-invalid-error);
 }
 
 .preview-theme {

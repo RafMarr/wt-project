@@ -25,7 +25,7 @@
         </div>
         <div class="d-flex justify-content-end column-gap-3">
             <a class="btn theme-text" href="account.php">Annulla</a>
-            <button type="submit" class="btn theme-bg-text">Applica Modifica</button>
+            <button type="submit" class="btn mode-danger">Applica Modifica</button>
         </div>
     </form>
 </div>
