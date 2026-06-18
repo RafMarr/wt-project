@@ -76,17 +76,6 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProfileInfo($idutente) {
-
-        $query = "SELECT Name, Surname, IdNumber, Email FROM students WHERE Email = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $idutente);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc();
-    }
-
     public function checkAdmin($idutente) {
         $query = "SELECT PermissionType FROM accounts WHERE Email = ?";
         $stmt = $this->db->prepare($query);
@@ -95,6 +84,34 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_assoc()["PermissionType"] === "Admin";
+    }
+
+    public function getProfileInfo($idutente) {
+        $found = $this->checkAdmin($idutente);
+
+        if ($found) {
+            $query = "SELECT Name, Surname FROM admins WHERE Email = ?";
+        }
+        else {
+            $query = "SELECT Name, Surname, IdNumber FROM students WHERE Email = ?";
+        }
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getAccountsExceptCurrent($currentId) {
+        $query = "SELECT Name, Surname, Email FROM students WHERE Email != ? UNION SELECT Name, Surname, Email FROM admins WHERE Email != ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $currentId, $currentId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function checkPasswordRegistered($password, $email) {
@@ -115,9 +132,30 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    public function deleteAccount($email) {
+    public function registerAdmin($nome, $cognome, $email, $password) {
+        $permission = "Admin";
 
-        $query1 = "DELETE FROM students WHERE Email = ?";
+        $query1 = "INSERT INTO accounts (Email, Password, PermissionType) VALUES (?, ?, ?)";
+        $stmt1 = $this->db->prepare($query1);
+        $stmt1->bind_param('sss', $email, $password, $permission);
+        $stmt1->execute();
+
+        $query2 = "INSERT INTO admins (Name, Surname, Email) VALUES (?, ?, ?)";
+        $stmt2 = $this->db->prepare($query2);
+        $stmt2->bind_param('sss', $nome, $cognome, $email);
+        $stmt2->execute();
+    }
+
+    public function deleteAccount($email) {
+        $found = $this->checkAdmin($email);
+        if ($found) {
+            $table = "admins";
+        }
+        else {
+            $table = "students";
+        }
+
+        $query1 = "DELETE FROM $table WHERE Email = ?";
         $stmt = $this->db->prepare($query1);
         $stmt->bind_param('s', $email);
         $stmt->execute();

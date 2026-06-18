@@ -5,7 +5,13 @@
         <section class="text-start my-4">
             <h3>Informazioni utente</h3>
             <p><strong>Nome</strong>: <?php echo $templateParams["NomeCompletoUtente"] ?></p>
-            <p><strong>Numero di matricola</strong>: <?php echo $templateParams["NumeroMatricola"] ?></p>
+            <?php
+            if(!isset($templateParams["admin"])):
+            ?>
+                <p><strong>Numero di matricola</strong>: <?php echo $templateParams["NumeroMatricola"] ?></p>
+            <?php
+            endif;
+            ?>
             <p><strong>Email Istituzionale</strong>: <?php echo $templateParams["Email"] ?></p>
         </section>
 
@@ -24,6 +30,12 @@
                 Verde Margherita
             </label>
         </section>
+
+        <?php
+        if(isset($templateParams["admin"])){
+            require($templateParams["admin"]);
+        }
+        ?>
 
         <div class="row justify-content-center gap-2">
             <a class="col-8 col-md-5 btn theme-bg-text fw-semibold" href="account.php?action=change-password">Modifica Password</a>
