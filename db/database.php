@@ -76,6 +76,60 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getProfileInfo($idutente) {
+        $checkquery = "SELECT EXISTS(SELECT 1 FROM students WHERE Email = ? LIMIT 1)";
+        $stmt = $this->db->prepare($checkquery);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+
+        $stmt->bind_result($found);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ((bool)$found) {
+            $table = "students";
+        }
+        else {
+            $table = "professors";
+        }
+
+        $query = "SELECT Name, Surname, IdNumber, Email FROM $table WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function checkAdmin($idutente) {
+        $query = "SELECT PermissionType FROM accounts WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["PermissionType"] === "Admin";
+    }
+
+    public function checkPasswordRegistered($password, $email) {
+
+        $query = "SELECT Password FROM accounts WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["Password"] === $password;
+    }
+
+    public function changePassword($password, $email) {
+        $query = "UPDATE accounts SET Password = ? WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $password, $email);
+        $stmt->execute();
+    }
+
 }
 
 ?>

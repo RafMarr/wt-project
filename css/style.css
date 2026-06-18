@@ -95,6 +95,12 @@
     color: var(--mode-theme-text);
 }
 
+.mode-danger {
+    color: var(--mode-theme-text);
+    border: solid 2px var(--mode-theme-text);
+    background-color: var(--mode-theme-bg);
+}
+
 /* Classi simil-bootstrap custom */
 
 .border-mode-text {
@@ -105,14 +111,67 @@
     border-style: solid;
 }
 
+.check-btn {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+}
+
+.close-btn {
+    background-color: transparent;
+    margin-left: auto;
+    border: 0;
+}
+
+.preview-theme {
+    height: 80px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+.preview-theme-primary {
+    background: linear-gradient(to right, var(--main-red) 50%, var(--main-white) 50%);
+}
+
+.preview-theme-secondary {
+    background: linear-gradient(to right, var(--secondary-green) 50%, var(--secondary-white) 50%);
+}
+
+.preview-theme-card {
+    text-align: center;
+    border: 2px var(--mode-theme-text) solid;
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+.check-btn:checked + .preview-theme-card {
+    border-color: var(--theme-bg);
+}
+
 /* Comportamenti custom */
 
 a.nav-link.theme-text:hover {
     color: rgba(var(--theme-text-rgb), 0.9);
 }
 
-.btn.theme-bg-text:hover {
+.btn.theme-bg-text:hover, .btn.theme-bg-text:focus-visible {
+    color: var(--theme-text);
     background-color: rgba(var(--theme-bg-rgb), 0.9);
+}
+
+.btn.mode-danger:hover {
+    border-color: var(--mode-theme-text);
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 .25rem var(--mode-theme-text);
+}
+
+.nav-link:focus-visible {
+    box-shadow: 0 0 0 .25rem var(--theme-text);
+}
+.nav-link:focus {
+    color: var(--theme-text);
 }
 
 /* Css Custom */
