@@ -32,7 +32,7 @@ currPassInput.addEventListener('blur', async () => {
         }
         else {
             currPassInput.classList.add("is-invalid");
-            currPassError.innerHTML = "La password e' errata.";
+            currPassError.innerHTML = "La password è errata.";
         }
 
     } catch (error) {

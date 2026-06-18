@@ -1,4 +1,4 @@
-const currentTheme = localStorage.getItem("user-theme");
+let currentTheme = localStorage.getItem("user-theme");
 if (!currentTheme) {
     currentTheme = "primary";
 }

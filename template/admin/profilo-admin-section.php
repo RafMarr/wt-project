@@ -35,10 +35,10 @@
         </section>
         <section class="border-mode-text border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
             <h4>Elimina Account</h4>
-            <form action="account.php?action=delete-admin" method="POST" class="needs-validation">
+            <form id="form-delete-account" action="account.php?action=delete-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">
                     <label for="email-delete" class="form-label">Account</label>
-                    <input list="account-list" class="form-control" name="email" id="email-delete" required=""/>
+                    <input list="account-list" class="form-control" name="email" id="email-delete" aria-describedby="errore-email-delete" required=""/>
                     <datalist id="account-list">
                         <?php
                         if (isset($templateParams["utenti"])):
@@ -53,12 +53,14 @@
                         ?>
 
                     </datalist>
+                    <div id="errore-email-delete" class="invalid-feedback" aria-live="polite">
+                    </div>
                 </div>
                 <div class="mb-3 text-start">
-                    <input type="checkbox" class="form-check-input" name="conferma" id="conferma" required=""/>
-                    <label for="conferma" class="form-label">Sono sicuro di voler eliminare l'account selezionato</label>
+                    <input type="checkbox" class="form-check-input" name="conferma" id="conferma-delete" required=""/>
+                    <label for="conferma-delete" class="form-label">Sono sicuro di voler eliminare l'account selezionato</label>
                 </div>
-                <button type="submit" class="btn theme-bg-text fw-semibold" disabled="">Elimina Account</button>
+                <button type="submit" class="btn theme-bg-text fw-semibold">Elimina Account</button>
             </form>
         </section>
     </div>

@@ -58,7 +58,7 @@
             </div>
             <div class="modal-body">
                 <p>Sei assolutamente sicuro di voler eliminare l'account?</p>
-                <p>Questa azione non e' reversibile. Per accedere dovrai effettuare la registrazione.</p>
+                <p>Questa azione non è reversibile. Per accedere dovrai effettuare la registrazione.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn mode-danger" data-bs-dismiss="modal">Annulla</button>
