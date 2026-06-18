@@ -76,7 +76,7 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProfileInfo($idutente) {
+    public function isStudent($idutente) {
         $checkquery = "SELECT EXISTS(SELECT 1 FROM students WHERE Email = ? LIMIT 1)";
         $stmt = $this->db->prepare($checkquery);
         $stmt->bind_param('s', $idutente);
@@ -86,7 +86,13 @@ class DatabaseHelper {
         $stmt->fetch();
         $stmt->close();
 
-        if ((bool)$found) {
+        return (bool)$found;
+    }
+
+    public function getProfileInfo($idutente) {
+        $found = $this->isStudent($idutente);
+
+        if ($found) {
             $table = "students";
         }
         else {
@@ -130,6 +136,25 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
+    public function deleteAccount($email) {
+        $found = $this->isStudent($email);
+        if ($found) {
+            $table = "students";
+        }
+        else {
+            $table = "professors";
+        }
+
+        $query1 = "DELETE FROM $table WHERE Email = ?";
+        $stmt = $this->db->prepare($query1);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        $query2 = "DELETE FROM accounts WHERE Email = ?";
+        $stmt = $this->db->prepare($query2);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    }
 }
 
 ?>
