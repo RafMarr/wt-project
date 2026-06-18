@@ -1,3 +1,18 @@
+<?php
+/* This code snippet determines the minimum date that can be selected by the user.
+   When the user opens the page, if the hippodrome is already closed on the current
+   day, the minimum date that can be inserted is the following day. */
+
+   $current_date_string = date('Y-m-d');
+if (date('H:i') < get_hippodrome_closing_time($current_date_string)) {
+    $min_date = $current_date_string;
+} else {
+    $current_date_datetime = date_create($current_date_string);
+    date_add($current_date_datetime, date_interval_create_from_date_string('1 day'));
+    $min_date = date_format($current_date_datetime, 'Y-m-d');
+}
+?>
+
 <button type="button" class="btn border-top-0 border-start-0 border-end-0 py-1 px-2 border border-2 mode-container mode-text position-absolute end-0" data-bs-toggle="offcanvas" data-bs-target="#filtersMenu" aria-controls="filtersMenu">
     Filtra ricerca
     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
@@ -43,12 +58,30 @@
                 <p>Il servizio di noleggio dei pony è realizzato in collaborazione con l'<a class="mode-link-color" href="https://www.ippodromocesena.it/">Ippodromo di Cesena</a></p>
                 <p class="m-0">È possibile usufruire del servizio di noleggio nei seguenti orari:</p>
                 <ul>
-                    <li>Lunedì-Venerdì: <time>9:00</time>-<time>18:30</time></li>
-                    <li>Sabato: <time>9:00</time>-<time>13:00</time></li>
+                    <li id="mon-fri-hours">Lunedì-Venerdì: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?></time></li>
+                    <li id="sat-sun-hours">Sabato-Domenica: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKEND_CLOSING_TIME ?></time></li>
                 </ul>
                 <p>Per maggiori informazioni contattare il numero: +39 334 4567890</p>
                 <p>Indirizzo: Viale Antonio Gramsci, 308, 47521 Cesena (FC)</p>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5726.212547081311!2d12.231914800000002!3d44.1430534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ca4c206ae337f%3A0x915dce2a7a569b9!2sIppodromo%20Cesena!5e0!3m2!1sit!2sit!4v1779634384416!5m2!1sit!2sit" width="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="booking-modal" tabindex="-1" aria-hidden="true" aria-labelledby="booking-modal-title">
+    <div class="modal-dialog">
+        <div class="modal-content mode-modal mode-text">
+            <div class="modal-header">
+                <h1 id="booking-modal-title" class="modal-title fs-2">Riepilogo prenotazione</h1>
+                <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer justify-content-center pt-0">
+                <button type="button" class="btn theme-bg-text">Prenota</button>
             </div>
         </div>
     </div>
@@ -64,124 +97,26 @@
         </button>
     </header>
     <p>Per verificare la disponibilità dei pony ed effettuare una prenotazione, inserire i seguenti valori:</p>
-    <section class="d-flex flex-column flex-md-row align-items-center justify-content-center p-0 mx-auto mb-5">
+    <section id="booking-params" class="d-flex flex-column flex-md-row align-items-center justify-content-center p-0 mx-auto mb-5">
         <div class="d-md-flex flex-column gap-2 justify-content-start align-items-start col-10 col-md-3 col-lg-2 mb-3 mb-md-0 me-md-3 text-start">
             <label for="day" class="form-label m-md-0">Giorno</label>
-            <input type="date" class="form-control mode-input-border-color" name="day" id="day" />
+            <input type="date" min="<?php echo $min_date ?>" class="form-control mode-input-border-color is-invalid" name="day" id="day" aria-describedby="day-feedback" />
+            <div id="day-feedback" class="invalid-feedback m-md-0">
+            </div>
         </div>
         <div class="d-md-flex flex-column gap-2 justify-content-start align-items-start col-10 col-md-3 col-lg-2 mb-3 mb-md-0 me-md-3 text-start">
             <label for="start-time" class="form-label m-md-0">Ora inizio</label>
-            <input type="time" class="form-control mode-input-border-color" name="start-time" id="start-time" />
+            <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?>" class="form-control mode-input-border-color is-invalid" name="start-time" id="start-time" aria-describedby="start-time-feedback" />
+            <div id="start-time-feedback" class="invalid-feedback m-md-0">
+            </div>
         </div>
         <div class="d-md-flex flex-column gap-2 justify-content-start align-items-start col-10 col-md-3 col-lg-2 text-start">
             <label for="end-time" class="form-label m-md-0">Ora fine</label>
-            <input type="time" class="form-control mode-input-border-color" name="end-time" id="end-time" />
+            <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?>" class="form-control mode-input-border-color is-invalid" name="end-time" id="end-time" aria-describedby="end-time-feedback" />
+            <div id="end-time-feedback" class="invalid-feedback m-md-0">
+            </div>
         </div>
     </section>
     <section id="available-ponies" class="col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
-        <h3 class="visually-hidden">Pony disponibili</h3>
-        <div class="col">
-            <article class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                <header>
-                    <!-- "alt" attribute is left empty as described in: https://html.spec.whatwg.org/dev/images.html#ancillary-images -->
-                    <img src="./upload/img/minnesota.jpg" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">Minnesota</h4>
-                </header>
-                <div class="text-start">
-                    <p class="mb-1"><span class="fw-bold">Razza:</span> Faroe pony</p>
-                    <p class="mb-1"><span class="fw-bold">Costo:</span> 5 €/ora</p>
-                    <p class="mb-4"><span class="fw-bold">Segni particolari:</span> ama le carote</p>
-                </div>
-                <div class="text-center m-0 mt-md-auto">
-                    <!-- nuova versione della prenotazione. Questo bottone fa aprire un modal da cui
-                     è possibile gestire la prenotazione del pony -->
-                    <button type="button" class="btn opacity-50 theme-bg-text" disabled>Prenota</button>
-                </div>
-            </article>
-        </div>
-        <div class="col">
-            <article class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                <header>
-                    <img src="./upload/img/pino.jpg" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">Pino</h4>
-                </header>
-                <div class="text-start">
-                    <p class="mb-1"><span class="fw-bold">Razza:</span> Manipur pony</p>
-                    <p class="mb-1"><span class="fw-bold">Costo:</span> 3 €/ora</p>
-                    <p class="mb-1"><span class="fw-bold">Descrizione:</span> energetico e docile</p>
-                    <p class="mb-4"><span class="fw-bold">Segni particolari:</span> gli piacciono le coccole</p>
-                </div>
-                <div class="text-center m-0 mt-md-auto">
-                    <!-- i link disabilitati non devono avere l'href. Se invece non si può togliere l'href,
-                     bisogna andare a disabilitare a mano il link via javascript. Vedi la pagina:
-                     https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state (vedere anche la sezione
-                     "link functionality caveat") -->
-                     <!-- TODO: versione vecchia dei bottoni per prenotare. Ora questa strategia è stata sostituita
-                      dal bottone che fa aprire un modal che contiene le informazioni riguardo il cavallo da prenotare -->
-                    <a aria-disabled="true" class="btn link-disabled theme-bg-text">Prenota</a>
-                </div>
-            </article>
-        </div>
-        <div class="col">
-            <article class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                <header>
-                    <img src="./upload/img/odoacre.jpg" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">Odoacre</h4>
-                </header>
-                <div class="text-start">
-                    <p class="mb-1"><span class="fw-bold">Razza:</span> Cavallino di Monterufoli</p>
-                    <p class="mb-1"><span class="fw-bold">Costo:</span> 8 €/ora</p>
-                    <p class="mb-1"><span class="fw-bold">Segni particolari:</span> gli piace il lampredotto</p>
-                    <p class="mb-4"><span class="fw-bold">Descrizione:</span> vivace, docile e obbediente</p>
-                </div>
-                <div class="text-center m-0 mt-md-auto">
-                    <!-- i link disabilitati non devono avere l'href. Se invece non si può togliere l'href,
-                     bisogna andare a disabilitare a mano il link via javascript. Vedi la pagina:
-                     https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state (vedere anche la sezione
-                     "link functionality caveat") -->
-                    <a aria-disabled="true" class="btn link-disabled theme-bg-text">Prenota</a>
-                </div>
-            </article>
-        </div>
-        <div class="col">
-            <article class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                <header>
-                    <img src="./upload/img/ombra.jpg" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">Ombra</h4>
-                </header>
-                <div class="text-start">
-                    <p class="mb-1"><span class="fw-bold">Razza:</span> Exmoor pony</p>
-                    <p class="mb-1"><span class="fw-bold">Costo:</span> 12.50 €/ora</p>
-                    <p class="mb-4"><span class="fw-bold">Segni particolari:</span> ama le zollette di zucchero</p>
-                </div>
-                <div class="text-center m-0 mt-md-auto">
-                    <!-- i link disabilitati non devono avere l'href. Se invece non si può togliere l'href,
-                     bisogna andare a disabilitare a mano il link via javascript. Vedi la pagina:
-                     https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state (vedere anche la sezione
-                     "link functionality caveat") -->
-                    <a aria-disabled="true" class="btn link-disabled theme-bg-text">Prenota</a>
-                </div>
-            </article>
-        </div>
-        <div class="col">
-            <article class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                <header>
-                    <img src="./upload/img/cioccolato.jpg" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">Cioccolato</h4>
-                </header>
-                <div class="text-start">
-                    <p class="mb-1"><span class="fw-bold">Razza:</span> Pony fracos da sella</p>
-                    <p class="mb-1"><span class="fw-bold">Costo:</span> 11 €/ora</p>
-                    <p class="mb-4"><span class="fw-bold">Segni particolari:</span> ama i macaron</p>
-                </div>
-                <div class="text-center m-0 mt-md-auto">
-                    <!-- i link disabilitati non devono avere l'href. Se invece non si può togliere l'href,
-                     bisogna andare a disabilitare a mano il link via javascript. Vedi la pagina:
-                     https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state (vedere anche la sezione
-                     "link functionality caveat") -->
-                    <a aria-disabled="true" class="btn link-disabled theme-bg-text">Prenota</a>
-                </div>
-            </article>
-        </div>
     </section>
 </div>

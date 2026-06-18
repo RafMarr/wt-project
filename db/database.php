@@ -6,7 +6,7 @@ class DatabaseHelper {
     public function __construct($servername, $username, $password, $dbname, $port) {
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
-            die("Connection failed: " . $db->connect_error);
+            die("Connection failed: " . $this->db->connect_error);
         }
     }
 
@@ -74,6 +74,24 @@ class DatabaseHelper {
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPonies() {
+        $query = "SELECT * FROM ponies";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAvailablePonies($day, $start_time, $end_time) {
+        $query = 'SELECT * FROM ponies WHERE PonyID NOT IN (SELECT PonyID FROM reservations WHERE Date = ? AND StartHour <= ? AND EndHour >= ?)';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sss', $day, $end_time, $start_time);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
 }

@@ -164,18 +164,11 @@ a.nav-link.theme-text:hover {
     opacity: 0.5 !important;
 }
 
-/* TODO: remove */
-.link-disabled {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
 /* Css Custom */
 
 body {
     font-family: 'Seaford', sans-serif;
 }
-
 
 /* Classi custom per implementare il comportamento con i BreakPoint di Bootstrap
     non presenti di default */
@@ -187,6 +180,14 @@ body {
         bottom: auto;
         left: auto;
         z-index: auto;
+    }
+
+    #booking-params .invalid-feedback {
+        min-height: 4rem;
+    }
+
+    #booking-params input.mb-md-feedback {
+        margin-bottom: 4rem;
     }
 
 }
