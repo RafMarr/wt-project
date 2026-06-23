@@ -21,9 +21,6 @@ function are_pony_parameters_valid(string $day, string $start_time, string $end_
     $start_datetime = $day . " " . $start_time;
     $closing_time = get_hippodrome_closing_time($day);
 
-    /* TODO: qui viene anche effettuato il seguente controllo: "se $day è la data di oggi, $start_time deve essere successivo all'ora attuale".
-     Questo controllo non è stato ancora effettuato nel frontend. Vedere se si può implementare anche questo controllo, in modo tale da effettuare
-     gli stessi controlli sia lato client che lato server */
     return ($start_datetime >= $current_datetime)
         && ($start_time >= HIPPODROME_OPENING_TIME) && ($start_time <= $closing_time)
         && ($end_time >= HIPPODROME_OPENING_TIME) && ($end_time <= $closing_time)

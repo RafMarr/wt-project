@@ -17,9 +17,16 @@ resetFiltersButton.addEventListener('click', () => {
     priceFilter.dispatchEvent(new Event('change'))
 })
 
+function getHippodromeClosingTime(date) {
+    if (date instanceof Temporal.PlainDate) {
+        return date.dayOfWeek >= SATURDAY ? HIPPODROME_WEEKEND_CLOSING_TIME : HIPPODROME_WEEKDAYS_CLOSING_TIME
+    } else {
+        throw new TypeError('The parameter type must be Temporal.PlainDate')
+    }
+}
+
 function setInputStyleBasedOnValidity(input) {
-    /* the length check is needed because checkValidity() returns true if the input value is an empty string */
-    if (input.value.length > 0 && input.checkValidity()) {
+    if (isInputValid(input)) {
         input.classList.remove('is-invalid')
         input.classList.add('is-valid')
         input.classList.add('mb-md-feedback')
@@ -53,15 +60,38 @@ function setInvalidFeedbackContent(input) {
     }
 }
 
+function hasCurrentDate(input) {
+    if ((input.tagName.toLowerCase() == "input") && input.getAttribute('type') == 'date') {    
+        return isInputValid(input) && (Temporal.PlainDate.compare(Temporal.PlainDate.from(input.value), Temporal.Now.plainDateISO()) == 0)
+    } else {
+        throw new TypeError('The parameter must be an input of type date')
+    }
+}
+
+function setStartTimeInputMinValue() {
+    if (hasCurrentDate(dateInput)) {
+        const currentTime = Temporal.Now.plainTimeISO()
+        const currentTimeString = `${currentTime.hour}:${currentTime.minute}`
+        startTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeClosingTime(Temporal.PlainDate.from(dateInput.value)) ? currentTimeString : HIPPODROME_OPENING_TIME)
+    } else {
+        startTimeInput.setAttribute('min', HIPPODROME_OPENING_TIME)
+    }
+}
+
 function setEndTimeInputMinValue() {
-    if (startTimeInput.value.length > 0 && startTimeInput.checkValidity()) {
+    if (isInputValid(startTimeInput)) {
         endTimeInput.setAttribute('min', startTimeInput.value)
+    } else if (hasCurrentDate(dateInput)) {
+        const currentTime = Temporal.Now.plainTimeISO()
+        const currentTimeString = `${currentTime.hour}:${currentTime.minute}`
+        endTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeClosingTime(Temporal.PlainDate.from(dateInput.value)) ? currentTimeString : HIPPODROME_OPENING_TIME)
     } else {
         endTimeInput.setAttribute('min', HIPPODROME_OPENING_TIME)
     }
 }
 
 function isInputValid(input) {
+    /* the length check is needed because checkValidity() returns true if the input value is an empty string */
     return input.value.length > 0 && input.checkValidity()
 }
 
@@ -82,23 +112,7 @@ allInputs.forEach(input => {
 
 dateInput.addEventListener('change', () => {
 
-    /* TODO: la mia intenzione con il seguente codice è quella di settare l'attributo "min" all'ora corrente per gli input di tipo "time"
-     quando la data selezionata nell'input di tipo "date" è la data di oggi, in modo tale da non rendere selezionabili gli orari "precedenti".
-    */
-
-    // if (Temporal.PlainDate.compare(Temporal.PlainDate.from(dateInput.value), Temporal.Now.plainDateISO()) == 0) {
-    //     startTimeInput.setAttribute('min', Temporal.Now.plainTimeISO().toString())
-    //     endTimeInput.setAttribute('min', Temporal.Now.plainTimeISO().toString())
-    // } else {
-    //     if (startTimeInput.hasAttribute('min')) {
-    //         startTimeInput.removeAttribute('min')
-    //     }
-    //     if (endTimeInput.hasAttribute('min')) {
-    //         endTimeInput.removeAttribute('min')
-    //     }
-    // }
-
-    if (dateInput.value.length > 0 && dateInput.checkValidity()) {
+    if (isInputValid(dateInput)) {
         const dateSet = Temporal.PlainDate.from(dateInput.value)
         if (dateSet.dayOfWeek < SATURDAY) {
             startTimeInput.setAttribute('max', HIPPODROME_WEEKDAYS_CLOSING_TIME)
@@ -109,6 +123,7 @@ dateInput.addEventListener('change', () => {
         }
     }
 
+    setStartTimeInputMinValue()
     setEndTimeInputMinValue()
 
     setInputStyleBasedOnValidity(startTimeInput)
