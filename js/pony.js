@@ -12,6 +12,16 @@ const HIPPODROME_WEEKEND_CLOSING_TIME = document.querySelector("#sat-sun-hours >
 /* The following variable is used to refresh the available ponies information only when needed */
 let lastInputValidityCheckResult = false
 
+/* This event listener solves the warning raised by Chrome when a modal is
+   closed but one of his descendants retains focus */
+document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('hide.bs.modal', () => {
+        if (document.activeElement) {
+            document.activeElement.blur()
+        }
+    })
+})
+
 resetFiltersButton.addEventListener('click', () => {
     priceFilter.value = "all"
     /* this instruction triggers the "change" event on priceFilter, in order to
