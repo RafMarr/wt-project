@@ -9,6 +9,8 @@ const SATURDAY = 6
 const HIPPODROME_OPENING_TIME = document.querySelector("#mon-fri-hours > time:first-of-type").innerHTML
 const HIPPODROME_WEEKDAYS_CLOSING_TIME = document.querySelector("#mon-fri-hours > time:last-of-type").innerHTML
 const HIPPODROME_WEEKEND_CLOSING_TIME = document.querySelector("#sat-sun-hours > time:last-of-type").innerHTML
+/* The following variable is used to refresh the available ponies information only when needed */
+let lastInputValidityCheckResult = false
 
 resetFiltersButton.addEventListener('click', () => {
     priceFilter.value = "all"
@@ -99,13 +101,23 @@ allInputs.forEach(input => {
     input.addEventListener('change', () => {
         setInputStyleBasedOnValidity(input)
 
-        /* TODO: ogni volta che un input cambia, anche se devono essere mostrati sempre gli stessi pony di prima,
-        viene fatta una nuova richiesta al database. Risolvere questo problema per evitare un eccessivo
-        sovraccarico del database */
         if (allInputs.every(input => isInputValid(input))) {
+            lastInputValidityCheckResult = true
             fetchPonies(dateInput.value, startTimeInput.value, endTimeInput.value)
         } else {
-            fetchPonies()
+            /* The default ponies info must be fetched only when needed.
+               If the last input validity check was successful, it means that
+               the ponies shown in the page are the ones that meet the search
+               parameters inserted by the user. So, considering that now the
+               input validity check is not successful, the default ponies info
+               must be fetched.
+               On the other hand, if the last input validity check was not
+               successful, nothing has to be fetched because the page is
+               already showing the correct pony information. */
+            if (lastInputValidityCheckResult) {
+                fetchPonies()
+                lastInputValidityCheckResult = false
+            }
         }
     })
 })
