@@ -165,6 +165,115 @@ class DatabaseHelper {
         $stmt->bind_param('s', $email);
         $stmt->execute();
     }
+
+    public function getReports() {
+        $query = "SELECT * FROM signals";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getBathrooms() {
+        $query = "SELECT * FROM bathrooms";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getTeachingPlaces() {
+        $query = "SELECT * FROM teaching_places";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAulee() {
+        $aula = "AULA";
+        $query = "SELECT * FROM teaching_places WHERE Type = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $aula);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLabs() {
+        $lab = "LAB.";
+        $query = "SELECT * FROM teaching_places WHERE Type = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $lab);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getTeachingPlaceType($teachingPlaceID) {
+        $query = "SELECT Type FROM teaching_places WHERE TeachingPlaceID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $teachingPlaceID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getBathroom($bathroomID) {
+        $query = "SELECT Floor, Block FROM bathrooms WHERE BathroomID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $bathroomID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getStudentID($email) {
+        $query = "SELECT IdNumber FROM students WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function addReport($type, $placetype, $placeId, $description, $studentId) {
+        $currentDate = date("Y-m-d");
+        $state = "Non Risolto";
+        if ($placetype === "Corridor") {
+            $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, CorridorFloor, CorridorBlock) VALUES (?,?,?,?,?,?,?)";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssis', $currentDate, $state, $description, $type, $studentId, $placeId["piano"], $placeId["blocco"]);
+        }
+        else if ($placetype === "Bike-Parking") {
+            $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, Bike-Parking) VALUES (?,?,?,?,?,?)";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssi', $currentDate, $state, $description, $type, $studentId, $placeId);
+        }
+        else {
+            if ($placetype === "AULA" || $placetype === "LAB.") {
+                $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, TeachingPlaceID) VALUES (?,?,?,?,?,?)";
+            }
+            else if ($placetype === "Bathroom") {
+                $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, BathroomID) VALUES (?,?,?,?,?,?)";
+            }
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssssss', $currentDate, $state, $description, $type, $studentId, $placeId);
+        }
+
+        $stmt->execute();
+    }
 }
 
 ?>
