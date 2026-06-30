@@ -67,6 +67,19 @@ class DatabaseHelper {
         return (bool)$found;
     }
 
+    public function get_student_idnumber_from_email(string $email): string|null {
+        $query = 'SELECT IdNumber FROM students WHERE Email = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        $stmt->bind_result($id_number);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $id_number;
+    }
+
     public function getCourses() {
         $query = "SELECT * FROM degree_courses";
         $stmt = $this->db->prepare($query);
@@ -92,6 +105,14 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function book_pony(int $pony_id, string $date, string $start_hour, string $end_hour, string $student_id): bool {
+        $query = 'INSERT INTO reservations VALUES (?, ?, ?, ?, ?)';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('issss', $pony_id, $date, $start_hour, $end_hour, $student_id);
+
+        return $stmt->execute();
     }
 
 }

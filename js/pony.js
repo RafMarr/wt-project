@@ -11,6 +11,13 @@ const HIPPODROME_WEEKDAYS_CLOSING_TIME = document.querySelector("#mon-fri-hours 
 const HIPPODROME_WEEKEND_CLOSING_TIME = document.querySelector("#sat-sun-hours > time:last-of-type").innerHTML
 /* The following variable is used to refresh the available ponies information only when needed */
 let lastInputValidityCheckResult = false
+/* This variable is the reference to the anonymous function that is used as the
+click event handler for the booking button in the #booking-modal modal.
+In this way, it is possible to remove the event listener attached to the booking
+button when the booking modal is closed.
+More information on this topic can be found here:
+https://dev.to/smotchkkiss/function-identity-in-javascript-or-how-to-remove-event-listeners-properly-1ll3 */
+let lastBookingButtonClickEventListener = null
 
 /* This event listener solves the warning raised by Chrome when a modal is
    closed but one of his descendants retains focus */
@@ -170,11 +177,35 @@ endTimeInput.addEventListener('change', () => {
 
 bookingModal.addEventListener('hidden.bs.modal', () => {
     document.querySelector("#booking-modal .modal-body").innerHTML = ""
-    document.querySelector("#booking-modal .modal-footer button").removeEventListener('click', bookPony)
+    document.querySelector("#booking-modal .modal-footer button").removeEventListener('click', lastBookingButtonClickEventListener)
 })
 
 async function bookPony(ponyID, bookingDate, startTime, endTime) {
-    // TODO: fare la richiesta con fetch al file api-pony-booking.php
+    const url = 'api/api-pony-booking.php'
+    const bookingParameters = new FormData()
+    bookingParameters.append('ponyID', ponyID)
+    bookingParameters.append('day', bookingDate)
+    bookingParameters.append('start', startTime)
+    bookingParameters.append('end', endTime)
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: bookingParameters
+        })
+        if (!response.ok) {
+            throw new Error("Response status: " + response.status)
+        }
+        const isBookingSuccessful = await response.json()
+        // TODO: remove
+        console.log(isBookingSuccessful)
+        /* TODO: dopo un tentativo di prenotazione deve essere mostrato un
+        messaggio con l'esito della prenotazione e deve essere cancellato
+        il contenuto degli input nella pagina in modo tale da mostrare nuovamente
+        tutti i pony (come se la pagina venisse ricaricata dall'inizio) */
+    } catch (error) {
+        console.error(error.message)
+    }
 }
 
 function setBookingModalContent(ponyArticleID) {
@@ -196,7 +227,8 @@ function setBookingModalContent(ponyArticleID) {
     <p class="mb-1"><span class="fw-bold">Orario:</span> ${startTimeInput.value}-${endTimeInput.value}</p>
     <p class="mb-1"><span class="fw-bold">Prezzo:</span> ${ponyHourlyFee}</p>
     <div class="text-end pe-2 mt-3"><p class="m-0 fs-5"><span class="fw-bold">Totale:</span> € ${bookingPrice}</p></div>`
-    bookingButton.addEventListener('click', bookPony(ponyID, bookingDate, startTime, endTime))
+    lastBookingButtonClickEventListener = () => { bookPony(ponyID, dateInput.value, startTimeInput.value, endTimeInput.value) }
+    bookingButton.addEventListener('click', lastBookingButtonClickEventListener)
 }
 
 function generatePoniesCards(ponies, enableBookingButtons = false) {
