@@ -29,6 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+if (window.matchMedia) {
+    const bookingMessageAlert = document.querySelector('#booking-message')
+    if (bookingMessageAlert != null) {
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                bookingMessageAlert.classList.add('alert-light')
+            } else {
+                bookingMessageAlert.classList.add('alert-dark')
+            }
+        })
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                bookingMessageAlert.classList.replace('alert-dark', 'alert-light')
+            } else {
+                bookingMessageAlert.classList.replace('alert-light', 'alert-dark')
+            }
+        })
+    }
+}
+
 resetFiltersButton.addEventListener('click', () => {
     priceFilter.value = "all"
     /* this instruction triggers the "change" event on priceFilter, in order to
@@ -48,11 +68,9 @@ function setInputStyleBasedOnValidity(input) {
     if (isInputValid(input)) {
         input.classList.remove('is-invalid')
         input.classList.add('is-valid')
-        input.classList.add('mb-md-feedback')
     } else {
         input.classList.remove('is-valid')
         input.classList.add('is-invalid')
-        input.classList.remove('mb-md-feedback')
     }
 }
 
@@ -197,12 +215,7 @@ async function bookPony(ponyID, bookingDate, startTime, endTime) {
             throw new Error("Response status: " + response.status)
         }
         const isBookingSuccessful = await response.json()
-        // TODO: remove
-        console.log(isBookingSuccessful)
-        /* TODO: dopo un tentativo di prenotazione deve essere mostrato un
-        messaggio con l'esito della prenotazione e deve essere cancellato
-        il contenuto degli input nella pagina in modo tale da mostrare nuovamente
-        tutti i pony (come se la pagina venisse ricaricata dall'inizio) */
+        location.replace(location.href.split('?')[0] + `?booking-successful=${isBookingSuccessful}`)
     } catch (error) {
         console.error(error.message)
     }

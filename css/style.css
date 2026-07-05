@@ -182,12 +182,8 @@ body {
         z-index: auto;
     }
 
-    #booking-params .invalid-feedback {
-        min-height: 4rem;
-    }
-
-    #booking-params input.mb-md-feedback {
-        margin-bottom: 4rem;
+    #booking-params {
+        min-height: 150px;
     }
 
 }
