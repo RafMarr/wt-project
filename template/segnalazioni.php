@@ -1,6 +1,10 @@
 <div class="container-fluid text-center">
     <h2>Segnalazioni</h2>
-    <?php if (!isset($templateParams["admin"])): ?>
+    <?php if (isset($templateParams["admin"])): ?>
+    <section>
+        <h3><a href="report.php?action=report-admin">Gestisci Segnalazioni</a></h3>
+    </section>
+    <?php else: ?>
     <section>
         <h3><a href="report.php?action=send-report">Fai una segnalazione</a></h3>
     </section>
@@ -12,23 +16,11 @@
     <div>
         <?php
         foreach ($templateParams["reports"] as $report):
-            if ($report["TeachingPlaceID"] != NULL) {
-                $report["place"] = $dbh->getTeachingPlaceType($report["TeachingPlaceID"])["Type"]." ".$report["TeachingPlaceID"];
-            }
-            else if ($report["BathroomID"] != NULL) {
-                $bathroom = $dbh->getBathroom($report["BathroomID"]);
-                $report["place"] = "Bagno {$report["BathroomID"]} al piano {$bathroom["Floor"]} e blocco {$bathroom["Block"]}";
-            }
-            else if ($report["CorridorFloor"] != NULL && $report["CorridorBlock"] != NULL) {
-                $report["place"] = "Corridoio al piano {$report["CorridorFloor"]} e blocco {$report["CorridorBlock"]}";
-            }
-            else if ($report["BikeParkingFloor"] != NULL) {
-                $report["place"] = "Parcheggio delle biciclette al piano {$report["BikeParkingFloor"]}";
-            }
+            $place = $dbh->getPlaceFromID($report["PlaceID"]);
             ?>
             <div>
                 <h4><?php echo $report["Type"]; ?></h4>
-                <p><strong>Luogo</strong>: <?php echo $report["place"]; ?></p>
+                <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
                 <p><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
                 <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>
                 <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>

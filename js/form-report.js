@@ -1,54 +1,70 @@
-const radioLuoghi = document.querySelectorAll('input[name="luogo-segnalazione"]');
-const divAulee = document.getElementById("div-aulee");
-const selectAula = document.getElementById("aula-select");
-const divLabs = document.getElementById("div-labs");
-const selectLab = document.getElementById("lab-select");
-const divBagni = document.getElementById("div-bagni");
-const selectBagni = document.getElementById("bagni-select");
+const selectType = document.getElementById("type-select");
+const divLuogo = document.getElementById("div-place-select");
+const selectLuogo = document.getElementById("place-select");
 const divPianoBlocco = document.getElementById("div-piano-blocco");
-const inputPiano = document.getElementById("piano-corridoio");
-const selectBlocco = document.getElementById("blocco-corridoio");
-const divPianiParcheggi = document.getElementById("div-parcheggi");
-const selectParcheggi = document.getElementById("piani-parcheggi");
+const selectPiano = document.getElementById("piano-select");
+const selectBlocco = document.getElementById("blocco-select");
+const labelLuogo = document.getElementById("place-label");
 
-radioLuoghi.forEach(radio => {
-    radio.addEventListener("change", (e) => {
-        const valore = e.target.value;
+let places = [];
 
-        divAulee.classList.add("d-none");
-        selectAula.required = false;
-        divLabs.classList.add("d-none");
-        selectLab.required = false;
+function updateSelectType() {
+    selectLuogo.innerHTML = '<option value="">Scegli...</option>';
+    places.forEach(place => {
+        if ((selectPiano.value === "" || String(place.FloorID) === String(selectPiano.value))
+            && (selectBlocco.value === "" || place.BlockID === selectBlocco.value))
+        {
+            const option = document.createElement("option");
+
+            option.value = place.PlaceID;
+            option.innerHTML = place.Name;
+            selectLuogo.appendChild(option);
+        }
+    });
+}
+
+selectType.addEventListener("change", async () => {
+    const valore = selectType.value;
+
+    places = [];
+    selectPiano.value = "";
+    selectBlocco.value = "";
+    updateSelectType();
+
+    if (valore === "") {
+        divLuogo.classList.add("d-none");
+        selectLuogo.required = false;
         divPianoBlocco.classList.add("d-none");
-        inputPiano.required = false;
-        selectBlocco.required = false;
-        divPianiParcheggi.classList.add("d-none");
-        selectParcheggi.required = false;
-        divBagni.classList.add("d-none");
-        selectBagni.required = false;
+        return;
+    }
 
-        if (valore === "AULA") {
-            divAulee.classList.remove("d-none");
-            selectAula.required = true;
-        }
-        else if (valore === "LAB.") {
-            divLabs.classList.remove("d-none");
-            selectLab.required = true;
-        }
-        else if (valore === "Bathroom") {
-            divBagni.classList.remove("d-none");
-            selectBagni.required = true;
-        }
-        else if (valore === "Corridor") {
-            divPianoBlocco.classList.remove("d-none");
-            inputPiano.required = true;
-            selectBlocco.required = true;
-        }
-        else if (valore === "Bike-Parking") {
-            divPianiParcheggi.classList.remove("d-none");
-            selectParcheggi.required = true;
+    labelLuogo.innerHTML = valore.charAt(0).toUpperCase() + valore.slice(1).toLowerCase();
+
+    const type = valore;
+    const url = "api/api-get-places.php";
+    const formData = new FormData();
+    formData.append('type', type);
+    try {
+        const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
         }
 
+        places = await response.json();
+        divLuogo.classList.remove("d-none");
+        selectLuogo.required = true;
+        divPianoBlocco.classList.remove("d-none");
+
+        updateSelectType();
+    } catch (error) {
+        console.log(error.message);
+    }
 
     });
-});
+
+selectPiano.addEventListener("change", updateSelectType);
+selectBlocco.addEventListener("change", updateSelectType);

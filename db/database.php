@@ -167,7 +167,7 @@ class DatabaseHelper {
     }
 
     public function getReports() {
-        $query = "SELECT * FROM signals";
+        $query = "SELECT * FROM reports";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -175,8 +175,8 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getBathrooms() {
-        $query = "SELECT * FROM bathrooms";
+    public function getPlaceTypes() {
+        $query = "SELECT * FROM place_types";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -184,8 +184,8 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getTeachingPlaces() {
-        $query = "SELECT * FROM teaching_places";
+    public function getFloors() {
+        $query = "SELECT * FROM floors";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -193,42 +193,29 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAulee() {
-        $aula = "AULA";
-        $query = "SELECT * FROM teaching_places WHERE Type = ?";
+    public function getBlocks() {
+        $query = "SELECT * FROM blocks";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $aula);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLabs() {
-        $lab = "LAB.";
-        $query = "SELECT * FROM teaching_places WHERE Type = ?";
+    public function getPlacesFromType($type) {
+        $query = "SELECT * FROM places WHERE Type = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $lab);
+        $stmt->bind_param('s', $type);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getTeachingPlaceType($teachingPlaceID) {
-        $query = "SELECT Type FROM teaching_places WHERE TeachingPlaceID = ?";
+    public function getPlaceFromID($placeID) {
+        $query = "SELECT * FROM places WHERE PlaceID = ? LIMIT 1";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $teachingPlaceID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc();
-    }
-
-    public function getBathroom($bathroomID) {
-        $query = "SELECT Floor, Block FROM bathrooms WHERE BathroomID = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $bathroomID);
+        $stmt->bind_param('s', $placeID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -245,32 +232,12 @@ class DatabaseHelper {
         return $result->fetch_assoc();
     }
 
-    public function addReport($type, $placetype, $placeId, $description, $studentId) {
+    public function addReport($type, $placetype, $placeID, $description, $studentID) {
         $currentDate = date("Y-m-d");
         $state = "Non Risolto";
-        if ($placetype === "Corridor") {
-            $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, CorridorFloor, CorridorBlock) VALUES (?,?,?,?,?,?,?)";
-
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('sssssis', $currentDate, $state, $description, $type, $studentId, $placeId["piano"], $placeId["blocco"]);
-        }
-        else if ($placetype === "Bike-Parking") {
-            $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, Bike-Parking) VALUES (?,?,?,?,?,?)";
-
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('sssssi', $currentDate, $state, $description, $type, $studentId, $placeId);
-        }
-        else {
-            if ($placetype === "AULA" || $placetype === "LAB.") {
-                $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, TeachingPlaceID) VALUES (?,?,?,?,?,?)";
-            }
-            else if ($placetype === "Bathroom") {
-                $query = "INSERT INTO signals(CreationDate, State, Description, Type, StudentID, BathroomID) VALUES (?,?,?,?,?,?)";
-            }
-            
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('ssssss', $currentDate, $state, $description, $type, $studentId, $placeId);
-        }
+        $query = "INSERT INTO reports(CreationDate, State, Description, Type, StudentID, PlaceID) VALUES (?,?,?,?,?,?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssssss', $currentDate, $state, $description, $type, $studentID, $placeID);
 
         $stmt->execute();
     }

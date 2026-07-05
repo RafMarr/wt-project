@@ -20,19 +20,6 @@ create table ADMINS (
      constraint IDADMIN primary key (AdminID),
      constraint FKaccount_admin_ID unique (Email));
 
-create table BATHROOMS (
-     BathroomID varchar(10) not null,
-     constraint IDBATHROOM primary key (BathroomID));
-
-create table BIKE_PARKINGS (
-     Floor tinyint unsigned not null,
-     constraint IDBIKE_PARKING primary key (Floor));
-
-create table CORRIDORS (
-     Floor tinyint unsigned not null,
-     Block char(1) not null,
-     constraint IDCORRIDOR primary key (Floor, Block));
-
 create table COURSES (
      CourseID char(5) not null,
      Name varchar(256) not null,
@@ -96,7 +83,7 @@ create table LESSONS (
      Date date not null,
      StartTime time not null,
      EndTime time not null,
-     TeachingPlaceID varchar(10) not null,
+     PlaceID varchar(10) not null,
      constraint IDLESSON primary key (CourseID, Date, StartTime));
 
 create table PONIES (
@@ -124,20 +111,33 @@ create table RESERVATIONS (
      StudentID char(10) not null,
      constraint IDRESERVATION primary key (PonyID, Date, StartHour));
 
-create table SIGNALS (
-     SignalID int auto_increment not null,
+CREATE TABLE floors(FloorID tinyint unsigned not null,
+     FloorName varchar(30) not null,
+     CONSTRAINT IDFLOOR PRIMARY KEY (FloorID));
+                   
+CREATE TABLE blocks(BlockID varchar(10) not null,
+     CONSTRAINT IDBLOCK PRIMARY KEY (BlockID));
+                    
+CREATE TABLE place_types(PlaceType varchar(50) not null,
+     CONSTRAINT IDPLACETYPE PRIMARY KEY (PlaceType));
+
+CREATE TABLE places(PlaceID varchar(10) not null,
+     Type varchar(50) not null,
+     Name varchar(50),
+     FloorID tinyint unsigned not null,
+     BlockID varchar(10) not null,
+     CONSTRAINT IDPLACE PRIMARY KEY (PlaceID));
+                    
+CREATE TABLE reports(
+     ReportID int AUTO_INCREMENT not null,
      CreationDate date not null,
      State varchar(256) not null,
      Description varchar(200) not null,
      Type varchar(50) not null, -- "Servizi igienici", "Pulizia", ... like on mockups
      StudentID char(10) not null,
-     TeachingPlaceID varchar(10),
-     BathroomID varchar(10),
-     CorridorFloor tinyint unsigned,
-     CorridorBlock char(1),
-     BikeParkingFloor tinyint unsigned,
+     PlaceID varchar(10) not null,
      constraint STATE_CHECK check (State in ('Non risolto', 'Presa in carico', 'Risolto')),
-     constraint IDSIGNAL primary key (SignalID));
+     constraint IDREPORT primary key (ReportID));
 
 create table STUDENTS (
      Name varchar(256) not null,
@@ -153,12 +153,6 @@ create table STUDY_PLANS (
      DegreeCourseID int unsigned not null,
      Year int unsigned not null, -- the year in which the course is taught in the degree course: for example, its value can be "1", "2" or "3" for degree courses whose type is "Laurea triennale"
      constraint IDstudy_plans primary key (CourseID, DegreeCourseID));
-
-create table TEACHING_PLACES (
-     Type varchar(50) not null,
-     TeachingPlaceID varchar(10) not null,
-     constraint TEACHING_PLACES_TYPE_CHECK check (Type in ('AULA', 'LAB.')),
-     constraint IDTEACHING_PLACE primary key (TeachingPlaceID));
 
 
 -- Constraints Section
@@ -184,9 +178,9 @@ alter table LESSONS add constraint FKlesson_course
      foreign key (CourseID)
      references COURSES (CourseID);
 
-alter table LESSONS add constraint FKlesson_teaching_place
-     foreign key (TeachingPlaceID)
-     references TEACHING_PLACES (TeachingPlaceID);
+alter table LESSONS add constraint FKlesson_place
+     foreign key (PlaceID)
+     references PLACES (PlaceID);
 
 alter table RESERVATIONS add constraint FKstudent_reservation
      foreign key (StudentID)
@@ -196,29 +190,25 @@ alter table RESERVATIONS add constraint FKpony_reservation
      foreign key (PonyID)
      references PONIES (PonyID);
 
-alter table SIGNALS add constraint FKreports
+ALTER TABLE places ADD CONSTRAINT FKplaces_types
+	FOREIGN KEY (Type)
+	REFERENCES PLACE_TYPES (PlaceType);
+     
+ALTER TABLE places ADD CONSTRAINT FKplaces_floors
+	FOREIGN KEY (FloorID)
+    REFERENCES FLOORS (FloorID);
+    
+ALTER TABLE places ADD CONSTRAINT FKplaces_blocks
+	FOREIGN KEY (BlockID)
+    REFERENCES BLOCKS (BlockID);
+
+alter table reports add constraint FKreports_students
      foreign key (StudentID)
      references STUDENTS (IdNumber);
-
-alter table SIGNALS add constraint FKsignal_teaching_place
-     foreign key (TeachingPlaceID)
-     references TEACHING_PLACES (TeachingPlaceID);
-
-alter table SIGNALS add constraint FKsignal_bathroom
-     foreign key (BathroomID)
-     references BATHROOMS (BathroomID);
-
-alter table SIGNALS add constraint FKsignal_corridor_FK
-     foreign key (CorridorFloor, CorridorBlock)
-     references CORRIDORS (Floor, Block);
-
-alter table SIGNALS add constraint FKsignal_corridor_CHK
-     check ((CorridorFloor is not null and CorridorBlock is not null)
-           or (CorridorFloor is null and CorridorBlock is null)); 
-
-alter table SIGNALS add constraint FKsignal_bike_parking
-     foreign key (BikeParkingFloor)
-     references BIKE_PARKINGS (Floor);
+     
+ALTER TABLE reports ADD CONSTRAINT FKreports_places
+	FOREIGN KEY (PlaceID)
+    REFERENCES PLACES (PlaceID);
 
 alter table STUDENTS add constraint FKaccount_student_FK
      foreign key (Email)
