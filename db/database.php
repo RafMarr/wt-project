@@ -241,6 +241,28 @@ class DatabaseHelper {
 
         $stmt->execute();
     }
+
+    public function deleteReport($reportID) {
+        $query = "DELETE FROM reports WHERE ReportID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $reportID);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function updateReportState($reportID, $state) {
+        $query = "UPDATE reports SET State = ? WHERE ReportID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $state, $reportID);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
 
 ?>

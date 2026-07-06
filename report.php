@@ -6,11 +6,21 @@ if(!isUserLoggedIn()) {
     exit();
 }
 
-if ($dbh->checkAdmin($_SESSION["idutente"])) {
-    $templateParams["admin"] = "admin/segnalazioni-admin.php";
-}
+$templateParams["titolo"] = "Segnalazioni";
+$templateParams["nome"] = "segnalazioni.php";
+$templateParams["reports"] = $dbh->getReports();
 
-if (isset($_GET["action"])) {
+if ($dbh->checkAdmin($_SESSION["idutente"])) {
+    if (isset($_GET["action"])) {
+        header("location: report.php");
+        exit();
+    }
+    $templateParams["nome"] = "admin/segnalazioni-admin.php";
+    $templateParams["titolo"] = "Gestisci Segnalazioni";
+    $templateParams["states"] = array("Non risolto", "Presa in carico", "Risolto");
+    $templateParams["js"] = array("./js/segnalazioni-admin.js", "./js/modal-bs-error.js");
+}
+else if (isset($_GET["action"])) {
     if ($_GET["action"] === "send-report") {
 
         if (isset($_POST["tipo-segnalazione"]) && isset($_POST["type-select"]) && isset($_POST["place-select"]) && isset($_POST["descrizione-segnalazione"])) {
@@ -30,23 +40,10 @@ if (isset($_GET["action"])) {
 
         $templateParams["js"] = array("./js/form-report.js");
     }
-    else if ($dbh->checkAdmin($_SESSION["idutente"]) && $_GET["action"] === "report-admin") {
-        $templateParams["nome"] = $templateParams["admin"];
-        $templateParams["titolo"] = "Gestisci Segnalazioni";
-        $templateParams["reports"] = $dbh->getReports();
-
-        //$templateParams["js"] = array();
-    }
     else {
         header("location: report.php");
         exit();
     }
-}
-else {
-    $templateParams["titolo"] = "Segnalazioni";
-    $templateParams["nome"] = "segnalazioni.php";
-
-    $templateParams["reports"] = $dbh->getReports();
 }
 
 require("template/base.php");

@@ -6,7 +6,7 @@
     <form action="report.php?action=send-report" method="POST" class="col-10 col-md-6">
         <div class="mb-3 text-start">
             <label for="tipo-segnalazione" class="form-label">Tipo Segnalazione</label>
-            <input type="text" max-length="30" placeholder="Pulizia, Problema Tecnico..." class="form-control" name="tipo-segnalazione" id="tipo-segnalazione" required="" />
+            <input type="text" maxlength="30" placeholder="Pulizia, Problema Tecnico..." class="form-control" name="tipo-segnalazione" id="tipo-segnalazione" required="" />
         </div>
         <div class="mb-3 text-start">
             <label class="form-label" for="type-select">Luogo</label>
@@ -46,7 +46,7 @@
         
         <div class="mb-3 text-start">
             <label for="descrizione-segnalazione" class="form-label">Descrizione</label>
-            <textarea rows="3" max-length="200" class="form-control" name="descrizione-segnalazione" id="descrizione-segnalazione" required="" ></textarea>
+            <textarea rows="3" maxlength="200" class="form-control" name="descrizione-segnalazione" id="descrizione-segnalazione" required="" ></textarea>
         </div>
         <div class="d-flex justify-content-end column-gap-3">
             <a class="btn theme-text" href="report.php">Annulla</a>
