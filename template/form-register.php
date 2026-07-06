@@ -13,26 +13,26 @@
     </div>
     <div class="mb-3 text-start">
       <label for="email-utente" class="form-label">Email <span class="mandatory">*</span></label>
-      <input type="email" class="form-control" name="email-utente" id="email-utente" required=""/>
-      <div id="errore-email" class="invalid-feedback">
+      <input type="email" class="form-control" name="email-utente" id="email-utente" required="" aria-describedby="errore-email"/>
+      <div id="errore-email" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
     <div class="mb-3 text-start">
       <label for="password-utente" class="form-label">Password <span class="mandatory">*</span></label>
-      <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" required=""/>
-      <div id="errore-password" class="invalid-feedback">
+      <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" required="" aria-describedby="errore-password"/>
+      <div id="errore-password" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
     <div class="mb-3 text-start">
       <label for="conferma-password" class="form-label">Conferma Password <span class="mandatory">*</span></label>
-      <input type="password" class="form-control" name="conferma-password" id="conferma-password" required=""/>
-      <div id="errore-conferma-password" class="invalid-feedback">
+      <input type="password" class="form-control" name="conferma-password" id="conferma-password" required="" aria-describedby="errore-conferma-password"/>
+      <div id="errore-conferma-password" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
     <div class="mb-3 text-start">
       <label for="matricola" class="form-label">Numero di Matricola <span class="mandatory">*</span></label>
-      <input type="text" class="form-control" name="matricola" id="matricola" required=""/>
-      <div id="errore-matricola" class="invalid-feedback">
+      <input type="text" class="form-control" name="matricola" id="matricola" required="" aria-describedby="errore-matricola"/>
+      <div id="errore-matricola" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
     <div class="mb-3 text-start">
