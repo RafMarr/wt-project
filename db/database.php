@@ -234,7 +234,7 @@ class DatabaseHelper {
 
     public function addReport($type, $placetype, $placeID, $description, $studentID) {
         $currentDate = date("Y-m-d");
-        $state = "Non Risolto";
+        $state = "Non risolto";
         $query = "INSERT INTO reports(CreationDate, State, Description, Type, StudentID, PlaceID) VALUES (?,?,?,?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssssss', $currentDate, $state, $description, $type, $studentID, $placeID);
@@ -254,14 +254,33 @@ class DatabaseHelper {
     }
 
     public function updateReportState($reportID, $state) {
-        $query = "UPDATE reports SET State = ? WHERE ReportID = ?";
+        $currentDateTime = NULL;
+        if ($state === "Risolto") {
+            $currentDateTime = date("Y-m-d H:i:s");
+        }
+        $query = "UPDATE reports SET State = ?, SolvedDate = ? WHERE ReportID = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $state, $reportID);
+        $stmt->bind_param('sss', $state, $currentDateTime, $reportID);
         if ($stmt->execute()) {
             return true;
         }
 
         return false;
+    }
+
+    public function getReportStates() {
+        $query = "SELECT * FROM report_states";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteExpiredReports() {
+        $query = "DELETE FROM reports WHERE State = 'Risolto' AND SolvedDate < NOW() - INTERVAL 4 HOUR";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
     }
 }
 

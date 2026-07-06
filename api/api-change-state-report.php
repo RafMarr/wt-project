@@ -1,7 +1,7 @@
 <?php
 require_once('./../bootstrap.php');
 
-$result = false;
+$result["success"] = false;
 if ($dbh->checkAdmin($_SESSION["idutente"]) && isset($_POST["state"]) && isset($_POST["reportID"])) {
     $state = $_POST["state"];
     $reportID = $_POST["reportID"];

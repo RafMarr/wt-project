@@ -61,6 +61,11 @@ INSERT INTO places(PlaceID, Type, Name, FloorID, BlockID) VALUES ("6429", "LABOR
        ("6673", "SEGRETERIA", "Segreteria Piano Terra", 0, 'A'),
        ("6208", "SEGRETERIA", "Segreteria Primo Piano", 1, 'A');
 
+insert into report_states(State)
+values ("Non risolto"),
+       ("Presa in carico"), 
+       ("Risolto");
+
 insert into degree_courses
 values (8615, "Ingegneria e scienze informatiche", "Laurea triennale"),
        (5834, "Ingegneria elettronica", "Laurea triennale"),

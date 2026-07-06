@@ -38,7 +38,7 @@
             <div class="modal-body">
                 <select id="state-select" class="form-select">
                     <?php foreach ($templateParams["states"] as $state): ?>
-                        <option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+                        <option value="<?php echo $state["State"]; ?>"><?php echo $state["State"]; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

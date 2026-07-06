@@ -17,7 +17,7 @@ if ($dbh->checkAdmin($_SESSION["idutente"])) {
     }
     $templateParams["nome"] = "admin/segnalazioni-admin.php";
     $templateParams["titolo"] = "Gestisci Segnalazioni";
-    $templateParams["states"] = array("Non risolto", "Presa in carico", "Risolto");
+    $templateParams["states"] = $dbh->getReportStates();
     $templateParams["js"] = array("./js/segnalazioni-admin.js", "./js/modal-bs-error.js");
 }
 else if (isset($_GET["action"])) {

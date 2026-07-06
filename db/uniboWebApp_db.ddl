@@ -127,6 +127,10 @@ CREATE TABLE places(PlaceID varchar(10) not null,
      FloorID tinyint unsigned not null,
      BlockID varchar(10) not null,
      CONSTRAINT IDPLACE PRIMARY KEY (PlaceID));
+
+CREATE TABLE report_states(
+     State varchar(256) not null,
+     CONSTRAINT IDSTATE primary key (State));
                     
 CREATE TABLE reports(
      ReportID int AUTO_INCREMENT not null,
@@ -136,7 +140,7 @@ CREATE TABLE reports(
      Type varchar(50) not null, -- "Servizi igienici", "Pulizia", ... like on mockups
      StudentID char(10) not null,
      PlaceID varchar(10) not null,
-     constraint STATE_CHECK check (State in ('Non risolto', 'Presa in carico', 'Risolto')),
+     SolvedDate datetime,
      constraint IDREPORT primary key (ReportID));
 
 create table STUDENTS (
@@ -201,6 +205,10 @@ ALTER TABLE places ADD CONSTRAINT FKplaces_floors
 ALTER TABLE places ADD CONSTRAINT FKplaces_blocks
 	FOREIGN KEY (BlockID)
     REFERENCES BLOCKS (BlockID);
+
+alter table reports add constraint FKreports_states
+     foreign key (State)
+     references REPORT_STATES (State);
 
 alter table reports add constraint FKreports_students
      foreign key (StudentID)
