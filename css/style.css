@@ -221,4 +221,17 @@ body {
         z-index: auto;
     }
 
+    .lesson-card-md {
+        background-color: transparent;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 1px solid;
+        border-radius: 0 !important;
+    }
+
+    .border-md-0 {
+        border: 0;
+    }
+
 }
