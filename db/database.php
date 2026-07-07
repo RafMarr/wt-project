@@ -282,6 +282,50 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->execute();
     }
+
+    public function getLessonsFiltered($date, $year, $email) {
+        if ($this->checkAdmin($email)) {
+            if ($year > 3) {
+                $temp = "Laurea magistrale";
+                $year -= 3;
+            }
+            else $temp = "Laurea triennale";
+            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
+                    JOIN study_plans sp ON l.CourseID = sp.CourseID
+                    JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                    JOIN courses c ON l.CourseID = c.CourseID
+                    JOIN places p ON l.PlaceID = p.PlaceID
+                    WHERE l.Date = ? AND sp.Year = ? AND dc.Type = ?";
+        }
+        else {
+            $temp = $email;
+            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
+                    JOIN study_plans sp ON l.CourseID = sp.CourseID
+                    JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                    JOIN courses c ON l.CourseID = c.CourseID
+                    JOIN places p ON l.PlaceID = p.PlaceID
+                    JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID
+                    WHERE l.Date = ? AND sp.Year = ? AND s.Email = ?";
+        }
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sis', $date, $year, $temp);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getDegreeTypeFromEmail($email) {
+        $query = "SELECT dc.Type FROM degree_courses dc
+                JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID
+                WHERE s.Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
 }
 
 ?>
