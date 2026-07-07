@@ -84,7 +84,8 @@ create table LESSONS (
      StartTime time not null,
      EndTime time not null,
      PlaceID varchar(10) not null,
-     constraint IDLESSON primary key (CourseID, Date, StartTime));
+     Module tinyint unsigned not null,
+     constraint IDLESSON primary key (CourseID, Module, Date, StartTime));
 
 create table PONIES (
      PonyID int auto_increment not null,
@@ -178,9 +179,9 @@ alter table JOB_POSTS add constraint FKrelated_to
      foreign key (DegreeCourseID)
      references DEGREE_COURSES (DegreeCourseID);
 
-alter table LESSONS add constraint FKlesson_course
-     foreign key (CourseID)
-     references COURSES (CourseID);
+alter table LESSONS add constraint FKlesson_course_module
+     foreign key (CourseID, Module)
+     references COURSE_MODULES (CourseID, Module);
 
 alter table LESSONS add constraint FKlesson_place
      foreign key (PlaceID)
