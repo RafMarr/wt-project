@@ -7,7 +7,7 @@
         </div>
         <div class="row justify-content-center col-10 col-md-4">
             <label for="anno-filtro" class="form-label col-3 my-2">Anno</label>
-            <select id="anno-filtro" type="date" class="form-select w-50">
+            <select id="anno-filtro" class="form-select w-50">
                 <?php if (isset($templateParams["admin"])): ?>
                 <optgroup label="Triennale">
                     <option value="1">1</option>
@@ -34,7 +34,7 @@
                 <div class="row justify-content-between justify-content-md-start border-b border-mode-text border-md-0 col-12">
                     <div class="row col-3 align-items-center row-gap-2 m-0">
                         <div class="d-none d-md-inline col-2 p-0" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
                             </svg>
                         </div>
@@ -46,7 +46,12 @@
                     </div>
                 </div>
                 <div class="row align-items-center col-12 my-1 justify-content-md-start">
-                    <p class="col-12 col-md-3 text-md-start m-0"><strong>Aula</strong>: <?php echo $lesson["PlaceName"]; ?></p>
+                    <div class="col-12 col-md-3 text-md-start m-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill d-none d-md-inline col-md-2" viewBox="0 0 16 16" aria-label="Aula:">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                        </svg>
+                        <p class="d-md-inline col-md-10 m-0"><span class="d-md-none"><strong>Aula</strong>: </span><?php echo $lesson["PlaceName"]; ?></p>
+                    </div>
                     <p class="col-12 col-md-9 text-md-start m-0"><strong>Docente</strong>: <?php echo $lesson["Date"]; ?></p>
                 </div>
             </div>
