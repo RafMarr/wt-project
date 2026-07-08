@@ -5,6 +5,7 @@
     /* -- Palette -- */
 
     --invalid-error-dark: #FF3344;
+    --gray-light: #E7E7E7;
     /* Palette Tema Rosso Principale Chiaro */
     /* Palette di default */
     --main-red: #A7393B;
@@ -13,12 +14,10 @@
     --main-white-rgb: 254, 248, 236;
     --main-bg-light: var(--main-white);
     --main-text-light: #141414;
-    --main-gray-light: #EAE5DC;
 
     /* Palette Tema Rosso Principale Scuro */ 
     --main-bg-dark: var(--main-text-light);
     --main-text-dark: var(--main-bg-light);
-    --main-gray-dark: #4F4A4A;
 
     /* Palette Tema Verde Secondario Chiaro */
     --secondary-green: #34642E;
@@ -27,12 +26,10 @@
     --secondary-white-rgb: 236, 249, 216;
     --secondary-bg-light: var(--secondary-white);
     --secondary-text-light: #201D1D;
-    --secondary-gray-light: #CBDBB3;
 
     /* Palette Tema Verde Secondario Scuro */
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
-    --secondary-gray-dark: #544F4F;
 
 
     /* -- Dichiarazione variabili del tema -- */
@@ -46,8 +43,6 @@
     --current-mode-theme-text-light: var(--main-text-light);
     --current-mode-theme-bg-dark: var(--main-bg-dark);
     --current-mode-theme-text-dark: var(--main-text-dark);
-    --current-mode-theme-gray-light: var(--main-gray-light);
-    --current-mode-theme-gray-dark: var(--main-gray-dark);
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--current-theme-bg);
@@ -59,7 +54,7 @@
     --mode-theme-bg: var(--current-mode-theme-bg-light);
     --mode-theme-text: var(--current-mode-theme-text-light);
     --mode-invalid-error: var(--main-red);
-    --mode-theme-gray: var(--current-mode-theme-gray-light);
+    --mode-theme-gray: var(--gray-light);
 
     transition: background-color 0.3s;
 }
@@ -74,8 +69,6 @@
     --current-mode-theme-text-light: var(--secondary-text-light);
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
-    --current-mode-theme-gray-light: var(--secondary-gray-light);
-    --current-mode-theme-gray-dark: var(--secondary-gray-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -83,7 +76,7 @@
     --mode-theme-bg: var(--current-mode-theme-bg-dark);
     --mode-theme-text: var(--current-mode-theme-text-dark);
     --mode-invalid-error: var(--invalid-error-dark);
-    --mode-theme-gray: var(--current-mode-theme-gray-dark);
+    --mode-theme-gray: var(--current-mode-theme-bg-dark);
   }
 }
 
