@@ -30,7 +30,7 @@ function updateDivLessons() {
                                             </svg>
                                             <p class="d-md-inline col-md-10 m-0"><span class="d-md-none"><strong>Aula</strong>: </span>${lesson.PlaceName}</p>
                                         </div>
-                                        <p class="col-12 col-md-9 text-start m-0"><strong>Docente</strong>: ${lesson.Date}</p>
+                                        <p class="col-12 col-md-9 text-start m-0"><strong>Docente</strong>: ${lesson.ProfName} ${lesson.ProfSurname} (Modulo ${lesson.Module})</p>
                                     </div>
                                 </div>`
     });

@@ -290,18 +290,22 @@ class DatabaseHelper {
                 $year -= 3;
             }
             else $temp = "Laurea triennale";
-            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
+            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, l.Module, pr.Name AS ProfName, pr.Surname AS ProfSurname, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
                     JOIN study_plans sp ON l.CourseID = sp.CourseID
                     JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                    JOIN course_modules cm ON l.CourseID = cm.CourseID AND l.Module = cm.Module
+                    JOIN professors pr ON cm.Professor = pr.Email
                     JOIN courses c ON l.CourseID = c.CourseID
                     JOIN places p ON l.PlaceID = p.PlaceID
                     WHERE l.Date = ? AND sp.Year = ? AND dc.Type = ?";
         }
         else {
             $temp = $email;
-            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
+            $query = "SELECT l.CourseID, l.Date, l.StartTime, l.EndTime, l.Module, pr.Name AS ProfName, pr.Surname AS ProfSurname, c.Name AS CourseName, p.Name AS PlaceName FROM lessons l
                     JOIN study_plans sp ON l.CourseID = sp.CourseID
                     JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                    JOIN course_modules cm ON l.CourseID = cm.CourseID AND l.Module = cm.Module
+                    JOIN professors pr ON cm.Professor = pr.Email
                     JOIN courses c ON l.CourseID = c.CourseID
                     JOIN places p ON l.PlaceID = p.PlaceID
                     JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID

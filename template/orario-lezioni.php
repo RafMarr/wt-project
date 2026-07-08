@@ -55,7 +55,7 @@
                         </svg>
                         <p class="d-md-inline col-md-10 m-0"><span class="d-md-none"><strong>Aula</strong>: </span><?php echo $lesson["PlaceName"]; ?></p>
                     </div>
-                    <p class="col-12 col-md-9 text-start m-0"><strong>Docente</strong>: <?php echo $lesson["Date"]; ?></p>
+                    <p class="col-12 col-md-9 text-start m-0"><strong>Docente</strong>: <?php echo $lesson["ProfName"]." ".$lesson["ProfSurname"]." (Modulo ".$lesson["Module"].")"; ?></p>
                 </div>
             </div>
         <?php endforeach; ?>
