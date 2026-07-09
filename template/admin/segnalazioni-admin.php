@@ -1,7 +1,7 @@
 <div class="container-fluid text-center">
-    <h2>Gestisci Segnalazioni</h2>
+    <h1>Gestisci Segnalazioni</h1>
     <section>
-        <h3>Filtri</h3>
+        <h2>Filtri</h2>
 
     </section>
     <div class="row justify-content-center gap-2">
@@ -10,7 +10,7 @@
             $place = $dbh->getPlaceFromID($report["PlaceID"]);
             ?>
             <div data-report-id="<?php echo $report["ReportID"]; ?>" class="border-mode-gray border-2 border-solid rounded mode-gray p-2 col-10 col-md-5 col-xl-3">
-                <h4 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h4>
+                <h3 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h3>
                 <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
                 <p class="state-p"><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
                 <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>

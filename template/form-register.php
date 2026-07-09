@@ -1,5 +1,5 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
-  <h2 class="py-3">Registrati a Campus+</h2>
+  <h1 class="py-3">Registrati a Campus+</h1>
   <p>* Indica i campi obbligatori.</p>
   <!-- To Do form script method -->
   <form action="login.php?action=register" method="POST" class="col-10 col-md-6 needs-validation">

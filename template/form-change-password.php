@@ -1,6 +1,6 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
     <section>
-        <h2>Modifica Password</h2>
+        <h1>Modifica Password</h1>
         <p><strong>Email: </strong><span id="email"><?php echo $templateParams["Email"] ?></span></p>
     </section>    
 

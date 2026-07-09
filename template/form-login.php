@@ -1,5 +1,5 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
-  <h2 class="py-3">Accedi a Campus+</h2>
+  <h1 class="py-3">Accedi a Campus+</h1>
   <form action="login.php?action=login" method="POST" class="col-10 col-md-6 needs-validation" aria-describedby="messaggio-errore">
     <div class="mb-3 text-start">
       <label for="email-utente" class="form-label">Email Istituzionale</label>

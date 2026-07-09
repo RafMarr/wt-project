@@ -13,7 +13,7 @@ $profileInfo = $dbh->getProfileInfo($_SESSION["idutente"]);
 $templateParams["NomeCompletoUtente"] = $profileInfo["Name"] . " " . $profileInfo["Surname"];
 $templateParams["Email"] = $_SESSION["idutente"];
 
-$templateParams["js"] = array("./js/profilo.js");
+$templateParams["js"] = array("./js/profilo.js", "./js/modal-bs-error.js");
 
 if ($dbh->checkAdmin($_SESSION["idutente"])) {
     $templateParams["admin"] = "admin/profilo-admin-section.php";

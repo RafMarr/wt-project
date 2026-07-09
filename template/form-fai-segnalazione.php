@@ -1,6 +1,6 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
     <section>
-        <h2>Fai una Segnalazione</h2>
+        <h1>Fai una Segnalazione</h1>
     </section>    
 
     <form action="report.php?action=send-report" method="POST" class="col-10 col-md-6">

@@ -183,11 +183,11 @@ a.nav-link.theme-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
 }
 
-.btn.mode-danger:hover, .form-control:focus, .form-select:focus {
+.btn.mode-danger:hover, .form-control:focus, .form-select:focus, .nav-link:focus {
     border-color: var(--mode-theme-text);
 }
 
-.btn:focus-visible {
+.btn:focus-visible, .nav-link:focus-visible {
     box-shadow: 0 0 0 .25rem var(--mode-theme-text);
 }
 
@@ -195,10 +195,10 @@ a.nav-link.theme-text:hover {
     box-shadow: 0 0 0 .25rem rgba(var(--theme-bg-rgb), 0.8);
 }
 
-.nav-link:focus-visible {
+nav .nav-link:focus-visible, header .nav-link:focus-visible {
     box-shadow: 0 0 0 .25rem var(--theme-text);
 }
-.nav-link:focus {
+nav .nav-link:focus, header .nav-link:focus {
     color: var(--theme-text);
 }
 

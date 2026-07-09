@@ -1,9 +1,9 @@
 <div class="container-fluid row text-center justify-content-center m-0 p-0">
     <div class="col-10 col-md-8">
-        <h2>Il Mio Profilo</h2>
+        <h1 class="fs-2">Il Mio Profilo</h1>
 
         <section class="text-start my-4">
-            <h3>Informazioni utente</h3>
+            <h2>Informazioni utente</h2>
             <p><strong>Nome</strong>: <?php echo $templateParams["NomeCompletoUtente"] ?></p>
             <?php
             if(!isset($templateParams["admin"])):
@@ -17,7 +17,7 @@
 
         
         <section class="text-start row justify-content-evenly justify-content-md-start column-gap-md-3 my-4">
-            <h3>Personalizzazione Tema</h3>
+            <h2>Personalizzazione Tema</h2>
 
             <input class="check-btn" type="radio" id="rosso" name="theme" value="primary" />
             <label class="col-4 col-md-3 preview-theme-card" for="rosso">

@@ -1,8 +1,8 @@
 <section class="text-start">
-    <h3>Operazioni Amministratore</h3>
+    <h2>Operazioni Amministratore</h2>
     <div class="row justify-content-evenly">
         <section class="border-mode-text border-3 border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
-            <h4>Aggiungi Account Admin</h4>
+            <h3>Aggiungi Account Admin</h3>
             <form id="form-aggiungi-admin" action="account.php?action=register-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">
                     <label for="nome" class="form-label">Nome <span class="mandatory">*</span></label>
@@ -34,7 +34,7 @@
             </form>
         </section>
         <section class="border-mode-text border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
-            <h4>Elimina Account</h4>
+            <h3>Elimina Account</h3>
             <form id="form-delete-account" action="account.php?action=delete-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">
                     <label for="email-delete" class="form-label">Account</label>

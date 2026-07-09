@@ -1,4 +1,5 @@
 <div class="container-fluid row text-center p-0 m-0">
+    <h1 class="visually-hidden">Home Campus+</h1>
     <div class="col-6 row justify-content-center mb-3 mx-0 p-0">
         <div class="col-10 shadow border-solid border-3 border-mode-text rounded-3 p-2">
             <a href="trasporti.php" class="nav-link">
