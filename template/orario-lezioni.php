@@ -30,8 +30,8 @@
     </div>
     <div id="lesson-container" class="row justify-content-center gap-2 mt-2">
         <?php foreach ($templateParams["lessons"] as $lesson): ?>
-            <div class="row justify-content-center border-mode-text border-solid rounded mode-gray lesson-card-md col-10 p-2">
-                <div class="row justify-content-between justify-content-md-start border-b border-mode-text border-md-0 col-12 mb-1">
+            <div class="row justify-content-center border-mode-gray border-2 border-solid rounded mode-gray lesson-card-md col-10 p-2">
+                <div class="row justify-content-between justify-content-md-start border-b-2 border-mode-gray border-md-0 col-12 mb-1">
                     <div class="row col-3 align-items-center justify-content-start row-gap-2 m-0">
                         <div class="d-flex col-3 align-items-center text-md-start m-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock-fill d-none d-md-inline col-md-2 p-0" viewBox="0 0 16 16" aria-label="Orario:">

@@ -7,8 +7,8 @@ let lessons = [];
 function updateDivLessons() {
     divContainer.innerHTML = "";
     lessons.forEach(lesson => {
-        divContainer.innerHTML += `<div class="row justify-content-center border-mode-text border-solid rounded mode-gray lesson-card-md col-10 p-2">
-                                    <div class="row justify-content-between justify-content-md-start border-b border-mode-text border-md-0 col-12 mb-1">
+        divContainer.innerHTML += `<div class="row justify-content-center border-mode-gray border-2 border-solid rounded mode-gray lesson-card-md col-10 p-2">
+                                    <div class="row justify-content-between justify-content-md-start border-b-2 border-mode-gray border-md-0 col-12 mb-1">
                                         <div class="d-flex col-3 align-items-center text-md-start m-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock-fill d-none d-md-inline col-md-2 p-0" viewBox="0 0 16 16" aria-label="Orario:">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>

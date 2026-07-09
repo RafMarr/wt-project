@@ -1,7 +1,7 @@
 <section class="text-start">
     <h3>Operazioni Amministratore</h3>
     <div class="row justify-content-evenly">
-        <section class="border-mode-text border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
+        <section class="border-mode-text border-3 border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
             <h4>Aggiungi Account Admin</h4>
             <form id="form-aggiungi-admin" action="account.php?action=register-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">

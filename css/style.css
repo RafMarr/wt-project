@@ -6,6 +6,7 @@
 
     --invalid-error-dark: #FF3344;
     --gray-light: #E7E7E7;
+    --gray-border: #B0B0B0;
     /* Palette Tema Rosso Principale Chiaro */
     /* Palette di default */
     --main-red: #A7393B;
@@ -55,6 +56,7 @@
     --mode-theme-text: var(--current-mode-theme-text-light);
     --mode-invalid-error: var(--main-red);
     --mode-theme-gray: var(--gray-light);
+    --mode-border-gray: var(--gray-border);
 
     transition: background-color 0.3s;
 }
@@ -77,6 +79,7 @@
     --mode-theme-text: var(--current-mode-theme-text-dark);
     --mode-invalid-error: var(--invalid-error-dark);
     --mode-theme-gray: var(--current-mode-theme-bg-dark);
+    --mode-border-gray: var(--current-mode-theme-text-dark);
   }
 }
 
@@ -116,11 +119,15 @@
     border-color: var(--mode-theme-text);
 }
 
+.border-mode-gray {
+    border-color: var(--mode-border-gray) !important;
+}
+
 .border-solid {
     border-style: solid;
 }
 
-.border-b {
+.border-b-2 {
     border-bottom: 2px solid;
 }
 
@@ -216,6 +223,7 @@ body {
 
     .lesson-card-md {
         background-color: transparent;
+        border-color: var(--mode-theme-text) !important;
         border-top: 0;
         border-left: 0;
         border-right: 0;
