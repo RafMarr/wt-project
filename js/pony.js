@@ -311,13 +311,13 @@ async function fetchPonies(day = null, startTime = null, endTime = null) {
         }
         const availablePoniesSection = document.querySelector("#available-ponies")
         availablePoniesSection.innerHTML = '<h3 class="visually-hidden">Pony disponibili</h3>'
-        const poniesJson = await response.json()
-        if (poniesJson.length > 0) {
+        const result = await response.json()
+        if (result['ponies'].length > 0) {
             /* The booking buttons must be enabled only if the user has filled all the required fields */
-            const poniesCards = generatePoniesCards(poniesJson, areAllParamsSet)
+            const poniesCards = generatePoniesCards(result['ponies'], areAllParamsSet)
             availablePoniesSection.innerHTML += poniesCards
         } else {
-            availablePoniesSection.innerHTML += '<p class="my-0 mx-auto">Non ci sono pony disponibili</p>'
+            availablePoniesSection.innerHTML += `<p class="my-0 mx-auto">${result['error-msg']}</p>`
         }
     } catch (error) {
         console.error(error.message)

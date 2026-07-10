@@ -115,6 +115,20 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    /**
+     * This function retrieves the pony reservations of the student with the provided student id that would be partially
+     * or totally overlapped with a reservation with the provided date, start hour and end hour.
+     * @param $date a `Y-m-d` formatted date string, such as '2026-05-23'
+     */
+    public function get_overlapping_pony_bookings(string $student_id, string $date, string $start_hour, string $end_hour) {
+        $query = 'SELECT * FROM reservations WHERE StudentID = ? AND Date = ? AND StartHour <= ? AND EndHour >= ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $student_id, $date, $end_hour, $start_hour);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 
 ?>
