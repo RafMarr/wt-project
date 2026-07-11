@@ -89,8 +89,27 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPonies() {
+    private function get_pony_price_filter_query_string(?string $price_filter) {
+        $pony_price_filter_query_string = '';
+        switch ($price_filter) {
+            case '0-5':
+                $pony_price_filter_query_string = 'HourlyFee < 5';
+                break;
+            case '5-10':
+                $pony_price_filter_query_string = 'HourlyFee BETWEEN 5 AND 10';
+                break;
+            case '>10':
+                $pony_price_filter_query_string = 'HourlyFee > 10';
+                break;
+        }
+        return $pony_price_filter_query_string;
+    }
+
+    public function getPonies(?string $price_filter = null) {
         $query = "SELECT * FROM ponies";
+        if ($price_filter !== null) {
+            $query = $query . " WHERE " . $this->get_pony_price_filter_query_string($price_filter);
+        }
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -98,8 +117,11 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAvailablePonies($day, $start_time, $end_time) {
+    public function getAvailablePonies(string $day, string $start_time, string $end_time, ?string $price_filter = null) {
         $query = 'SELECT * FROM ponies WHERE PonyID NOT IN (SELECT PonyID FROM reservations WHERE Date = ? AND StartHour <= ? AND EndHour >= ?)';
+        if ($price_filter !== null) {
+            $query = $query . " AND " . $this->get_pony_price_filter_query_string($price_filter);
+        }
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sss', $day, $end_time, $start_time);
         $stmt->execute();

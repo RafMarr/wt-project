@@ -61,7 +61,7 @@ if (isset($templateParams['booking-successful'])) {
                 <option selected value="all">Tutti</option>
                 <option value="0-5">Meno di 5 €/ora</option>
                 <option value="5-10">Tra 5 €/ora e 10 €/ora</option>
-                <option value="10+">Più di 10 €/ora</option>
+                <option value=">10">Più di 10 €/ora</option>
             </select>
         </div>
         <div class="d-flex justify-content-center align-items-center">

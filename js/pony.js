@@ -50,10 +50,21 @@ if (window.matchMedia) {
 }
 
 resetFiltersButton.addEventListener('click', () => {
-    priceFilter.value = "all"
-    /* this instruction triggers the "change" event on priceFilter, in order to
-       update the page content after filter reset */
-    priceFilter.dispatchEvent(new Event('change'))
+    if (priceFilter.value != "all") {
+        priceFilter.value = "all"
+        /* this instruction triggers the "change" event on priceFilter, in order to
+           update the page content after filter reset */
+        priceFilter.dispatchEvent(new Event('change'))
+    }
+})
+
+priceFilter.addEventListener('change', () => {
+    const priceFilterParameter = priceFilter.value != 'all' ? priceFilter.value : null
+    if (allInputs.every(input => isInputValid(input))) {
+        fetchPonies(dateInput.value, startTimeInput.value, endTimeInput.value, priceFilterParameter)
+    } else {
+        fetchPonies(null, null, null, priceFilterParameter)
+    }
 })
 
 function getHippodromeClosingTime(date) {
@@ -135,10 +146,11 @@ function isInputValid(input) {
 allInputs.forEach(input => {
     input.addEventListener('change', () => {
         setInputStyleBasedOnValidity(input)
+        const priceFilterParameter = priceFilter.value != 'all' ? priceFilter.value : null
 
         if (allInputs.every(input => isInputValid(input))) {
             lastInputValidityCheckResult = true
-            fetchPonies(dateInput.value, startTimeInput.value, endTimeInput.value)
+            fetchPonies(dateInput.value, startTimeInput.value, endTimeInput.value, priceFilterParameter)
         } else {
             /* The default ponies info must be fetched only when needed.
                If the last input validity check was successful, it means that
@@ -150,7 +162,7 @@ allInputs.forEach(input => {
                successful, nothing has to be fetched because the page is
                already showing the correct pony information. */
             if (lastInputValidityCheckResult) {
-                fetchPonies()
+                fetchPonies(null, null, null, priceFilterParameter)
                 lastInputValidityCheckResult = false
             }
         }
@@ -294,14 +306,19 @@ function generatePoniesCards(ponies, enableBookingButtons = false) {
     return cards
 }
 
-async function fetchPonies(day = null, startTime = null, endTime = null) {
+async function fetchPonies(day = null, startTime = null, endTime = null, priceFilter = null) {
     let url = "api/api-pony.php"
-    const areAllParamsSet = day != null && startTime != null && endTime != null
+    const areAllParamsSet = day !== null && startTime !== null && endTime !== null
+    const searchParams = new URLSearchParams()
     if (areAllParamsSet) {
-        const searchParams = new URLSearchParams()
         searchParams.append("day", day)
         searchParams.append("start", startTime)
         searchParams.append("end", endTime)
+    }
+    if (priceFilter !== null) {
+        searchParams.append("price-filter", priceFilter)
+    }
+    if (searchParams.size > 0) {
         url = `${url}?${searchParams}`
     }
     try {
