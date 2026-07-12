@@ -67,7 +67,7 @@ class DatabaseHelper {
         return (bool)$found;
     }
 
-    public function get_student_idnumber_from_email(string $email): string|null {
+    public function get_student_idnumber_from_email(string $email): ?string {
         $query = 'SELECT IdNumber FROM students WHERE Email = ?';
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $email);

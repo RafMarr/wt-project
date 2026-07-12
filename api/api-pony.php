@@ -10,7 +10,7 @@ if (isset($_GET['day']) && isset($_GET['start']) && isset($_GET['end'])) {
     $end_time = $_GET['end'];
     if (are_pony_parameters_valid($day, $start_time, $end_time)) {
         $student_id = $dbh->get_student_idnumber_from_email($_SESSION['idutente']);
-        if (count($dbh->get_overlapping_pony_bookings($student_id, $day, $start_time, $end_time)) > 0) {
+        if ($student_id !== null && count($dbh->get_overlapping_pony_bookings($student_id, $day, $start_time, $end_time)) > 0) {
             $result['ponies'] = array();
             $result['error-msg'] = 'Attenzione! Non è possibile prenotare un pony nella fascia oraria selezionata perché per la data '
             . date_format(date_create_from_format('Y-m-d', $day), 'd/m/Y')
