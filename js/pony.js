@@ -278,9 +278,9 @@ function generatePoniesCards(ponies, enableBookingButtons = false) {
 
         let bookingButton
         if (enableBookingButtons) {
-            bookingButton = `<button type="button" onclick='setBookingModalContent("pony-${pony["PonyID"]}")' class="btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#booking-modal">Prenota</button>`
+            bookingButton = `<button type="button" onclick='setBookingModalContent("pony-${pony["PonyID"]}")' class="btn border-0 theme-bg-text" data-bs-toggle="modal" data-bs-target="#booking-modal">Prenota</button>`
         } else {
-            bookingButton = '<button type="button" class="btn opacity-50 theme-bg-text" disabled>Prenota</button>'
+            bookingButton = '<button type="button" class="btn border-0 opacity-50 theme-bg-text" disabled>Prenota</button>'
         }
 
         cards += `
