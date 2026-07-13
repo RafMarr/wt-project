@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+document.querySelector('main').classList.add('position-relative')
+
 if (window.matchMedia) {
     const bookingMessageAlert = document.querySelector('#booking-message')
     if (bookingMessageAlert != null) {
