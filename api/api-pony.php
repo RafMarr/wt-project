@@ -4,6 +4,11 @@ require_once "../bootstrap.php";
 $price_filter_allowed_values = array('0-5', '5-10', '>10');
 $price_filter_parameter = isset($_GET['price-filter']) && in_array($_GET['price-filter'], $price_filter_allowed_values) ? $_GET['price-filter'] : null;
 
+if (!isUserLoggedIn()) {
+    http_response_code(401);
+    exit;
+}
+
 if (isset($_GET['day']) && isset($_GET['start']) && isset($_GET['end'])) {
     $day = $_GET['day'];
     $start_time = $_GET['start'];

@@ -1,7 +1,12 @@
 <?php
 require_once "../bootstrap.php";
 
-if (isUserLoggedIn() && isset($_POST['ponyID']) && isset($_POST['day']) && isset($_POST['start']) && isset($_POST['end'])) {
+if (!isUserLoggedIn()) {
+    http_response_code(401);
+    exit;
+}
+
+if (isset($_POST['ponyID']) && isset($_POST['day']) && isset($_POST['start']) && isset($_POST['end'])) {
     $pony_id = (int)$_POST['ponyID'];
     $day = $_POST['day'];
     $start_time = $_POST['start'];
