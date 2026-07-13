@@ -150,6 +150,14 @@
     border-style: solid;
 }
 
+.icon-success {
+    color: #1f751e;
+}
+
+.icon-danger {
+    color: #9e3030;
+}
+
 /* Comportamenti custom */
 
 a.nav-link.theme-text:hover {
