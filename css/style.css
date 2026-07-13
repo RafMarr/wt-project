@@ -172,6 +172,10 @@ a.nav-link.theme-text:hover {
     opacity: 0.5 !important;
 }
 
+#booking-message {
+    color: var(--main-text-light);
+}
+
 /* Css Custom */
 
 body {
