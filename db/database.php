@@ -67,6 +67,11 @@ class DatabaseHelper {
         return (bool)$found;
     }
 
+    /**
+     * Retrieves the ID number of the student whose email is the provided one.
+     * @return null|string the student ID number or `null` if the provided
+     * email is not associated with a student
+     * */
     public function get_student_idnumber_from_email(string $email): ?string {
         $query = 'SELECT IdNumber FROM students WHERE Email = ?';
         $stmt = $this->db->prepare($query);
