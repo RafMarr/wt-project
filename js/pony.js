@@ -89,24 +89,30 @@ function setInputStyleBasedOnValidity(input) {
 
 function setInvalidFeedbackContent(input) {
     const invalidFeedbackElement = document.getElementById(input.getAttribute('aria-describedby'))
-    if (input.value.length > 0) {
-        if (input.getAttribute('type') == 'date') {
-            /* The case in which the user inserts the current date but the hippodrome is already closed is handled
-            separately in order to show a customised error message */
-            if (input.value == Temporal.Now.plainDateISO().toString() && input.getAttribute('min') == Temporal.Now.plainDateISO().add({ days: 1 }).toString()) {
-                invalidFeedbackElement.innerHTML = 'Per la giornata di oggi non è più possibile effettuare prenotazioni'
-            } else {    
-                invalidFeedbackElement.innerHTML = 'La data inserita è precedente alla data odierna'
-            }
-        } else { // input's type is "time"
-            if (input.validity.rangeUnderflow) {
-                invalidFeedbackElement.innerHTML = 'L\'orario minimo che può essere inserito è ' + input.getAttribute('min')
-            } else if (input.validity.rangeOverflow) {
-                invalidFeedbackElement.innerHTML = 'L\'orario massimo che può essere inserito è ' + input.getAttribute('max')
-            }
-        }
-    } else {
+    /* invalid feedback has to be emptied when the related input is valid, otherwise screen readers
+    will read the invalid feedback content even when the input is valid */
+    if (isInputValid(input)) {
         invalidFeedbackElement.innerHTML = ''
+    } else {
+        if (input.value.length > 0) {
+            if (input.getAttribute('type') == 'date') {
+                /* The case in which the user inserts the current date but the hippodrome is already closed is handled
+                separately in order to show a customised error message */
+                if (input.value == Temporal.Now.plainDateISO().toString() && input.getAttribute('min') == Temporal.Now.plainDateISO().add({ days: 1 }).toString()) {
+                    invalidFeedbackElement.innerHTML = 'Per la giornata di oggi non è più possibile effettuare prenotazioni'
+                } else {
+                    invalidFeedbackElement.innerHTML = 'La data inserita è precedente alla data odierna'
+                }
+            } else { // input's type is "time"
+                if (input.validity.rangeUnderflow) {
+                    invalidFeedbackElement.innerHTML = 'L\'orario minimo che può essere inserito è ' + input.getAttribute('min')
+                } else if (input.validity.rangeOverflow) {
+                    invalidFeedbackElement.innerHTML = 'L\'orario massimo che può essere inserito è ' + input.getAttribute('max')
+                }
+            }
+        } else {
+            invalidFeedbackElement.innerHTML = ''
+        }
     }
 }
 

@@ -28,7 +28,7 @@ if (isset($templateParams['booking-successful'])) {
 <?php if (isset($templateParams['booking-successful'])): ?>
     <div class="d-flex justify-content-center">
         <div class="alert d-flex align-items-center mt-3 position-absolute w-50 z-1 alert-dismissible fade show" id="booking-message" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" class="bi flex-shrink-0 me-2 <?php echo $templateParams['booking-successful'] ? 'icon-success' : 'icon-danger' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" class="bi flex-shrink-0 me-2 <?php echo $templateParams['booking-successful'] ? 'icon-success' : 'icon-danger' ?>">
                 <?php echo $alert_icon ?>
             </svg>
             <p class='m-0'><?php echo $alert_message ?></p>
@@ -41,7 +41,7 @@ if (isset($templateParams['booking-successful'])) {
     <header class="d-flex justify-content-center align-items-center gap-3">
         <h2>Noleggia un pony</h2>
         <button type="button" class="btn mode-text p-0 pb-2" data-bs-toggle="modal" data-bs-target="#hippodromeModal" aria-label="Maggiori informazioni sull'ippodromo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
             </svg>
@@ -51,7 +51,7 @@ if (isset($templateParams['booking-successful'])) {
 </div>
 <button type="button" class="btn border-top-0 border-start-0 border-end-0 py-1 px-2 border border-2 mode-container mode-text position-absolute top-0 end-0" data-bs-toggle="offcanvas" data-bs-target="#filtersMenu" aria-controls="filtersMenu">
     Filtra ricerca
-    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16" aria-hidden="true">
         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
     </svg>
 </button>
@@ -60,17 +60,17 @@ if (isset($templateParams['booking-successful'])) {
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 mb-3 mb-md-0 text-start">
         <label for="day" class="form-label m-md-0">Giorno</label>
         <input type="date" min="<?php echo $min_date ?>" class="form-control mode-input-border-color is-invalid" name="day" id="day" aria-describedby="day-feedback" />
-        <div id="day-feedback" class="invalid-feedback m-md-0"></div>
+        <div id="day-feedback" class="invalid-feedback m-md-0" aria-live="polite"></div>
     </div>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 mb-3 mb-md-0 text-start">
         <label for="start-time" class="form-label m-md-0">Ora inizio</label>
         <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?>" class="form-control mode-input-border-color is-invalid" name="start-time" id="start-time" aria-describedby="start-time-feedback" />
-        <div id="start-time-feedback" class="invalid-feedback m-md-0"></div>
+        <div id="start-time-feedback" class="invalid-feedback m-md-0" aria-live="polite"></div>
     </div>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 text-start">
         <label for="end-time" class="form-label m-md-0">Ora fine</label>
         <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?>" class="form-control mode-input-border-color is-invalid" name="end-time" id="end-time" aria-describedby="end-time-feedback" />
-        <div id="end-time-feedback" class="invalid-feedback m-md-0"></div>
+        <div id="end-time-feedback" class="invalid-feedback m-md-0" aria-live="polite"></div>
     </div>
 </section>
 <section id="available-ponies" class="text-center col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
@@ -78,8 +78,8 @@ if (isset($templateParams['booking-successful'])) {
 <aside class="offcanvas offcanvas-start mode-modal p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
     <div class="offcanvas-header">
         <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra ricerca</h2>
-        <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="offcanvas">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+        <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
             </svg>
         </button>
@@ -104,8 +104,8 @@ if (isset($templateParams['booking-successful'])) {
         <div class="modal-content mode-modal mode-text">
             <div class="modal-header">
                 <h1 id="hippodromeModalTitle" class="modal-title fs-2">Maggiori informazioni</h1>
-                <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="modal" aria-label="Chiudi">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                     </svg>
                 </button>
@@ -129,8 +129,8 @@ if (isset($templateParams['booking-successful'])) {
         <div class="modal-content mode-modal mode-text">
             <div class="modal-header">
                 <h1 id="booking-modal-title" class="modal-title fs-2">Riepilogo prenotazione</h1>
-                <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <button type="button" class="btn mode-text ms-auto p-0" data-bs-dismiss="modal" aria-label="Chiudi">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                     </svg>
                 </button>
