@@ -71,6 +71,8 @@
     --mode-theme-container-border: var(--current-mode-theme-container-border-light);
     --mode-theme-container-fill: var(--current-mode-theme-container-fill-light);
     --mode-theme-link-color: var(--current-mode-theme-link-color-light);
+    --mode-alert-bg: var(--bs-dark-bg-subtle);
+    --mode-alert-border: var(--bs-dark-border-subtle);
 
     transition: background-color 0.3s;
 }
@@ -100,6 +102,8 @@
     --mode-theme-container-border: var(--current-mode-theme-container-border-dark);
     --mode-theme-container-fill: var(--current-mode-theme-container-fill-dark);
     --mode-theme-link-color: var(--current-mode-theme-link-color-dark);
+    --mode-alert-bg: var(--bs-light-bg-subtle);
+    --mode-alert-border: var(--bs-light-border-subtle);
   }
 }
 
@@ -138,6 +142,11 @@
 
 .mode-link-color {
     color: var(--mode-theme-link-color);
+}
+
+.mode-alert {
+    background-color: var(--mode-alert-bg);
+    border-color: var(--mode-alert-border);
 }
 
 /* Classi simil-bootstrap custom */

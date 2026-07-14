@@ -27,7 +27,7 @@ if (isset($templateParams['booking-successful'])) {
 
 <?php if (isset($templateParams['booking-successful'])): ?>
     <div class="d-flex justify-content-center">
-        <div class="alert d-flex align-items-center mt-3 position-absolute w-50 z-1 alert-dismissible fade show" id="booking-message" role="alert">
+        <div class="alert mode-alert d-flex align-items-center mt-3 position-absolute w-50 z-1 alert-dismissible fade show" id="booking-message" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" class="bi flex-shrink-0 me-2 <?php echo $templateParams['booking-successful'] ? 'icon-success' : 'icon-danger' ?>">
                 <?php echo $alert_icon ?>
             </svg>

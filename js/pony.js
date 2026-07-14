@@ -31,26 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelector('main').classList.add('position-relative')
 
-if (window.matchMedia) {
-    const bookingMessageAlert = document.querySelector('#booking-message')
-    if (bookingMessageAlert != null) {
-        document.addEventListener("DOMContentLoaded", () => {
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                bookingMessageAlert.classList.add('alert-light')
-            } else {
-                bookingMessageAlert.classList.add('alert-dark')
-            }
-        })
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                bookingMessageAlert.classList.replace('alert-dark', 'alert-light')
-            } else {
-                bookingMessageAlert.classList.replace('alert-light', 'alert-dark')
-            }
-        })
-    }
-}
-
 resetFiltersButton.addEventListener('click', () => {
     if (priceFilter.value != "all") {
         priceFilter.value = "all"
