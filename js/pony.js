@@ -12,6 +12,7 @@ const HIPPODROME_WEEKEND_CLOSING_TIME = document.querySelector("#sat-sun-hours >
 const MINIMUM_BOOKING_DURATION = Temporal.Duration.from({ minutes: 30 })
 const HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME = Temporal.PlainTime.from(HIPPODROME_WEEKDAYS_CLOSING_TIME).subtract(MINIMUM_BOOKING_DURATION).toString().slice(0, 5)
 const HIPPODROME_WEEKEND_LAST_BOOKING_START_TIME = Temporal.PlainTime.from(HIPPODROME_WEEKEND_CLOSING_TIME).subtract(MINIMUM_BOOKING_DURATION).toString().slice(0, 5)
+const main = document.querySelector('main')
 /* The following variable is used to refresh the available ponies information only when needed */
 let lastInputValidityCheckResult = false
 /* This variable is the reference to the anonymous function that is used as the
@@ -32,7 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-document.querySelector('main').classList.add('position-relative')
+main.classList.add('position-relative')
+/* Removing from main tag the bootstrap classes that add padding top and margin top */
+main.classList.forEach(c => {
+    if (c.match(/pt-\d/) !== null || c.match(/mt-\d/) !== null) {
+        main.classList.remove(c)
+    }
+})
 
 resetFiltersButton.addEventListener('click', () => {
     if (priceFilter.value != "all") {

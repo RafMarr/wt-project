@@ -28,7 +28,7 @@
         require 'template/page-nav.php';
     }
     ?>
-    <main id="main-content" class="pb-5">
+    <main id="main-content" class="pt-3 pb-5 mt-1">
         <?php
         if(isset($templateParams["nome"])){
             require($templateParams["nome"]);
