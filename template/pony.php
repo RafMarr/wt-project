@@ -1,10 +1,13 @@
 <?php
 /* This code snippet determines the minimum date that can be selected by the user.
    When the user opens the page, if the hippodrome is already closed on the current
-   day, the minimum date that can be inserted is the following day. */
+   day or if there is no more time to book ponies for the current day (considering that
+   a reservation must last at least 30 minutes),
+   the minimum date that can be inserted is the following day. */
 
    $current_date_string = date('Y-m-d');
-if (date('H:i') < get_hippodrome_closing_time($current_date_string)) {
+   $max_booking_time = get_hippodrome_last_booking_start_time($current_date_string);
+if (date('H:i') <= $max_booking_time) {
     $min_date = $current_date_string;
 } else {
     $current_date_datetime = date_create($current_date_string);
@@ -64,7 +67,7 @@ if (isset($templateParams['booking-successful'])) {
     </div>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 mb-3 mb-md-0 text-start">
         <label for="start-time" class="form-label m-md-0">Ora inizio</label>
-        <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?>" class="form-control mode-input-border-color is-invalid" name="start-time" id="start-time" aria-describedby="start-time-feedback" />
+        <input type="time" min="<?php echo HIPPODROME_OPENING_TIME ?>" max="<?php echo HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME ?>" class="form-control mode-input-border-color is-invalid" name="start-time" id="start-time" aria-describedby="start-time-feedback" />
         <div id="start-time-feedback" class="invalid-feedback m-md-0" aria-live="polite"></div>
     </div>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 text-start">
@@ -117,6 +120,7 @@ if (isset($templateParams['booking-successful'])) {
                     <li id="mon-fri-hours">Lunedì-Venerdì: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?></time></li>
                     <li id="sat-sun-hours">Sabato-Domenica: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKEND_CLOSING_TIME ?></time></li>
                 </ul>
+                <p><strong>Attenzione:</strong> le prenotazioni devono avere una durata minima di 30 minuti</p>
                 <p>Per maggiori informazioni contattare il numero: +39 334 4567890</p>
                 <p>Indirizzo: Viale Antonio Gramsci, 308, 47521 Cesena (FC)</p>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5726.212547081311!2d12.231914800000002!3d44.1430534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ca4c206ae337f%3A0x915dce2a7a569b9!2sIppodromo%20Cesena!5e0!3m2!1sit!2sit!4v1779634384416!5m2!1sit!2sit" style="border:0; width:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

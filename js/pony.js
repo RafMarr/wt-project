@@ -9,6 +9,9 @@ const SATURDAY = 6
 const HIPPODROME_OPENING_TIME = document.querySelector("#mon-fri-hours > time:first-of-type").innerHTML
 const HIPPODROME_WEEKDAYS_CLOSING_TIME = document.querySelector("#mon-fri-hours > time:last-of-type").innerHTML
 const HIPPODROME_WEEKEND_CLOSING_TIME = document.querySelector("#sat-sun-hours > time:last-of-type").innerHTML
+const MINIMUM_BOOKING_DURATION = Temporal.Duration.from({ minutes: 30 })
+const HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME = Temporal.PlainTime.from(HIPPODROME_WEEKDAYS_CLOSING_TIME).subtract(MINIMUM_BOOKING_DURATION).toString().slice(0, 5)
+const HIPPODROME_WEEKEND_LAST_BOOKING_START_TIME = Temporal.PlainTime.from(HIPPODROME_WEEKEND_CLOSING_TIME).subtract(MINIMUM_BOOKING_DURATION).toString().slice(0, 5)
 /* The following variable is used to refresh the available ponies information only when needed */
 let lastInputValidityCheckResult = false
 /* This variable is the reference to the anonymous function that is used as the
@@ -48,6 +51,14 @@ priceFilter.addEventListener('change', () => {
         fetchPonies(null, null, null, priceFilterParameter)
     }
 })
+
+function getHippodromeLastBookingStartTime(date) {
+    if (date instanceof Temporal.PlainDate) {
+        return date.dayOfWeek >= SATURDAY ? HIPPODROME_WEEKEND_LAST_BOOKING_START_TIME : HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME
+    } else {
+        throw new TypeError('The parameter type must be Temporal.PlainDate')
+    }
+}
 
 function getHippodromeClosingTime(date) {
     if (date instanceof Temporal.PlainDate) {
@@ -106,9 +117,8 @@ function hasCurrentDate(input) {
 
 function setStartTimeInputMinValue() {
     if (hasCurrentDate(dateInput)) {
-        const currentTime = Temporal.Now.plainTimeISO()
-        const currentTimeString = `${currentTime.hour}:${currentTime.minute}`
-        startTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeClosingTime(Temporal.PlainDate.from(dateInput.value)) ? currentTimeString : HIPPODROME_OPENING_TIME)
+        const currentTimeString = Temporal.Now.plainTimeISO().toString().slice(0, 5)
+        startTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeLastBookingStartTime(Temporal.PlainDate.from(dateInput.value)) ? currentTimeString : HIPPODROME_OPENING_TIME)
     } else {
         startTimeInput.setAttribute('min', HIPPODROME_OPENING_TIME)
     }
@@ -116,11 +126,11 @@ function setStartTimeInputMinValue() {
 
 function setEndTimeInputMinValue() {
     if (isInputValid(startTimeInput)) {
-        endTimeInput.setAttribute('min', startTimeInput.value)
+        endTimeInput.setAttribute('min', Temporal.PlainTime.from(startTimeInput.value).add(MINIMUM_BOOKING_DURATION).toString().slice(0, 5))
     } else if (hasCurrentDate(dateInput)) {
         const currentTime = Temporal.Now.plainTimeISO()
-        const currentTimeString = `${currentTime.hour}:${currentTime.minute}`
-        endTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeClosingTime(Temporal.PlainDate.from(dateInput.value)) ? currentTimeString : HIPPODROME_OPENING_TIME)
+        const currentTimeString = currentTime.toString().slice(0, 5)
+        endTimeInput.setAttribute('min', currentTimeString >= HIPPODROME_OPENING_TIME && currentTimeString <= getHippodromeClosingTime(Temporal.PlainDate.from(dateInput.value)) ? currentTime.add(MINIMUM_BOOKING_DURATION).toString().slice(0, 5) : HIPPODROME_OPENING_TIME)
     } else {
         endTimeInput.setAttribute('min', HIPPODROME_OPENING_TIME)
     }
@@ -134,6 +144,7 @@ function isInputValid(input) {
 allInputs.forEach(input => {
     input.addEventListener('change', () => {
         setInputStyleBasedOnValidity(input)
+        
         const priceFilterParameter = priceFilter.value != 'all' ? priceFilter.value : null
 
         if (allInputs.every(input => isInputValid(input))) {
@@ -162,10 +173,10 @@ dateInput.addEventListener('change', () => {
     if (isInputValid(dateInput)) {
         const dateSet = Temporal.PlainDate.from(dateInput.value)
         if (dateSet.dayOfWeek < SATURDAY) {
-            startTimeInput.setAttribute('max', HIPPODROME_WEEKDAYS_CLOSING_TIME)
+            startTimeInput.setAttribute('max', HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME)
             endTimeInput.setAttribute('max', HIPPODROME_WEEKDAYS_CLOSING_TIME)
         } else {
-            startTimeInput.setAttribute('max', HIPPODROME_WEEKEND_CLOSING_TIME)
+            startTimeInput.setAttribute('max', HIPPODROME_WEEKEND_LAST_BOOKING_START_TIME)
             endTimeInput.setAttribute('max', HIPPODROME_WEEKEND_CLOSING_TIME)
         }
     }
