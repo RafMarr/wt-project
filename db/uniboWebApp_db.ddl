@@ -117,12 +117,13 @@ create table PROFESSORS (
      constraint IDPROFESSOR primary key (Email));
 
 create table RESERVATIONS (
+     ReservationID varchar(12) not null,
      PonyID int not null,
      Date date not null,
      StartHour time not null,
      EndHour time not null,
      StudentID char(10) not null,
-     constraint IDRESERVATION primary key (PonyID, Date, StartHour));
+     constraint IDRESERVATION primary key (ReservationID));
 
 create table SIGNALS (
      SignalID int auto_increment not null,
