@@ -177,10 +177,6 @@ a.nav-link.theme-text:hover {
     background-color: rgba(var(--theme-bg-rgb), 0.9);
 }
 
-.opacity-50 {
-    opacity: 0.5 !important;
-}
-
 #booking-message {
     color: var(--main-text-light);
 }
