@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/seaford');
+@import url('https://fonts.cdnfonts.com/css/br-sonoma');
 
 :root {
 
@@ -246,7 +246,7 @@ nav .nav-link:focus, header .nav-link:focus {
 /* Css Custom */
 
 body {
-    font-family: 'Seaford', sans-serif;
+    font-family: 'BR Sonoma', sans-serif;
 }
 
 /* Classi custom per implementare il comportamento con i BreakPoint di Bootstrap
