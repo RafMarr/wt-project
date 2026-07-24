@@ -1,6 +1,9 @@
 insert into accounts
 values ("mariorossi@mail.com", "A@bbcc11", "Admin"),
-       ("andreaverdi@mail.com", "A@bbcc22", "Studente");
+       ("andreaverdi@mail.com", "A@bbcc22", "Studente"),
+       ("matteoneri@mail.com", "A@bbcc33", "Studente"),
+       ("fabiotozzi@mail.com", "A@bbcc44", "Studente"),
+       ("raffaelemarrazzo@mail.com", "A@bbcc55", "Studente");
 
 insert into admins(Name, Surname, Email)
 values ("Mario", "Rossi", "mariorossi@mail.com");
@@ -72,7 +75,10 @@ values (8615, "Ingegneria e scienze informatiche", "Laurea triennale"),
        (8614, "Ingegneria e scienze informatiche", "Laurea magistrale");
 
 insert into students
-values ("Andrea", "Verdi", "0001112223", "andreaverdi@mail.com", 8615);
+values ("Andrea", "Verdi", "0001112223", "andreaverdi@mail.com", 8615),
+       ("Matteo", "Neri", "0944509445", "matteoneri@mail.com", 5834),
+       ("Fabio", "Tozzi", "4246422893", "fabiotozzi@mail.com", 8614),
+       ("Raffaele", "Marrazzo", "5514790136", "raffaelemarrazzo@mail.com", 5834);
 
 -- triennale ingegneria e scienze informatiche
 
@@ -3008,3 +3014,34 @@ values ("09454", 5834, 3),
        ("00251", 5834, 3),
        ("02126", 5834, 3),
        ("10907", 5834, 3);
+
+insert into ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description)
+values ("Minnesota", "Faroe pony", 5, "minnesota.jpg", "ama le carote", null),
+       ("Danny", "Shetland pony", 6.5, "danny.jpg", "ama le mele", "Danny è un pony sensibile e super coccoloso"),
+       ("Billy", "Pony mongolo", 8.5, "billy.jpg", "gli piacciono le coccole dietro le orecchie", "Billy è un pony attivo e affidabile"),
+       ("Black", "Pony di Esperia", 10, "black.jpg", "adora essere spazzolato", "Black è un pony vivace, attento e docile"),
+       ("Cioccolato", "Pony francese da sella", 11, "cioccolato.jpg", "ama le zollette di zucchero", "Cioccolato è un pony energico, tranquillo e agile"),
+       ("Greg", "Pony New Forest inglese", 13, "greg.jpg", "si affeziona molto facilmente alle persone", "Greg è un pony docile, molto intelligente e socievole"),
+       ("Macchia", "Highland pony", 6.7, "macchia.jpg", "adora osservare gli uccellini", "Macchia è un pony intelligente, docile e sensibile"),
+       ("Nebbia", "Pony tibetano", 4.5, "nebbia.jpg", "ama le mele verdi", "Nebbia è un pony vivace ed energetico"),
+       ("Nuvola", "Northlands pony", 9.5, "nuvola.jpg", "adora le coccole", "Nuvola è un pony tranquillo e docile"),
+       ("Odoacre", "Cavallino di Monterufoli", 6, "odoacre.jpg", "adora le coccole sul muso", "Odoacre è un pony vivace, docile e obbediente"),
+       ("Ombra", "Exmoor pony", 10.5, "ombra.jpg", "ama rincorrere le farfalle", "Ombra è un pony amichevole e dal carattere temperato"),
+       ("Pino", "Manipur pony", 4, "pino.jpg", "ama le carote", "Pino è un pony energetico e docile"),
+       ("Vaniglia", "Konik pony", 15, "vaniglia.jpg", "ama le zollette di zucchero", "Vaniglia è un pony forte, indipendente, talvolta ribelle");
+
+insert into reservations
+values ("80b37786bac7", 2, '2026-07-13', '10:00:00', '11:00:00', "0001112223"),
+       ("ec5d14690001", 10, '2026-07-13', '09:00:00', '14:00:00', "0944509445"),
+       ("cdcfab6c5a58", 7, '2026-07-13', '09:00:00', '12:00:00', "4246422893"),
+       ("ed9f99cf8db8", 5, '2026-07-13', '09:00:00', '09:45:00', "0001112223"),
+       ("e134900fa2e7", 2, '2026-07-13', '13:00:00', '17:00:00', "0001112223"),
+       ("5ed1081be274", 2, '2026-07-15', '10:00:00', '12:00:00', "0001112223"),
+       ("cfdd82794fce", 4, '2026-07-17', '12:00:00', '14:00:00', "0001112223"),
+       ("573b7923cf2c", 3, '2026-07-17', '10:00:00', '11:45:00', "0001112223"),
+       ("ae8b2ada9080", 4, '2026-07-22', '10:00:00', '12:00:00', "5514790136"),
+       ("0d08a9dfe0fb", 6, '2026-07-22', '12:00:00', '17:30:00', "0001112223"),
+       ("701c99bb1e8a", 3, '2026-07-30', '10:00:00', '11:00:00', "0001112223"),
+       ("7a218b5b9479", 12, '2026-07-30', '10:00:00', '14:30:00', "5514790136"),
+       ("ac6b55e87710", 8, '2026-09-17', '10:00:00', '11:20:00', "0001112223"),
+       ("ec1efcfde162", 11, '2026-09-29', '12:00:00', '18:00:00', "5514790136");

@@ -6,7 +6,9 @@
 
     --invalid-error-dark: #FF3344;
     --gray-light: #E7E7E7;
-    --gray-border: #B0B0B0;
+    --gray-border-light: #B0B0B0;
+    --link-color-light: #0d6efd;
+    --link-color-dark: #99c3ff;
     /* Palette Tema Rosso Principale Chiaro */
     /* Palette di default */
     --main-red: #A7393B;
@@ -32,7 +34,6 @@
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
 
-
     /* -- Dichiarazione variabili del tema -- */
 
     /* Tema Corrente impostato al default */
@@ -56,7 +57,10 @@
     --mode-theme-text: var(--current-mode-theme-text-light);
     --mode-invalid-error: var(--main-red);
     --mode-theme-gray: var(--gray-light);
-    --mode-border-gray: var(--gray-border);
+    --mode-border-gray: var(--gray-border-light);
+    --mode-theme-link-color: var(--link-color-light);
+    --mode-alert-bg: var(--bs-dark-bg-subtle);
+    --mode-alert-border: var(--bs-dark-border-subtle);
 
     transition: background-color 0.3s;
 }
@@ -69,8 +73,14 @@
     --current-theme-text-rgb: var(--secondary-white-rgb);
     --current-mode-theme-bg-light: var(--secondary-bg-light);
     --current-mode-theme-text-light: var(--secondary-text-light);
+    --current-mode-theme-container-border-light: var(--secondary-container-border-light);
+    --current-mode-theme-container-fill-light: var(--secondary-container-fill-light);
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
+    --current-mode-theme-container-border-dark: var(--secondary-container-border-dark);
+    --current-mode-theme-container-fill-dark: var(--secondary-container-fill-dark);
+    --current-mode-theme-link-color-light: var(--secondary-link-color);
+    --current-mode-theme-link-color-dark: var(--secondary-link-color-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -80,13 +90,16 @@
     --mode-invalid-error: var(--invalid-error-dark);
     --mode-theme-gray: var(--current-mode-theme-bg-dark);
     --mode-border-gray: var(--current-mode-theme-text-dark);
+    --mode-theme-link-color: var(--link-color-dark);
+    --mode-alert-bg: var(--bs-light-bg-subtle);
+    --mode-alert-border: var(--bs-light-border-subtle);
   }
 }
 
 /* Colori del background e del contenuto che non variano tra chiaro e scuro */
 .theme-bg-text {
-    color: var(--theme-text);
-    background-color: var(--theme-bg);
+    color: var(--theme-text) !important;
+    background-color: var(--theme-bg) !important;
 }
 
 .theme-text {
@@ -111,6 +124,23 @@
 
 .mode-gray {
     background-color: var(--mode-theme-gray);
+}
+.mode-container {
+    border-color: var(--mode-border-gray) !important; /* "!important" is needed in order to override bootstrap's default border color */
+    background-color: var(--mode-theme-gray);
+}
+
+.mode-input-border-color {
+    border-color: var(--mode-theme-text);
+}
+
+.mode-link-color {
+    color: var(--mode-theme-link-color);
+}
+
+.mode-alert {
+    background-color: var(--mode-alert-bg);
+    border-color: var(--mode-alert-border);
 }
 
 /* Classi simil-bootstrap custom */
@@ -171,6 +201,13 @@
 .check-btn:checked + .preview-theme-card {
     border-color: var(--theme-bg);
 }
+.icon-success {
+    color: #1f751e;
+}
+
+.icon-danger {
+    color: #9e3030;
+}
 
 /* Comportamenti custom */
 
@@ -202,12 +239,15 @@ nav .nav-link:focus, header .nav-link:focus {
     color: var(--theme-text);
 }
 
+#booking-message {
+    color: var(--main-text-light);
+}
+
 /* Css Custom */
 
 body {
     font-family: 'Seaford', sans-serif;
 }
-
 
 /* Classi custom per implementare il comportamento con i BreakPoint di Bootstrap
     non presenti di default */
@@ -233,6 +273,10 @@ body {
 
     .border-md-0 {
         border: 0;
+    }
+
+    #booking-params {
+        min-height: 150px;
     }
 
 }

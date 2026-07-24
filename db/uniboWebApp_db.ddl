@@ -93,7 +93,7 @@ create table PONIES (
      Breed varchar(256) not null,
      HourlyFee decimal(4,2) not null,
      Image varchar(256) not null,
-     SpecMarks varchar(20),
+     SpecMarks varchar(100),
      Description varchar(100),
      constraint IDPONY primary key (PonyID));
 
@@ -105,12 +105,13 @@ create table PROFESSORS (
      constraint IDPROFESSOR primary key (Email));
 
 create table RESERVATIONS (
+     ReservationID varchar(12) not null,
      PonyID int not null,
      Date date not null,
      StartHour time not null,
      EndHour time not null,
      StudentID char(10) not null,
-     constraint IDRESERVATION primary key (PonyID, Date, StartHour));
+     constraint IDRESERVATION primary key (ReservationID));
 
 CREATE TABLE floors(FloorID tinyint unsigned not null,
      FloorName varchar(30) not null,
