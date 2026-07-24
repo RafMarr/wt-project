@@ -94,6 +94,26 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function checkAdmin($idutente) {
+        $query = "SELECT PermissionType FROM accounts WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["PermissionType"] === "Admin";
+    }
+
+    public function checkStudent($idutente) {
+        $query = "SELECT PermissionType FROM accounts WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $idutente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["PermissionType"] === "Studente";
+    }
+
     private function get_pony_price_filter_query_string(?string $price_filter) {
         $pony_price_filter_query_string = '';
         switch ($price_filter) {
@@ -201,6 +221,80 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    /**
+     * Retrieves an associative array containing the pony bookings made
+     * by the student with the provided ID that are in the future (the reservation
+     * start is after the current datetime).
+     * @return array an associative array containing the pony bookings performed
+     * by the student whose ID is `$student_id` that are in the future
+     */
+    public function get_future_pony_bookings(string $student_id): array {
+        $query = 'SELECT r.*, p.Name, p.HourlyFee FROM reservations r, ponies p WHERE r.PonyID = p.PonyID AND CONCAT(r.Date, " ", r.StartHour) >= CURRENT_TIMESTAMP() AND r.StudentID = ? ORDER BY r.Date ASC';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $student_id);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Retrieves an associative array containing the pony bookings made
+     * by the student with the provided ID that are in the past (the reservation
+     * start is before the current datetime).
+     * @return array an associative array containing the pony bookings performed
+     * by the student whose ID is `$student_id` that are in the past
+     */
+    public function get_past_pony_bookings(string $student_id): array {
+        $query = 'SELECT r.*, p.Name, p.HourlyFee FROM reservations r, ponies p WHERE r.PonyID = p.PonyID AND CONCAT(r.Date, " ", r.StartHour) < CURRENT_TIMESTAMP() AND r.StudentID = ? ORDER BY r.Date DESC';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $student_id);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Checks if the reservation with the provided ID belongs to the student whose ID number is `$student_id`.
+     * @return bool `true` if the reservation with the provided ID belongs to the student whose ID number is `$student_id`,
+     * `false` otherwise
+     */
+    private function is_reservation_of_student(string $reservation_id, string $student_id): bool {
+        $query = "SELECT EXISTS(SELECT 1 FROM reservations WHERE ReservationID = ? AND StudentID = ? LIMIT 1)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $reservation_id, $student_id);
+        $stmt->execute();
+
+        $stmt->bind_result($found);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$found;
+    }
+
+    /**
+     * Deletes the reservation with the provided ID.
+     * @param $booking_id the identifier of the reservation to delete
+     * @param $deletion_author_email the email of the person who wants to delete the
+     * booking. If `$deletion_author_email` is the email of a student, the reservation
+     * with ID `$booking_id` will be deleted only if it belongs to the student whose email
+     * is the provided one.
+     * If `$deletion_author_email` is the email of an admin, any reservation can be deleted, because
+     * an admin can do anything.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function delete_pony_booking(string $booking_id, string $deletion_author_email): bool {
+        if ($this->checkAdmin($deletion_author_email)
+            || ($this->checkStudent($deletion_author_email) && $this->is_reservation_of_student($booking_id, $this->get_student_idnumber_from_email($deletion_author_email)))) {
+
+            $query = 'DELETE FROM reservations WHERE ReservationID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s', $booking_id);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    } 
 }
 
 ?>

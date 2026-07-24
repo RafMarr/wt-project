@@ -58,6 +58,9 @@ if (isset($templateParams['booking-successful'])) {
         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
     </svg>
 </button>
+<a href="pony-reservations.php" class="btn border-top-0 border-start-0 border-end-0 py-1 px-2 border border-2 mode-container mode-text position-absolute top-0 start-0">
+    Le mie prenotazioni
+</a>
 <section id="booking-params" class="row mx-0 justify-content-center column-gap-md-2 p-0 mb-5">
     <h3 class="visually-hidden">Parametri di ricerca</h3>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 mb-3 mb-md-0 text-start">

@@ -219,6 +219,7 @@ bookingModal.addEventListener('hidden.bs.modal', () => {
 async function bookPony(ponyID, bookingDate, startTime, endTime) {
     const url = 'api/api-pony-booking.php'
     const bookingParameters = new FormData()
+    bookingParameters.append('action', "book")
     bookingParameters.append('ponyID', ponyID)
     bookingParameters.append('day', bookingDate)
     bookingParameters.append('start', startTime)
