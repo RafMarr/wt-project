@@ -23,16 +23,6 @@ More information on this topic can be found here:
 https://dev.to/smotchkkiss/function-identity-in-javascript-or-how-to-remove-event-listeners-properly-1ll3 */
 let lastBookingButtonClickEventListener = null
 
-/* This event listener solves the warning raised by Chrome when a modal is
-   closed but one of his descendants retains focus */
-document.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener('hide.bs.modal', () => {
-        if (document.activeElement) {
-            document.activeElement.blur()
-        }
-    })
-})
-
 main.classList.add('position-relative')
 /* Removing from main tag the bootstrap classes that add padding top and margin top */
 main.classList.forEach(c => {
