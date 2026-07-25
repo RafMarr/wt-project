@@ -123,7 +123,7 @@ if (isset($templateParams['booking-successful'])) {
                     <li id="mon-fri-hours">Lunedì-Venerdì: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKDAYS_CLOSING_TIME ?></time></li>
                     <li id="sat-sun-hours">Sabato-Domenica: <time><?php echo HIPPODROME_OPENING_TIME ?></time>-<time><?php echo HIPPODROME_WEEKEND_CLOSING_TIME ?></time></li>
                 </ul>
-                <p><strong>Attenzione:</strong> le prenotazioni devono avere una durata minima di 30 minuti</p>
+                <p><strong>Attenzione:</strong> <span class="fw-bolder">le prenotazioni devono avere una durata minima di 30 minuti</span></p>
                 <p>Per maggiori informazioni contattare il numero: +39 334 4567890</p>
                 <p>Indirizzo: Viale Antonio Gramsci, 308, 47521 Cesena (FC)</p>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5726.212547081311!2d12.231914800000002!3d44.1430534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132ca4c206ae337f%3A0x915dce2a7a569b9!2sIppodromo%20Cesena!5e0!3m2!1sit!2sit!4v1779634384416!5m2!1sit!2sit" style="border:0; width:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
