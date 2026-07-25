@@ -42,7 +42,7 @@ if (isset($templateParams['booking-successful'])) {
 
 <div class="px-3 text-center pt-5">
     <header class="d-flex justify-content-center align-items-center gap-3">
-        <h2>Noleggia un pony</h2>
+        <h1 class="fs-2">Noleggia un pony</h1>
         <button type="button" class="btn mode-text p-0 pb-2" data-bs-toggle="modal" data-bs-target="#hippodromeModal" aria-label="Maggiori informazioni sull'ippodromo">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -62,7 +62,7 @@ if (isset($templateParams['booking-successful'])) {
     Le mie prenotazioni
 </a>
 <section id="booking-params" class="row mx-0 justify-content-center column-gap-md-2 p-0 mb-5">
-    <h3 class="visually-hidden">Parametri di ricerca</h3>
+    <h2 class="visually-hidden">Parametri di ricerca</h2>
     <div class="d-md-flex flex-column gap-2 justify-content-start col-10 col-md-3 col-xl-2 mb-3 mb-md-0 text-start">
         <label for="day" class="form-label m-md-0">Giorno</label>
         <input type="date" min="<?php echo $min_date ?>" class="form-control is-invalid" name="day" id="day" aria-describedby="day-feedback" />
@@ -109,7 +109,7 @@ if (isset($templateParams['booking-successful'])) {
     <div class="modal-dialog">
         <div class="modal-content mode-gray mode-text">
             <div class="modal-header">
-                <h1 id="hippodromeModalTitle" class="modal-title fs-2">Maggiori informazioni</h1>
+                <h2 id="hippodromeModalTitle" class="modal-title">Maggiori informazioni</h2>
                 <button type="button" class="close-btn mode-text" data-bs-dismiss="modal" aria-label="Chiudi">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
@@ -135,7 +135,7 @@ if (isset($templateParams['booking-successful'])) {
     <div class="modal-dialog">
         <div class="modal-content mode-gray mode-text">
             <div class="modal-header">
-                <h1 id="booking-modal-title" class="modal-title fs-2">Riepilogo prenotazione</h1>
+                <h2 id="booking-modal-title" class="modal-title">Riepilogo prenotazione</h2>
                 <button type="button" class="close-btn mode-text" data-bs-dismiss="modal" aria-label="Chiudi">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>

@@ -236,7 +236,7 @@ function setBookingModalContent(ponyArticleID) {
     const modalBody = document.querySelector("#booking-modal .modal-body")
     const bookingButton = document.querySelector("#booking-modal .modal-footer button")
     const bookingDate = Temporal.PlainDate.from(dateInput.value) // dateInput.value is assumed to be not null or empty
-    const ponyName = document.querySelector(`#${ponyArticleID} h4`).innerHTML
+    const ponyName = document.querySelector(`#${ponyArticleID} h3`).innerHTML
     const ponyHourlyFee = Array.from(document.querySelectorAll(`#${ponyArticleID} p`)).filter(p => p.innerText.includes("Costo: "))[0].innerText.replace("Costo: ", "")
     const ponyID = ponyArticleID.replace("pony-", "")
     const startTime = Temporal.PlainTime.from(startTimeInput.value)
@@ -284,7 +284,7 @@ function generatePoniesCards(ponies, enableBookingButtons = false) {
                 <header>
                     <!-- "alt" attribute is left empty as described in: https://html.spec.whatwg.org/dev/images.html#ancillary-images -->
                     <img src="${pony["Image"]}" class="img-fluid w-75 rounded-2" alt="">
-                    <h4 class="p-0 m-0 mt-3 mb-2">${pony["Name"]}</h4>
+                    <h3 class="p-0 m-0 mt-3 mb-2 fs-4">${pony["Name"]}</h3>
                 </header>
                 <div class="text-start">
                     <p class="mb-1"><span class="fw-bold">Razza:</span> ${pony["Breed"]}</p>
@@ -324,7 +324,7 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
             throw new Error("Response status: " + response.status)
         }
         const availablePoniesSection = document.querySelector("#available-ponies")
-        availablePoniesSection.innerHTML = '<h3 class="visually-hidden">Pony disponibili</h3>'
+        availablePoniesSection.innerHTML = '<h2 class="visually-hidden">Pony disponibili</h2>'
         const result = await response.json()
         if (result['ponies'].length > 0) {
             /* The booking buttons must be enabled only if the user has filled all the required fields */

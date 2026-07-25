@@ -23,7 +23,7 @@ if ($templateParams["future-reservations"] && isset($templateParams['deletion-su
 <?php endif; ?>
 
 <section>
-    <h2 class="<?php if($templateParams["future-reservations"]) echo "pt-5" ?> text-center"><?php echo $templateParams["future-reservations"] ? "Le mie prenotazioni" : "Storico prenotazioni" ?></h2>
+    <h1 class="fs-2 <?php if($templateParams["future-reservations"]) echo "pt-5" ?> text-center"><?php echo $templateParams["future-reservations"] ? "Le mie prenotazioni" : "Storico prenotazioni" ?></h1>
     <div class="mt-2 text-center col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
         <?php foreach($templateParams["reservations"] as $r): ?>
             <div class="col">
@@ -34,7 +34,7 @@ if ($templateParams["future-reservations"] && isset($templateParams['deletion-su
                 $reservation_price = number_format((($reservation_duration->h + ($reservation_duration->i / $MINUTES_IN_HOUR)) * floatval($r["HourlyFee"])), $PRICE_FRACTION_DIGITS);
                 ?>
                 <article id="<?php echo $r["ReservationID"] ?>" class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
-                        <h3 class="p-0 m-0 mb-2">Prenotazione #<?php echo $r["ReservationID"]; ?></h3>
+                        <h2 class="p-0 m-0 mb-2 fs-3">Prenotazione #<?php echo $r["ReservationID"]; ?></h2>
                     <div class="text-start">
                         <p class="mb-1"><span class="fw-bold">Pony:</span> <?php echo $r["Name"]?></p>
                         <p class="mb-1"><span class="fw-bold">Data:</span> <?php echo date_format(date_create($r["Date"]), 'd/m/Y') ?></p>
