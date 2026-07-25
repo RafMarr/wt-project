@@ -73,14 +73,8 @@
     --current-theme-text-rgb: var(--secondary-white-rgb);
     --current-mode-theme-bg-light: var(--secondary-bg-light);
     --current-mode-theme-text-light: var(--secondary-text-light);
-    --current-mode-theme-container-border-light: var(--secondary-container-border-light);
-    --current-mode-theme-container-fill-light: var(--secondary-container-fill-light);
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
-    --current-mode-theme-container-border-dark: var(--secondary-container-border-dark);
-    --current-mode-theme-container-fill-dark: var(--secondary-container-fill-dark);
-    --current-mode-theme-link-color-light: var(--secondary-link-color);
-    --current-mode-theme-link-color-dark: var(--secondary-link-color-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -117,9 +111,9 @@
 }
 
 .mode-danger {
-    color: var(--mode-theme-text);
+    color: var(--mode-theme-text) !important;
     border: solid 2px var(--mode-theme-text);
-    background-color: var(--mode-theme-bg);
+    background-color: var(--mode-theme-bg) !important;
 }
 
 .mode-gray {
@@ -128,10 +122,6 @@
 .mode-container {
     border-color: var(--mode-border-gray) !important; /* "!important" is needed in order to override bootstrap's default border color */
     background-color: var(--mode-theme-gray);
-}
-
-.mode-input-border-color {
-    border-color: var(--mode-theme-text);
 }
 
 .mode-link-color {
@@ -201,6 +191,7 @@
 .check-btn:checked + .preview-theme-card {
     border-color: var(--theme-bg);
 }
+
 .icon-success {
     color: #1f751e;
 }
@@ -213,6 +204,10 @@
 
 a.nav-link.theme-text:hover {
     color: rgba(var(--theme-text-rgb), 0.9);
+}
+
+.btn {
+    font-weight: 600;
 }
 
 .btn.theme-bg-text:hover, .btn.theme-bg-text:focus-visible {

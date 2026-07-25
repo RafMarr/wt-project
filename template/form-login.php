@@ -10,6 +10,6 @@
       <input type="password" class="form-control" name="password-utente" id="password-utente" />
     </div>
     <div id="messaggio-errore" class="d-none form-error" aria-live="polite"></div>
-    <button type="submit" class="btn btn-primary theme-bg-text border-0 fw-semibold">Accedi</button>
+    <button type="submit" class="btn btn-primary theme-bg-text border-0">Accedi</button>
   </form>
 </div>

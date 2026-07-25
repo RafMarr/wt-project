@@ -17,7 +17,7 @@
                 <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>
                 <div class="row justify-content-center gap-2">
                     <button class="col-8 col-md-5 btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#cambia-stato-report">Cambia Stato</button>
-                    <button class="col-8 col-md-5 btn mode-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#elimina-segnalazione">Elimina</button>
+                    <button class="col-8 col-md-5 btn mode-danger" data-bs-toggle="modal" data-bs-target="#elimina-segnalazione">Elimina</button>
                 </div>
             </div>
         <?php endforeach; ?>

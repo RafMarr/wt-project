@@ -47,8 +47,8 @@
             <p>Accedi o registrati per usufruire dei servizi creati appositamente per te!</p>
         </div>
         <div class="d-flex flex-column align-items-center gap-2 col-md-5">
-            <a href="login.php?action=login" class="w-50 btn btn-primary theme-bg-text border-0 fw-semibold">Accedi</a>
-            <a href="login.php?action=register" class="w-50 btn btn-primary theme-bg-text border-0 fw-semibold">Registrati</a>
+            <a href="login.php?action=login" class="w-50 btn btn-primary theme-bg-text border-0">Accedi</a>
+            <a href="login.php?action=register" class="w-50 btn btn-primary theme-bg-text border-0">Registrati</a>
         </div>
     </div>
     

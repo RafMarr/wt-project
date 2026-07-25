@@ -38,9 +38,9 @@
         ?>
 
         <div class="row justify-content-center gap-2">
-            <a class="col-8 col-md-5 btn theme-bg-text fw-semibold" href="account.php?action=change-password">Modifica Password</a>
-            <button class="col-8 col-md-5 btn theme-bg-text fw-semibold" data-bs-toggle="modal" data-bs-target="#logout">Esci</button>
-            <button class="col-8 col-md-5 btn mode-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#elimina-account">Elimina Account</button>
+            <a class="col-8 col-md-5 btn theme-bg-text" href="account.php?action=change-password">Modifica Password</a>
+            <button class="col-8 col-md-5 btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#logout">Esci</button>
+            <button class="col-8 col-md-5 btn mode-danger" data-bs-toggle="modal" data-bs-target="#elimina-account">Elimina Account</button>
         </div>
     </div>
 </div>

@@ -45,7 +45,7 @@ if ($templateParams["future-reservations"] && isset($templateParams['deletion-su
                     <?php if ($templateParams["future-reservations"]): ?>
                     <div class="text-center m-0 mt-md-auto">
                         <!-- TODO: it is better to show a confirmation modal before deletion -->
-                        <button type="button" class="btn border-0 theme-bg-text">Cancella prenotazione</button>
+                        <button type="button" class="btn mode-danger">Cancella prenotazione</button>
                     </div>
                     <?php endif; ?>
                 </article>

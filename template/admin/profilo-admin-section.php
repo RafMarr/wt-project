@@ -30,7 +30,7 @@
                     <div id="errore-conferma-password" class="invalid-feedback" aria-live="polite">
                     </div>
                 </div>
-                <button type="submit" class="btn theme-bg-text fw-semibold">Registra Admin</button>
+                <button type="submit" class="btn theme-bg-text">Registra Admin</button>
             </form>
         </section>
         <section class="border-mode-text border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
@@ -60,7 +60,7 @@
                     <input type="checkbox" class="form-check-input" name="conferma" id="conferma-delete" required=""/>
                     <label for="conferma-delete" class="form-label">Sono sicuro di voler eliminare l'account selezionato</label>
                 </div>
-                <button type="submit" class="btn theme-bg-text fw-semibold">Elimina Account</button>
+                <button type="submit" class="btn theme-bg-text">Elimina Account</button>
             </form>
         </section>
     </div>
