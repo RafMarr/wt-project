@@ -143,7 +143,7 @@ if (isset($templateParams['booking-successful'])) {
                 </button>
             </div>
             <div class="modal-body"></div>
-            <div class="modal-footer justify-content-center pt-0">
+            <div class="modal-footer justify-content-center">
                 <button type="button" class="btn border-0 theme-bg-text">Prenota</button>
             </div>
         </div>
