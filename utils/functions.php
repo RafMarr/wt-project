@@ -20,6 +20,7 @@ function logoutUser() {
  * * if `day` is the current date, `start_time` must be at least the current time;
  * * `start_time` and `end_time` must be between `HIPPODROME_OPENING_TIME` and `HIPPODROME_WEEKDAYS_CLOSING_TIME` if the week day of `day` is between Monday and Friday; otherwise they must be between `HIPPODROME_OPENING_TIME` and `HIPPODROME_WEEKEND_CLOSING_TIME`;
  * * `end_time` must be at least `start_time`
+ * * `end_time - start_time` must be at least 30 minutes
  * @return bool `true` is all the parameters are valid, `false` otherwise
  */
 function are_pony_parameters_valid(string $day, string $start_time, string $end_time) : bool {
