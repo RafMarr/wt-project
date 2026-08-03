@@ -443,11 +443,30 @@ class DatabaseHelper {
         return $reservation_id;
     }
 
+    private function get_pony_hourly_fee(int $pony_id) {
+        $query = 'SELECT HourlyFee FROM ponies WHERE PonyID = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $pony_id);
+        $stmt->execute();
+
+        $stmt->bind_result($pony_hourly_fee);
+        $stmt->fetch();
+        $stmt->close();
+
+        return floatval($pony_hourly_fee);
+    }
+
     public function book_pony(int $pony_id, string $date, string $start_hour, string $end_hour, string $student_id): bool {
         $reservation_id = $this->generate_reservation_id();
-        $query = 'INSERT INTO reservations VALUES (?, ?, ?, ?, ?, ?)';
+        $selected_pony_hourly_fee = $this->get_pony_hourly_fee($pony_id);
+        $MINUTES_IN_HOUR = 60;
+        $PRICE_FRACTION_DIGITS = 2;
+        $reservation_duration = date_diff(date_create($start_hour), date_create($end_hour));
+        $paid_amount = number_format((($reservation_duration->h + ($reservation_duration->i / $MINUTES_IN_HOUR)) * floatval($selected_pony_hourly_fee)), $PRICE_FRACTION_DIGITS);
+
+        $query = 'INSERT INTO reservations VALUES (?, ?, ?, ?, ?, ?, ?)';
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('sissss', $reservation_id, $pony_id, $date, $start_hour, $end_hour, $student_id);
+        $stmt->bind_param('sissssd', $reservation_id, $pony_id, $date, $start_hour, $end_hour, $student_id, $paid_amount);
 
         return $stmt->execute();
     }

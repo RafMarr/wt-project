@@ -111,6 +111,7 @@ create table RESERVATIONS (
      StartHour time not null,
      EndHour time not null,
      StudentID char(10) not null,
+     PaidAmount decimal(6, 2) not null,
      constraint IDRESERVATION primary key (ReservationID));
 
 CREATE TABLE floors(FloorID tinyint unsigned not null,
