@@ -270,7 +270,7 @@ body {
         border: 0;
     }
 
-    #booking-params {
+    #booking-params, #search-params {
         min-height: 150px;
     }
 

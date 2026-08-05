@@ -20,10 +20,10 @@ function logoutUser() {
  * * if `day` is the current date, `start_time` must be at least the current time;
  * * `start_time` and `end_time` must be between `HIPPODROME_OPENING_TIME` and `HIPPODROME_WEEKDAYS_CLOSING_TIME` if the week day of `day` is between Monday and Friday; otherwise they must be between `HIPPODROME_OPENING_TIME` and `HIPPODROME_WEEKEND_CLOSING_TIME`;
  * * `end_time` must be at least `start_time`
- * * `end_time - start_time` must be at least 30 minutes
+ * * `end_time - start_time` must be at least 30 minutes if the flag `enable_booking_duration_check` is set
  * @return bool `true` is all the parameters are valid, `false` otherwise
  */
-function are_pony_parameters_valid(string $day, string $start_time, string $end_time) : bool {
+function are_pony_parameters_valid(string $day, string $start_time, string $end_time, bool $enable_booking_duration_check = true) : bool {
     $MINUTES_IN_HOUR = 60;
     $MINIMUM_BOOKING_DURATION_MINUTES = 30;
     $current_datetime = date("Y-m-d H:i");
@@ -36,7 +36,9 @@ function are_pony_parameters_valid(string $day, string $start_time, string $end_
         && ($start_time >= HIPPODROME_OPENING_TIME) && ($start_time <= $closing_time)
         && ($end_time >= HIPPODROME_OPENING_TIME) && ($end_time <= $closing_time)
         && ($end_time >= $start_time)
-        && $booking_duration_minutes >= $MINIMUM_BOOKING_DURATION_MINUTES;
+        /* $enable_booking_duration_check is set to true when the logged user is a student, and it is set to false
+           when the logged user is an admin, because an admin should always be able to check the ponies availability */
+        && ($enable_booking_duration_check ? $booking_duration_minutes >= $MINIMUM_BOOKING_DURATION_MINUTES : true);
 }
 
 /**

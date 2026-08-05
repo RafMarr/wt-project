@@ -13,7 +13,10 @@ if (isset($_GET['day']) && isset($_GET['start']) && isset($_GET['end'])) {
     $day = $_GET['day'];
     $start_time = $_GET['start'];
     $end_time = $_GET['end'];
-    if (are_pony_parameters_valid($day, $start_time, $end_time)) {
+    /* If the logged user is a student, the check on the minimum duration must be performed;
+    otherwise, if the logged user is an admin, the check on the minimum duration must not be performed,
+    because an admin can see the pony availability for every time interval. */
+    if (are_pony_parameters_valid($day, $start_time, $end_time, $dbh->checkStudent($_SESSION['idutente']))) {
         $student_id = $dbh->get_student_idnumber_from_email($_SESSION['idutente']);
         if ($student_id !== null && count($dbh->get_overlapping_pony_bookings($student_id, $day, $start_time, $end_time)) > 0) {
             $result['ponies'] = array();
