@@ -3015,20 +3015,20 @@ values ("09454", 5834, 3),
        ("02126", 5834, 3),
        ("10907", 5834, 3);
 
-insert into ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description)
-values ("Minnesota", "Faroe pony", 5, "minnesota.jpg", "ama le carote", null),
-       ("Danny", "Shetland pony", 6.5, "danny.jpg", "ama le mele", "Danny è un pony sensibile e super coccoloso"),
-       ("Billy", "Pony mongolo", 8.5, "billy.jpg", "gli piacciono le coccole dietro le orecchie", "Billy è un pony attivo e affidabile"),
-       ("Black", "Pony di Esperia", 10, "black.jpg", "adora essere spazzolato", "Black è un pony vivace, attento e docile"),
-       ("Cioccolato", "Pony francese da sella", 11, "cioccolato.jpg", "ama le zollette di zucchero", "Cioccolato è un pony energico, tranquillo e agile"),
-       ("Greg", "Pony New Forest inglese", 13, "greg.jpg", "si affeziona molto facilmente alle persone", "Greg è un pony docile, molto intelligente e socievole"),
-       ("Macchia", "Highland pony", 6.7, "macchia.jpg", "adora osservare gli uccellini", "Macchia è un pony intelligente, docile e sensibile"),
-       ("Nebbia", "Pony tibetano", 4.5, "nebbia.jpg", "ama le mele verdi", "Nebbia è un pony vivace ed energetico"),
-       ("Nuvola", "Northlands pony", 9.5, "nuvola.jpg", "adora le coccole", "Nuvola è un pony tranquillo e docile"),
-       ("Odoacre", "Cavallino di Monterufoli", 6, "odoacre.jpg", "adora le coccole sul muso", "Odoacre è un pony vivace, docile e obbediente"),
-       ("Ombra", "Exmoor pony", 10.5, "ombra.jpg", "ama rincorrere le farfalle", "Ombra è un pony amichevole e dal carattere temperato"),
-       ("Pino", "Manipur pony", 4, "pino.jpg", "ama le carote", "Pino è un pony energetico e docile"),
-       ("Vaniglia", "Konik pony", 15, "vaniglia.jpg", "ama le zollette di zucchero", "Vaniglia è un pony forte, indipendente, talvolta ribelle");
+insert into ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description, IsAvailable)
+values ("Minnesota", "Faroe pony", 5, "minnesota.jpg", "ama le carote", null, false),
+       ("Danny", "Shetland pony", 6.5, "danny.jpg", "ama le mele", "Danny è un pony sensibile e super coccoloso", true),
+       ("Billy", "Pony mongolo", 8.5, "billy.jpg", "gli piacciono le coccole dietro le orecchie", "Billy è un pony attivo e affidabile", true),
+       ("Black", "Pony di Esperia", 10, "black.jpg", "adora essere spazzolato", "Black è un pony vivace, attento e docile", true),
+       ("Cioccolato", "Pony francese da sella", 11, "cioccolato.jpg", "ama le zollette di zucchero", "Cioccolato è un pony energico, tranquillo e agile", true),
+       ("Greg", "Pony New Forest inglese", 13, "greg.jpg", "si affeziona molto facilmente alle persone", "Greg è un pony docile, molto intelligente e socievole", true),
+       ("Macchia", "Highland pony", 6.7, "macchia.jpg", "adora osservare gli uccellini", "Macchia è un pony intelligente, docile e sensibile", true),
+       ("Nebbia", "Pony tibetano", 4.5, "nebbia.jpg", "ama le mele verdi", "Nebbia è un pony vivace ed energetico", true),
+       ("Nuvola", "Northlands pony", 9.5, "nuvola.jpg", "adora le coccole", "Nuvola è un pony tranquillo e docile", false),
+       ("Odoacre", "Cavallino di Monterufoli", 6, "odoacre.jpg", "adora le coccole sul muso", "Odoacre è un pony vivace, docile e obbediente", true),
+       ("Ombra", "Exmoor pony", 10.5, "ombra.jpg", "ama rincorrere le farfalle", "Ombra è un pony amichevole e dal carattere temperato", true),
+       ("Pino", "Manipur pony", 4, "pino.jpg", "ama le carote", "Pino è un pony energetico e docile", true),
+       ("Vaniglia", "Konik pony", 15, "vaniglia.jpg", "ama le zollette di zucchero", "Vaniglia è un pony forte, indipendente, talvolta ribelle", true);
 
 insert into reservations
 values ("80b37786bac7", 2, '2026-07-13', '10:00:00', '11:00:00', "0001112223", 6.5),

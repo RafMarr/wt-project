@@ -95,6 +95,7 @@ create table PONIES (
      Image varchar(256) not null,
      SpecMarks varchar(100),
      Description varchar(100),
+     IsAvailable boolean not null DEFAULT true,
      constraint IDPONY primary key (PonyID));
 
 create table PROFESSORS (

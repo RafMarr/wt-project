@@ -11,6 +11,14 @@ const HIPPODROME_WEEKEND_CLOSING_TIME = '13:00'
 const main = document.querySelector('main')
 /* The following variable is used to refresh the available ponies information only when needed */
 let lastInputValidityCheckResult = false
+/* The following two variables are the references to the anonymous functions that are used as the
+click event handlers for the #hide-pony-button and #make-pony-available-button respectively.
+In this way, it is possible to remove the event listeners attached to the above-mentioned
+buttons when the modals they belong to are closed.
+More information on this topic can be found here:
+https://dev.to/smotchkkiss/function-identity-in-javascript-or-how-to-remove-event-listeners-properly-1ll3 */
+let lastHidePonyButtonEventListener = null
+let lastMakePonyAvailableButtonEventListener = null
 
 main.classList.add('position-relative')
 /* Removing from main tag the bootstrap classes that add padding top and margin top */
@@ -188,6 +196,7 @@ function generatePoniesCards(ponies) {
     ponies.forEach(pony => {
         let specMarksRow = ""
         let descriptionRow = ""
+        let lastButton = ''
 
         if (pony["SpecMarks"] != null) {
             const marginBottomSpecMarks = pony["Description"] != null ? 'mb-1' : 'mb-4'
@@ -196,6 +205,12 @@ function generatePoniesCards(ponies) {
 
         if (pony["Description"] != null) {
             descriptionRow = `<p class="mb-4"><span class="fw-bold">Descrizione:</span> ${pony["Description"]}</p>`
+        }
+
+        if (pony["IsAvailable"]) {
+            lastButton = `<button type="button" onclick='setHidePonyModalContent("pony-${pony["PonyID"]}")' class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#hide-pony-modal">Nascondi</button>`
+        } else {
+            lastButton = `<button type="button" onclick='setMakePonyAvailableModalContent("pony-${pony["PonyID"]}")' class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#make-pony-available-modal">Mostra</button>`
         }
 
         const marginBottomHourlyFee = (pony["SpecMarks"] == null && pony["Description"] == null) ? 'mb-4' : 'mb-1'
@@ -216,7 +231,7 @@ function generatePoniesCards(ponies) {
                 </div>
                 <div class="d-flex justify-content-center gap-4 mt-md-auto">
                     <a href="pony.php?action=edit-pony&pony-id=${pony["PonyID"]}" class="btn border-0 theme-bg-text">Modifica</a>
-                    <button type="button" onclick='setPonyDeletionModalContent("pony-${pony["PonyID"]}")' class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#pony-deletion-modal">Elimina</button>
+                    ${lastButton}
                 </div>
             </article>
         </div>
@@ -226,8 +241,110 @@ function generatePoniesCards(ponies) {
     return cards
 }
 
-function setPonyDeletionModalContent(ponyArticleID) {
-    // TODO: implement
+document.querySelector("#hide-pony-modal").addEventListener('hidden.bs.modal', () => {
+    document.querySelector("#hide-pony-modal .modal-body").innerHTML = ""
+    document.querySelector("#hide-pony-button").removeEventListener('click', lastHidePonyButtonEventListener)
+})
+
+async function setHidePonyModalContent(ponyArticleID) {
+    const ponyID = ponyArticleID.replace("pony-", "")
+    const ponyName = document.querySelector(`#${ponyArticleID} h3`).innerHTML
+    const modalBody = document.querySelector("#hide-pony-modal .modal-body")
+    const hidePonyButton = document.querySelector("#hide-pony-button")
+    modalBody.innerHTML = `<p>Sei sicuro di voler nascondere agli utenti il pony <span class="fw-bold">${ponyName}</span>?</p>
+    <p>Il pony non sarà più visibile dagli studenti e dunque non sarà a disposizione per eventuali prenotazioni.</p>`
+    if (await hasFutureReservations(ponyID)) {
+        modalBody.innerHTML += `<div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="delete-future-reservations-checkbox">
+            <label class="form-check-label" for="delete-future-reservations-checkbox">
+                Elimina le prenotazioni future per questo pony
+            </label>
+        </div>`
+    }
+    lastHidePonyButtonEventListener = () => { hidePony(ponyID) }
+    hidePonyButton.addEventListener('click', lastHidePonyButtonEventListener)
+}
+
+async function hidePony(ponyID) {
+    const url = 'api/api-pony.php'
+    const parameters = new FormData()
+    const deleteFutureReservationsCheckbox = document.querySelector('#delete-future-reservations-checkbox')
+    parameters.append('action', 'hide')
+    parameters.append('pony-id', ponyID)
+    parameters.append('delete-future-bookings', deleteFutureReservationsCheckbox !== null && deleteFutureReservationsCheckbox.checked)
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: parameters
+        })
+        if (!response.ok) {
+            throw new Error("Response status: " + response.status)
+        }
+        const success = await response.json()
+        location.replace(location.href.split('?')[0] + `?operation-successful=${success}`)
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+async function hasFutureReservations(ponyID) {
+    const url = 'api/api-pony-booking.php'
+    const parameters = new FormData()
+    parameters.append('action', 'check-pony-future-reservations')
+    parameters.append('pony-id', ponyID)
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: parameters
+        })
+        if (!response.ok) {
+            throw new Error("Response status: " + response.status)
+        }
+        const hasFutureReservations = await response.json()
+
+        return hasFutureReservations
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+document.querySelector("#make-pony-available-modal").addEventListener('hidden.bs.modal', () => {
+    document.querySelector("#make-pony-available-modal .modal-body").innerHTML = ""
+    document.querySelector("#make-pony-available-button").removeEventListener('click', lastMakePonyAvailableButtonEventListener)
+})
+
+function setMakePonyAvailableModalContent(ponyArticleID) {
+    const ponyID = ponyArticleID.replace("pony-", "")
+    const ponyName = document.querySelector(`#${ponyArticleID} h3`).innerHTML
+    const modalBody = document.querySelector("#make-pony-available-modal .modal-body")
+    const makePonyAvailableButton = document.querySelector("#make-pony-available-button")
+    modalBody.innerHTML = `<p>Sei sicuro di voler rendere nuovamente disponibile il pony <span class="fw-bold">${ponyName}</span>?</p>
+    <p>Il pony sarà visibile dagli studenti e sarà a disposizione per eventuali prenotazioni.</p>`
+    lastMakePonyAvailableButtonEventListener = () => { makePonyAvailable(ponyID) }
+    makePonyAvailableButton.addEventListener('click', lastMakePonyAvailableButtonEventListener)
+}
+
+async function makePonyAvailable(ponyID) {
+    const url = 'api/api-pony.php'
+    const parameters = new FormData()
+    parameters.append('action', 'make-visible')
+    parameters.append('pony-id', ponyID)
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: parameters
+        })
+        if (!response.ok) {
+            throw new Error("Response status: " + response.status)
+        }
+        const success = await response.json()
+        location.replace(location.href.split('?')[0] + `?operation-successful=${success}`)
+    } catch (error) {
+        console.error(error.message)
+    }
 }
 
 async function fetchPonies(day = null, startTime = null, endTime = null, priceFilter = null) {
@@ -251,13 +368,26 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
             throw new Error("Response status: " + response.status)
         }
         const availablePoniesSection = document.querySelector("#available-ponies")
-        availablePoniesSection.innerHTML = '<h2 class="visually-hidden">Pony disponibili</h2>'
+        const hiddenPoniesSection = document.querySelector("#hidden-ponies")
         const result = await response.json()
-        if (result['ponies'].length > 0) {
-            const poniesCards = generatePoniesCards(result['ponies'])
-            availablePoniesSection.innerHTML += poniesCards
+        const availablePonies = result['ponies'].filter(pony => pony['IsAvailable'])
+        const hiddenPonies = result['ponies'].filter(pony => !pony['IsAvailable'])
+        if (availablePonies.length > 0) {
+            availablePoniesSection.innerHTML = `<h2 class="text-center fs-3 mb-4">Pony disponibili</h2>
+            <div class="text-center col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
+                ${generatePoniesCards(availablePonies)}
+            </div>`
         } else {
-            availablePoniesSection.innerHTML += `<p class="mt-4 mx-auto">${result['error-msg']}</p>`
+            availablePoniesSection.innerHTML = `<h2 class="text-center fs-3 mb-4">Pony disponibili</h2>
+            <p class="mt-4 mx-auto">${result['error-msg']}</p>`
+        }
+        if (hiddenPonies.length > 0) {
+            hiddenPoniesSection.innerHTML = `<h2 class="text-center fs-3 mb-4">Pony nascosti</h2>
+            <div class="text-center col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
+                ${generatePoniesCards(hiddenPonies)}
+            </div>`
+        } else {
+            hiddenPoniesSection.innerHTML = ''
         }
     } catch (error) {
         console.error(error.message)

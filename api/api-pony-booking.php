@@ -13,7 +13,7 @@ if (isset($_POST['action'])) {
             $day = $_POST['day'];
             $start_time = $_POST['start'];
             $end_time = $_POST['end'];
-            $available_ponies = $dbh->getAvailablePonies($day, $start_time, $end_time);
+            $available_ponies = $dbh->getAvailablePonies($day, $start_time, $end_time, null, false);
             $is_booking_successful = false;
             $student_id = $dbh->get_student_idnumber_from_email($_SESSION['idutente']);
         
@@ -32,6 +32,11 @@ if (isset($_POST['action'])) {
 
             header("Content-Type: application/json");
             echo json_encode($is_deletion_successful);
+        }
+    } else if ($_POST['action'] === "check-pony-future-reservations") {
+        if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_POST['pony-id'])) {
+            header("Content-Type: application/json");
+            echo json_encode($dbh->has_future_reservations($_POST['pony-id']));
         }
     }
 }

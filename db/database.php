@@ -375,10 +375,18 @@ class DatabaseHelper {
         return $pony_price_filter_query_string;
     }
 
-    public function getPonies(?string $price_filter = null) {
-        $query = "SELECT * FROM ponies";
+    /**
+     * This function retrieves all the ponies information.
+     * @param ?string $price_filter if not `null`, the function retrieves only the ponies whose hourly fee satisfies this filter
+     * @param bool $include_hidden specifies whether should be retrieved also the ponies with the `IsAvailable` flag set to `false`
+     */
+    public function getPonies(?string $price_filter, bool $include_hidden) {
+        $query = "SELECT * FROM ponies WHERE 1=1";
         if ($price_filter !== null) {
-            $query = $query . " WHERE " . $this->get_pony_price_filter_query_string($price_filter);
+            $query = $query . " AND " . $this->get_pony_price_filter_query_string($price_filter);
+        }
+        if (!$include_hidden) {
+            $query = $query . " AND " . "isAvailable = true";
         }
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -387,10 +395,21 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAvailablePonies(string $day, string $start_time, string $end_time, ?string $price_filter = null) {
+    /**
+     * Retrieves all the ponies that are available in the provided day in the time interval [`$start_time`, `$end_time`]
+     * @param string $day a `Y-m-d` formatted date string
+     * @param string $start_time a 'HH:mm' formatted time string
+     * @param string $end_time a 'HH:mm' formatted time string
+     * @param ?string $price_filter if not `null`, the function retrieves only the ponies whose hourly fee satisfies this filter
+     * @param bool $include_hidden specifies whether should be retrieved also the ponies with the `IsAvailable` flag set to `false`
+     */
+    public function getAvailablePonies(string $day, string $start_time, string $end_time, ?string $price_filter, bool $include_hidden) {
         $query = 'SELECT * FROM ponies WHERE PonyID NOT IN (SELECT PonyID FROM reservations WHERE Date = ? AND StartHour <= ? AND EndHour >= ?)';
         if ($price_filter !== null) {
             $query = $query . " AND " . $this->get_pony_price_filter_query_string($price_filter);
+        }
+        if (!$include_hidden) {
+            $query = $query . " AND " . "isAvailable = true";
         }
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sss', $day, $end_time, $start_time);
@@ -558,7 +577,78 @@ class DatabaseHelper {
         } else {
             return false;
         }
-    } 
+    }
+
+    /**
+     * Sets the `IsAvailable` flag on the database to `false` for the
+     * pony with the provided id and, if `$delete_future_bookings` is set to
+     * `true`, deletes the future bookings that involve the pony with the provided id.
+     *
+     * @return bool `true` on success, `false` on failure
+     */
+    public function hide_pony(int $pony_id, bool $delete_future_bookings): bool {
+        if ($delete_future_bookings) {
+            try {
+                $this->db->begin_transaction();
+
+                $query1 = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
+                $stmt1 = $this->db->prepare($query1);
+                $stmt1->bind_param('i', $pony_id);
+                $stmt1->execute();
+
+                $query2 = 'DELETE FROM reservations WHERE PonyID = ? AND CONCAT(Date, " ", StartHour) > CURRENT_TIMESTAMP()';
+                $stmt2 = $this->db->prepare($query2);
+                $stmt2->bind_param('i', $pony_id);
+                $stmt2->execute();
+
+                $this->db->commit();
+
+                return true;
+
+            } catch (Throwable $th) {
+                $this->db->rollback();
+
+                return false;
+            }
+        } else {
+            $query = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $pony_id);
+
+            return $stmt->execute();
+        }
+    }
+
+    /**
+     * Sets the `IsAvailable` flag on the database to `true` for the
+     * pony with the provided id.
+     *
+     * @return bool `true` on success, `false` on failure
+     */
+    public function make_pony_visible(int $pony_id): bool {
+        $query = 'UPDATE ponies SET IsAvailable = true WHERE PonyID = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $pony_id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Retrieves whether there are reservations in the future that involve
+     * the pony with the provided id.
+     */
+    public function has_future_reservations(int $pony_id): bool {
+        $query = 'SELECT COUNT(*) FROM reservations WHERE PonyID = ? AND CONCAT(Date, " ", StartHour) > CURRENT_TIMESTAMP()';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $pony_id);
+        $stmt->execute();
+
+        $stmt->bind_result($reservations_count);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (int)$reservations_count > 0;
+    }
 }
 
 ?>
