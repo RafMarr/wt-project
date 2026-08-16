@@ -727,6 +727,17 @@ class DatabaseHelper {
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    /**
+     * Retrieves all the pony breeds for which exists at least one pony in the hippodrome.
+     */
+    public function get_pony_breeds(): array {
+        $query = 'SELECT DISTINCT Breed FROM ponies';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>

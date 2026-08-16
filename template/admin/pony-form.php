@@ -8,7 +8,12 @@
         </div>
         <div class="mb-3 text-start">
             <label class="form-label" for="breed">Razza *</label>
-            <input type="text" class="form-control" name="breed" id="breed" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['Breed'] . "\"" : "" ?> required />
+            <input type="text" list="breeds" class="form-control" name="breed" id="breed" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['Breed'] . "\"" : "" ?> required />
+            <datalist id="breeds">
+                <?php foreach($templateParams['breeds'] as $breed): ?>
+                    <option value="<?php echo $breed["Breed"] ?>"></option>
+                <?php endforeach; ?>
+            </datalist>
         </div>
         <div class="mb-3 text-start">
             <label class="form-label" for="hourly-fee">Tariffa oraria (€) *</label>
