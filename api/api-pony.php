@@ -53,7 +53,7 @@ if ((count($result['ponies']) == 0 || !in_array(true, array_column($result['poni
 }
 
 for ($i = 0; $i < count($result['ponies']); $i++) {
-    $result['ponies'][$i]["Image"] = UPLOAD_DIR . "img/" . $result['ponies'][$i]["Image"];
+    $result['ponies'][$i]["Image"] = IMG_UPLOAD_DIR . $result['ponies'][$i]["Image"];
 }
 
 header("Content-Type: application/json");

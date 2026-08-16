@@ -70,7 +70,6 @@ if (isset($templateParams['operation-successful'])) {
     </div>
 </section>
 <div class="d-flex justify-content-center mt-3 mt-md-0 mb-5">
-    <!-- TODO: implement pony addition -->
     <a href="pony.php?action=add-pony" class="btn border-0 theme-bg-text">Aggiungi pony</a>
 </div>
 <section id="available-ponies">

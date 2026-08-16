@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define("UPLOAD_DIR", "./upload/");
+define("IMG_UPLOAD_DIR", "./upload/img/");
 define("HIPPODROME_OPENING_TIME", "09:00");
 define("HIPPODROME_WEEKDAYS_CLOSING_TIME", "18:30");
 define("HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME", "18:00");

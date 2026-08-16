@@ -72,4 +72,31 @@ function get_hippodrome_last_booking_start_time(string $day) : string {
     return ($day_of_week == $sunday) || ($day_of_week == $saturday) ? HIPPODROME_WEEKEND_LAST_BOOKING_START_TIME : HIPPODROME_WEEKDAYS_LAST_BOOKING_START_TIME;
 }
 
+/**
+ * Uploads the provided image in the `IMG_UPLOAD_DIR` directory.
+ * If the provided array is not an image or the image cannot be moved in the
+ * `IMG_UPLOAD_DIR` directory, `null` is returned.
+ * @param $image an array representing an image uploaded via an input of type file
+ * @return ?string the image name on success, `null` on failure
+ */
+function upload_image(array $image): ?string {
+    $image_name = basename($image["name"]);
+    // The path where the image will be uploaded in case of success
+    $image_path = IMG_UPLOAD_DIR . $image_name;
+    if (getimagesize($image["tmp_name"]) === false) {
+        return null;
+    } else {
+        if (file_exists($image_path)) {
+            $image_file_type = strtolower(pathinfo($image_path, PATHINFO_EXTENSION));
+            $i = 2;
+            while (file_exists(IMG_UPLOAD_DIR . $image_name)) {
+                $image_name = pathinfo(basename($image["name"]), PATHINFO_FILENAME) . "_$i." . $image_file_type;
+                $i++;
+            }
+            $image_path = IMG_UPLOAD_DIR . $image_name;
+        }
+        return move_uploaded_file($image["tmp_name"], $image_path) ? $image_name : null;
+    }
+}
+
 ?>

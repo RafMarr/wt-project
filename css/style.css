@@ -246,6 +246,14 @@ body {
 
 /* Classi custom per implementare il comportamento con i BreakPoint di Bootstrap
     non presenti di default */
+@media (min-width: 576px) {
+
+    .w-sm-35 {
+        width: 35% !important;
+    }
+
+}
+
 @media (min-width: 768px) {
 
     .static-md {
@@ -272,6 +280,18 @@ body {
 
     #booking-params, #search-params {
         min-height: 150px;
+    }
+
+    .w-md-50 {
+        width: 50% !important;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .w-lg-35 {
+        width: 35% !important;
     }
 
 }
