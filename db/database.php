@@ -627,7 +627,7 @@ class DatabaseHelper {
                 $is_available_filter = " AND p.IsAvailable = ?";
                 $params[] = $is_available;
             }
-            $query = 'SELECT r.*, p.Name as PonyName, p.IsAvailable, s.Name as StudentName, s.Surname as StudentSurname, s.Email FROM reservations r, ponies p, students s WHERE r.PonyID = p.PonyID AND r.StudentID = s.IdNumber AND CONCAT(r.Date, " ", r.StartHour) < CURRENT_TIMESTAMP()' . $student_id_filter . $pony_name_filter . $is_available_filter . 'ORDER BY r.Date DESC';
+            $query = 'SELECT r.*, p.Name as PonyName, p.IsAvailable, s.Name as StudentName, s.Surname as StudentSurname, s.Email FROM reservations r, ponies p, students s WHERE r.PonyID = p.PonyID AND r.StudentID = s.IdNumber AND CONCAT(r.Date, " ", r.StartHour) < CURRENT_TIMESTAMP()' . $student_id_filter . $pony_name_filter . $is_available_filter . ' ORDER BY r.Date DESC';
             $result = $this->db->execute_query($query, $params);
             if ($result !== false) {
                 return $result->fetch_all(MYSQLI_ASSOC);
