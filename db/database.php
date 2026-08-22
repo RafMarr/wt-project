@@ -547,6 +547,43 @@ class DatabaseHelper {
     }
 
     /**
+     * Retrieves an associative array containing all the pony bookings
+     * that are in the future (the reservation start is after the current datetime)
+     * and that satisfy the provided filters.
+     * @param $student_id the filter to retrieve all the reservations made by the student whose id is `$student_id`
+     * @param $pony_name the filter to retrieve all the reservations that involve the pony whose name is `$pony_name`
+     * @param $is_available the filter to retrieve the reservations that involve ponies that are (or are not) available
+     * @return ?array an associative array containing all the pony bookings that
+     * are in the future if the logged user is an admin, `null` otherwise.
+     */
+    public function admin_get_future_pony_bookings(?string $student_id = null, ?string $pony_name = null, ?bool $is_available = null): ?array {
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $student_id_filter = "";
+            $pony_name_filter = "";
+            $is_available_filter = "";
+            $params = array();
+            if ($student_id !== null) {
+                $student_id_filter = " AND r.StudentID = ?";
+                $params[] = $student_id;
+            }
+            if ($pony_name !== null) {
+                $pony_name_filter = " AND p.Name = ?";
+                $params[] = $pony_name;
+            }
+            if ($is_available !== null) {
+                $is_available_filter = " AND p.IsAvailable = ?";
+                $params[] = $is_available;
+            }
+            $query = 'SELECT r.*, p.Name as PonyName, s.Name as StudentName, s.Surname as StudentSurname, s.Email FROM reservations r, ponies p, students s WHERE r.PonyID = p.PonyID AND r.StudentID = s.IdNumber AND CONCAT(r.Date, " ", r.StartHour) >= CURRENT_TIMESTAMP()' . $student_id_filter . $pony_name_filter . $is_available_filter . ' ORDER BY r.Date ASC';
+            $result = $this->db->execute_query($query, $params);
+            if ($result !== false) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Retrieves an associative array containing the pony bookings made
      * by the student with the provided ID that are in the past (the reservation
      * start is before the current datetime).
@@ -560,6 +597,43 @@ class DatabaseHelper {
         $stmt->execute();
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Retrieves an associative array containing all the pony bookings
+     * that are in the past (the reservation start is before the current datetime)
+     * and that satisfy the provided filters.
+     * @param $student_id the filter to retrieve all the reservations made by the student whose id is `$student_id`
+     * @param $pony_name the filter to retrieve all the reservations that involve the pony whose name is `$pony_name`
+     * @param $is_available the filter to retrieve the reservations that involve ponies that are (or are not) available
+     * @return ?array an associative array containing all the pony bookings that
+     * are in the past if the logged user is an admin, `null` otherwise.
+     */
+    public function admin_get_past_pony_bookings(?string $student_id = null, ?string $pony_name = null, ?bool $is_available = null): ?array {
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $student_id_filter = "";
+            $pony_name_filter = "";
+            $is_available_filter = "";
+            $params = array();
+            if ($student_id !== null) {
+                $student_id_filter = " AND r.StudentID = ?";
+                $params[] = $student_id;
+            }
+            if ($pony_name !== null) {
+                $pony_name_filter = " AND p.Name = ?";
+                $params[] = $pony_name;
+            }
+            if ($is_available !== null) {
+                $is_available_filter = " AND p.IsAvailable = ?";
+                $params[] = $is_available;
+            }
+            $query = 'SELECT r.*, p.Name as PonyName, p.IsAvailable, s.Name as StudentName, s.Surname as StudentSurname, s.Email FROM reservations r, ponies p, students s WHERE r.PonyID = p.PonyID AND r.StudentID = s.IdNumber AND CONCAT(r.Date, " ", r.StartHour) < CURRENT_TIMESTAMP()' . $student_id_filter . $pony_name_filter . $is_available_filter . 'ORDER BY r.Date DESC';
+            $result = $this->db->execute_query($query, $params);
+            if ($result !== false) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+        return null;
     }
 
     /**
