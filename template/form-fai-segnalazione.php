@@ -50,7 +50,7 @@
             <textarea rows="3" maxlength="200" class="form-control" name="descrizione-segnalazione" id="descrizione-segnalazione" required="" ></textarea>
         </div>
         <div class="d-flex justify-content-end column-gap-3">
-            <a class="btn theme-text" href="report.php">Annulla</a>
+            <a class="btn mode-danger" href="report.php">Annulla</a>
             <button type="submit" class="btn theme-bg-text">Invia Segnalazione</button>
         </div>
     </form>

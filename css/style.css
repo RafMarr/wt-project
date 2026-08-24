@@ -16,11 +16,14 @@
     --main-white: #FEF8EC;
     --main-white-rgb: 254, 248, 236;
     --main-bg-light: var(--main-white);
+    --main-bg-light-rgb: var(--main-white-rgb);
     --main-text-light: #141414;
+    --main-text-light-rgb: 20, 20, 20;
 
     /* Palette Tema Rosso Principale Scuro */ 
     --main-bg-dark: var(--main-text-light);
     --main-text-dark: var(--main-bg-light);
+    --main-text-dark-rgb: var(--main-bg-light-rgb);
 
     /* Palette Tema Verde Secondario Chiaro */
     --secondary-green: #34642E;
@@ -28,11 +31,14 @@
     --secondary-white: #ECF9D8;
     --secondary-white-rgb: 236, 249, 216;
     --secondary-bg-light: var(--secondary-white);
+    --secondary-bg-light-rbg: var(--secondary-white-rgb);
     --secondary-text-light: #201D1D;
+    --secondary-text-light-rgb: 32, 29, 29;
 
     /* Palette Tema Verde Secondario Scuro */
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
+    --secondary-text-dark-rgb: var(--secondary-bg-light-rbg);
 
     /* -- Dichiarazione variabili del tema -- */
 
@@ -43,8 +49,10 @@
     --current-theme-text-rgb: var(--main-white-rgb);
     --current-mode-theme-bg-light: var(--main-bg-light);
     --current-mode-theme-text-light: var(--main-text-light);
+    --current-mode-theme-text-light-rgb: var(--main-text-light-rgb);
     --current-mode-theme-bg-dark: var(--main-bg-dark);
     --current-mode-theme-text-dark: var(--main-text-dark);
+    --current-mode-theme-text-dark-rgb: var(--main-text-dark-rgb);
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--current-theme-bg);
@@ -55,6 +63,7 @@
     /* Colori del tema principale / Secondario mutabili chiaro e scuro */
     --mode-theme-bg: var(--current-mode-theme-bg-light);
     --mode-theme-text: var(--current-mode-theme-text-light);
+    --mode-theme-text-rgb: var(--current-mode-theme-text-light-rgb);
     --mode-invalid-error: var(--main-red);
     --mode-theme-gray: var(--gray-light);
     --mode-border-gray: var(--gray-border-light);
@@ -73,14 +82,17 @@
     --current-theme-text-rgb: var(--secondary-white-rgb);
     --current-mode-theme-bg-light: var(--secondary-bg-light);
     --current-mode-theme-text-light: var(--secondary-text-light);
+    --current-mode-theme-text-light-rgb: var(--secondary-text-light-rgb);
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
+    --current-mode-theme-text-dark-rgb: var(--secondary-text-dark-rgb);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --mode-theme-bg: var(--current-mode-theme-bg-dark);
     --mode-theme-text: var(--current-mode-theme-text-dark);
+    --mode-theme-text-rgb: var(--current-mode-theme-text-dark-rgb);
     --mode-invalid-error: var(--invalid-error-dark);
     --mode-theme-gray: var(--current-mode-theme-bg-dark);
     --mode-border-gray: var(--current-mode-theme-text-dark);
@@ -131,6 +143,10 @@
 .mode-alert {
     background-color: var(--mode-alert-bg);
     border-color: var(--mode-alert-border);
+}
+
+.mode-shadow-text {
+    box-shadow: 0 0.5rem 1rem rgba(var(--mode-theme-text-rgb), 0.15);
 }
 
 /* Classi simil-bootstrap custom */
@@ -264,6 +280,10 @@ body {
         z-index: auto;
     }
 
+    .theme-bg-md-transparent {
+        background-color: transparent !important;
+    }
+
     .lesson-card-md {
         background-color: transparent;
         border-color: var(--mode-theme-text) !important;
@@ -278,8 +298,16 @@ body {
         border: 0;
     }
 
+    .shadow-md-none {
+        box-shadow: none;
+    }
+
     #booking-params, #search-params {
         min-height: 150px;
+    }
+
+    .max-height-md-120 {
+        max-height: 120px;
     }
 
     .w-md-50 {
