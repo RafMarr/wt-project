@@ -501,19 +501,30 @@ class DatabaseHelper {
         return floatval($pony_hourly_fee);
     }
 
+    /**
+     * Books the pony whose id is `$pony_id`, for the date `$date`, from `$start_hour` to `$end_hour`
+     * for the student whose id is `$student_id`.
+     * This function can only be executed by students. If the logged user is an admin and tries to
+     * execute this function, it does nothing and returns `false`.
+     * @return bool `true` on success, `false` on failure.
+     */
     public function book_pony(int $pony_id, string $date, string $start_hour, string $end_hour, string $student_id): bool {
-        $reservation_id = $this->generate_reservation_id();
-        $selected_pony_hourly_fee = $this->get_pony_hourly_fee($pony_id);
-        $MINUTES_IN_HOUR = 60;
-        $PRICE_FRACTION_DIGITS = 2;
-        $reservation_duration = date_diff(date_create($start_hour), date_create($end_hour));
-        $paid_amount = number_format((($reservation_duration->h + ($reservation_duration->i / $MINUTES_IN_HOUR)) * floatval($selected_pony_hourly_fee)), $PRICE_FRACTION_DIGITS);
-
-        $query = 'INSERT INTO reservations VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('sissssd', $reservation_id, $pony_id, $date, $start_hour, $end_hour, $student_id, $paid_amount);
-
-        return $stmt->execute();
+        if ($this->checkStudent($_SESSION['idutente'])) {
+            $reservation_id = $this->generate_reservation_id();
+            $selected_pony_hourly_fee = $this->get_pony_hourly_fee($pony_id);
+            $MINUTES_IN_HOUR = 60;
+            $PRICE_FRACTION_DIGITS = 2;
+            $reservation_duration = date_diff(date_create($start_hour), date_create($end_hour));
+            $paid_amount = number_format((($reservation_duration->h + ($reservation_duration->i / $MINUTES_IN_HOUR)) * floatval($selected_pony_hourly_fee)), $PRICE_FRACTION_DIGITS);
+    
+            $query = 'INSERT INTO reservations VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sissssd', $reservation_id, $pony_id, $date, $start_hour, $end_hour, $student_id, $paid_amount);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -683,54 +694,67 @@ class DatabaseHelper {
      * Sets the `IsAvailable` flag on the database to `false` for the
      * pony with the provided id and, if `$delete_future_bookings` is set to
      * `true`, deletes the future bookings that involve the pony with the provided id.
+     * This function can only be executed by admins. If the logged user is a student
+     * and somehow tries to execute this function, it does nothing and returns `false`.
      *
      * @return bool `true` on success, `false` on failure
      */
     public function hide_pony(int $pony_id, bool $delete_future_bookings): bool {
-        if ($delete_future_bookings) {
-            try {
-                $this->db->begin_transaction();
-
-                $query1 = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
-                $stmt1 = $this->db->prepare($query1);
-                $stmt1->bind_param('i', $pony_id);
-                $stmt1->execute();
-
-                $query2 = 'DELETE FROM reservations WHERE PonyID = ? AND CONCAT(Date, " ", StartHour) > CURRENT_TIMESTAMP()';
-                $stmt2 = $this->db->prepare($query2);
-                $stmt2->bind_param('i', $pony_id);
-                $stmt2->execute();
-
-                $this->db->commit();
-
-                return true;
-
-            } catch (Throwable $th) {
-                $this->db->rollback();
-
-                return false;
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            if ($delete_future_bookings) {
+                try {
+                    $this->db->begin_transaction();
+    
+                    $query1 = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
+                    $stmt1 = $this->db->prepare($query1);
+                    $stmt1->bind_param('i', $pony_id);
+                    $stmt1->execute();
+    
+                    $query2 = 'DELETE FROM reservations WHERE PonyID = ? AND CONCAT(Date, " ", StartHour) > CURRENT_TIMESTAMP()';
+                    $stmt2 = $this->db->prepare($query2);
+                    $stmt2->bind_param('i', $pony_id);
+                    $stmt2->execute();
+    
+                    $this->db->commit();
+    
+                    return true;
+    
+                } catch (Throwable $th) {
+                    $this->db->rollback();
+    
+                    return false;
+                }
+            } else {
+                $query = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('i', $pony_id);
+    
+                return $stmt->execute();
             }
         } else {
-            $query = 'UPDATE ponies SET IsAvailable = false WHERE PonyID = ?';
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('i', $pony_id);
-
-            return $stmt->execute();
+            return false;
         }
     }
 
     /**
      * Sets the `IsAvailable` flag on the database to `true` for the
      * pony with the provided id.
+     * This function can only be executed by admins. If the logged user is
+     * a student and somehow tries to execute this function, it does nothing
+     * and returns `false`.
      *
      * @return bool `true` on success, `false` on failure
      */
     public function make_pony_visible(int $pony_id): bool {
-        $query = 'UPDATE ponies SET IsAvailable = true WHERE PonyID = ?';
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i', $pony_id);
-
-        return $stmt->execute();
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'UPDATE ponies SET IsAvailable = true WHERE PonyID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $pony_id);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -752,26 +776,56 @@ class DatabaseHelper {
 
     /**
      * Adds the pony with the provided values.
+     * This function can only be executed by admins. If the logged user is
+     * a student and somehow tries to execute this function, it does nothing
+     * and returns `false`.
      * @return bool `true` on success, `false` on failure
      */
-    public function add_pony(string $name, string $breed, float $hourly_fee, string $image_path, ?string $special_marks, ?string $description, bool $is_available): bool {
-        $query = 'INSERT INTO ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description, IsAvailable) values (?, ?, ?, ?, ?, ?, ?)';
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssdsssi', $name, $breed, $hourly_fee, $image_path, $special_marks, $description, $is_available);
+    public function add_pony(
+        string $name,
+        string $breed,
+        float $hourly_fee,
+        string $image_path,
+        ?string $special_marks,
+        ?string $description,
+        bool $is_available): bool {
 
-        return $stmt->execute();
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'INSERT INTO ponies(Name, Breed, HourlyFee, Image, SpecMarks, Description, IsAvailable) values (?, ?, ?, ?, ?, ?, ?)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssdsssi', $name, $breed, $hourly_fee, $image_path, $special_marks, $description, $is_available);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
     }
 
     /**
      * Edits the pony whose id is `$pony_id` with the provided values.
+     * This function can only be executed by admins. If the logged user is
+     * a student and somehow tries to execute this function, it does nothing
+     * and returns `false`.
      * @return bool `true` on success, `false` on failure
      */
-    public function edit_pony(int $pony_id, string $name, string $breed, float $hourly_fee, string $image_path, ?string $special_marks, ?string $description): bool {
-        $query = 'UPDATE ponies SET Name = ?, Breed = ?, HourlyFee = ?, Image = ?, SpecMarks = ?, Description = ? WHERE PonyID = ?';
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssdsssi', $name, $breed, $hourly_fee, $image_path, $special_marks, $description, $pony_id);
+    public function edit_pony(
+        int $pony_id,
+        string $name,
+        string $breed,
+        float $hourly_fee,
+        string $image_path,
+        ?string $special_marks,
+        ?string $description): bool {
 
-        return $stmt->execute();
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'UPDATE ponies SET Name = ?, Breed = ?, HourlyFee = ?, Image = ?, SpecMarks = ?, Description = ? WHERE PonyID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssdsssi', $name, $breed, $hourly_fee, $image_path, $special_marks, $description, $pony_id);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -808,6 +862,191 @@ class DatabaseHelper {
     public function get_pony_breeds(): array {
         $query = 'SELECT DISTINCT Breed FROM ponies';
         $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Retrieves an associative array containing all the job posts that satisfy the provided filters.
+     * @param $degree_course the filter on the degree course. Its values can be:
+     * * `general` if the user is searching for job posts that are not addressed to a particular degree course;
+     * * a degree course ID;
+     * * `null` if the user wants to display both degree course specific job posts and general job posts.
+     * @param $contract_type the contract type filter. Its values can be:
+     * * `Part-time` if the user wants to display only part-time job offers
+     * * `Full-time` if the user wants to display only full-time job offers
+     * * `null` if the user has not set the filter for the contract type, and so
+     * he wants to see both part-time and full-time job offers
+     * @return array an associative array containing all the job posts that satisfy the provided filters
+     */
+    public function get_job_posts(?string $degree_course, ?string $contract_type): array {
+        $degree_course_filter = "";
+        $contract_type_filter = "";
+        $params = array();
+
+        if ($degree_course !== null) {
+            $degree_course_filter = " AND DegreeCourseID " . ($degree_course === "general" ? "is NULL" : "= ?");
+            if ($degree_course !== "general") {
+                $params[] = $degree_course;
+            }
+        }
+        if ($contract_type !== null) {
+            $contract_type_filter = " AND ContractType = ?";
+            $params[] = $contract_type;
+        }
+        
+        $query = 'SELECT * FROM job_posts WHERE 1=1' . $degree_course_filter . $contract_type_filter;
+        $result = $this->db->execute_query($query, $params);
+        if ($result !== false) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * Creates a new job post with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function add_job_post(
+        string $title,
+        string $author,
+        string $description,
+        string $working_time,
+        string $enterprise_address,
+        float $hourly_salary,
+        string $contract_type,
+        string $author_phone_number,
+        string $author_email,
+        ?int $degree_course_id): bool {
+        
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $current_date = date("Y-m-d");
+            $query = 'INSERT INTO job_posts(Title, InsertionDate, Author, Description, WorkingTime, EnterpriseAddress, HourlySalary, ContractType, AuthorPhoneNumber, AuthorEmail, DegreeCourseID) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssssssdsssi', $title, $current_date, $author, $description, $working_time, $enterprise_address, $hourly_salary, $contract_type, $author_phone_number, $author_email, $degree_course_id);
+            
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Edits the job post whose id is `$job_post_id` with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function edit_job_post(
+        string $title,
+        string $author,
+        string $description,
+        string $working_time,
+        string $enterprise_address,
+        float $hourly_salary,
+        string $contract_type,
+        string $author_phone_number,
+        string $author_email,
+        ?int $degree_course_id,
+        int $job_post_id): bool {
+
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'UPDATE job_posts SET Title = ?, Author = ?, Description = ?, WorkingTime = ?, EnterpriseAddress = ?, HourlySalary = ?, ContractType = ?, AuthorPhoneNumber = ?, AuthorEmail = ?, DegreeCourseID = ? WHERE JobPostID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssdsssii', $title, $author, $description, $working_time, $enterprise_address, $hourly_salary, $contract_type, $author_phone_number, $author_email, $degree_course_id, $job_post_id);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Deletes the job post whose id is `$job_post_id`.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function delete_job_post(int $job_post_id): bool {
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'DELETE FROM job_posts WHERE JobPostID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $job_post_id);
+    
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves the degree course ID of the student with the provided email.
+     * If the provided email is not associated with a student, the function returns `null`.
+     * @return ?int the degree course ID of the student which has an account with the
+     * provided email; `null` if the provided email is not associated with a student
+     */
+    public function get_degree_course_of_student(string $student_email): ?int {
+        if ($this->checkStudent($student_email)) {
+            $query = 'SELECT DegreeCourseID FROM students WHERE Email = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s', $student_email);
+            $stmt->execute();
+
+            $stmt->bind_result($degree_course_id);
+            $stmt->fetch();
+            $stmt->close();
+
+        return (int)$degree_course_id;
+
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves information on all degree courses.
+     * @return array an associative array containing all the degree courses
+     * with related information
+     */
+    public function get_degree_courses(): array {
+        $query = 'SELECT * FROM degree_courses';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Returns whether exists a job post with the provided id.
+     */
+    public function is_job_post_id_valid(int $job_post_id): bool {
+        $query = 'SELECT EXISTS(SELECT 1 FROM job_posts WHERE JobPostID = ? LIMIT 1)';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $job_post_id);
+        $stmt->execute();
+
+        $stmt->bind_result($is_id_valid);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$is_id_valid;
+    }
+
+
+    /**
+     * Retrieves the information about the job post with the provided id
+     */
+    public function get_job_post(int $job_post_id): array {
+        $query = 'SELECT * FROM job_posts WHERE JobPostID = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $job_post_id);
         $stmt->execute();
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
