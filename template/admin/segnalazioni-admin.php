@@ -1,10 +1,12 @@
 <div class="container-fluid text-center">
     <h1>Gestisci Segnalazioni</h1>
-    <section>
-        <h2>Filtri</h2>
-
-    </section>
-    <div class="row justify-content-center gap-2">
+    <button type="button" class="btn theme-bg-text" data-bs-toggle="offcanvas" data-bs-target="#filtersMenu" aria-controls="filtersMenu">
+        Filtra ricerca
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+        </svg>
+    </button>
+    <div id="report-container" class="row justify-content-center gap-2">
         <?php
         foreach ($templateParams["reports"] as $report):
             $place = $dbh->getPlaceFromID($report["PlaceID"]);
@@ -23,6 +25,39 @@
         <?php endforeach; ?>
     </div>
 </div>
+<aside class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
+    <div class="offcanvas-header">
+        <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra ricerca</h2>
+        <button type="button" class="close-btn mode-text" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="d-flex justify-content-start align-items-center gap-3 px-3 mb-4">
+            <label for="luogoFilter" class="form-label m-0 mode-text">Tipo Luogo</label>
+            <select class="form-select border-mode-text" name="luogo" id="luogoFilter">
+                <option selected value="all">Tutti</option>
+                <?php foreach($templateParams["placeTypes"] as $type): ?>
+                    <option value="<?php echo $type["PlaceType"]; ?>"><?php echo $type["PlaceType"]; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="d-flex justify-content-start align-items-center gap-3 px-3 mb-4">
+            <label for="statoFilter" class="form-label m-0 mode-text">Stato</label>
+            <select class="form-select border-mode-text" name="stato" id="statoFilter">
+                <option selected value="all">Tutti</option>
+                <?php foreach($templateParams["states"] as $state): ?>
+                    <option value="<?php echo $state["State"]; ?>"><?php echo $state["State"]; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
+        </div>
+    </div>
+</aside>
 
 <div class="modal fade" id="cambia-stato-report" tabindex="-1" aria-labelledby="modalCambiaStatoLabel" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-dialog">
