@@ -200,6 +200,10 @@
     color: #9e3030;
 }
 
+.ws-pre-line {
+    white-space: pre-line;
+}
+
 /* Comportamenti custom */
 
 a.nav-link.theme-text:hover {
