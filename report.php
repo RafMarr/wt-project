@@ -9,6 +9,9 @@ if(!isUserLoggedIn()) {
 $templateParams["titolo"] = "Segnalazioni";
 $templateParams["nome"] = "segnalazioni.php";
 $templateParams["reports"] = $dbh->getReports();
+$templateParams["js"] = array("./js/segnalazioni.js");
+$templateParams["states"] = $dbh->getReportStates();
+$templateParams["placeTypes"] = $dbh->getPlaceTypes();
 
 if ($dbh->checkAdmin($_SESSION["idutente"])) {
     if (isset($_GET["action"])) {
@@ -17,7 +20,6 @@ if ($dbh->checkAdmin($_SESSION["idutente"])) {
     }
     $templateParams["nome"] = "admin/segnalazioni-admin.php";
     $templateParams["titolo"] = "Gestisci Segnalazioni";
-    $templateParams["states"] = $dbh->getReportStates();
     $templateParams["js"] = array("./js/segnalazioni-admin.js", "./js/modal-bs-error.js");
 }
 else if (isset($_GET["action"])) {
@@ -34,7 +36,6 @@ else if (isset($_GET["action"])) {
 
         $templateParams["titolo"] = "Fai una Segnalazione";
         $templateParams["nome"] = "form-fai-segnalazione.php";
-        $templateParams["placeTypes"] = $dbh->getPlaceTypes();
         $templateParams["floors"] = $dbh->getFloors();
         $templateParams["blocks"] = $dbh->getBlocks();
 
