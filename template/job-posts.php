@@ -3,7 +3,7 @@
     <div class="mt-2 text-center col-10 row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-3 mx-auto">
         <?php foreach($templateParams["job-posts"] as $jp): ?>
             <div class="col">
-                <article id="<?php echo $jp["JobPostID"] ?>" class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
+                <article id="job-post-<?php echo $jp["JobPostID"] ?>" class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
                     <h2 class="p-0 m-0 mb-2 fs-3"><?php echo $jp["Title"]; ?></h2>
                     <div class="text-start">
                         <p class="mb-1"><span class="fw-bold">Data inserimento:</span> <?php echo date_format(date_create($jp["InsertionDate"]), 'd/m/Y') ?></p>
