@@ -325,7 +325,8 @@ class DatabaseHelper {
                     JOIN professors pr ON cm.Professor = pr.Email
                     JOIN courses c ON l.CourseID = c.CourseID
                     JOIN places p ON l.PlaceID = p.PlaceID
-                    WHERE l.Date = ? AND sp.Year = ? AND dc.Type = ?";
+                    WHERE l.Date = ? AND sp.Year = ? AND dc.Type = ?
+                    ORDER BY l.StartTime ASC";
         }
         else {
             $temp = $email;
@@ -337,7 +338,8 @@ class DatabaseHelper {
                     JOIN courses c ON l.CourseID = c.CourseID
                     JOIN places p ON l.PlaceID = p.PlaceID
                     JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID
-                    WHERE l.Date = ? AND sp.Year = ? AND s.Email = ?";
+                    WHERE l.Date = ? AND sp.Year = ? AND s.Email = ?
+                    ORDER BY l.StartTime ASC";
         }
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sis', $date, $year, $temp);
