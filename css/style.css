@@ -119,7 +119,7 @@
 }
 
 .mode-text {
-    color: var(--mode-theme-text);
+    color: var(--mode-theme-text) !important;
 }
 
 .mode-danger {
@@ -256,6 +256,15 @@ nav .nav-link:focus, header .nav-link:focus {
 
 #booking-message {
     color: var(--main-text-light);
+}
+
+.accordion-button:not(.collapsed) {
+    border-color: var(--mode-border-gray);
+    background-color: var(--mode-theme-gray);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
 }
 
 /* Css Custom */
