@@ -288,6 +288,10 @@ nav .nav-link:focus, header .nav-link:focus {
     background-image: var(--current-mode-accordion-arrow-light);
 }
 
+ul.accordion-list {
+    list-style-type: none;
+}
+
 /* Css Custom */
 
 body {
