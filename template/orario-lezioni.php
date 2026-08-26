@@ -21,7 +21,7 @@
                 <?php else: ?>
                     <option value="1">1</option>
                     <option value="2">2</option>
-                    <?php if ($dbh->getDegreeTypeFromEmail($_SESSION["idutente"])["Type"]): ?>
+                    <?php if ($templateParams["degree-type"] === "Laurea triennale"): ?>
                         <option value="3">3</option>
                     <?php endif;
                     endif; ?>

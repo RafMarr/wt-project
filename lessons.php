@@ -17,6 +17,7 @@ $templateParams["nome"] = "orario-lezioni.php";
 $currentDate = date("Y-m-d");
 $defaultYear = 1;
 $templateParams["lessons"] = $dbh->getLessonsFiltered($currentDate, $defaultYear, $_SESSION["idutente"]);
+$templateParams["degree-type"] = $dbh->getDegreeTypeFromEmail($_SESSION["idutente"])["Type"];
 $templateParams["js"] = array("./js/orario-lezioni.js");
 
 require("template/base.php");
