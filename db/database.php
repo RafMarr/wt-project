@@ -85,7 +85,7 @@ class DatabaseHelper {
         return $id_number;
     }
 
-    public function getCourses() {
+    public function getDegreeCourses() {
         $query = "SELECT * FROM degree_courses";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -382,6 +382,31 @@ class DatabaseHelper {
         if ($params !== []) {
             $stmt->bind_param($bind_param_string, ...$params);
         }
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCoursesLabels() {
+        $query = "SELECT c.CourseID, c.Name, c.Semester, sp.Year, dc.Type FROM courses c
+                JOIN study_plans sp ON c.CourseID = sp.CourseID
+                JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCoursesLabelsFromEmail($email) {
+        $query = "SELECT c.CourseID, c.Name, c.Semester, sp.Year, dc.Type FROM courses c
+                JOIN study_plans sp ON c.CourseID = sp.CourseID
+                JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID
+                WHERE s.Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
 

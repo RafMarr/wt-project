@@ -69,7 +69,7 @@
                 </svg>
                 <div class="d-none d-md-block col-md-1"></div>
                 <div class="col-12 col-md-6 mt-2 text-md-start">
-                    <h2 class="fs-5"><a href="informazioni-corsi.php" class="mode-text home-link-underline stretched-link position-md-relative">Informazioni sui corsi</a></h2>
+                    <h2 class="fs-5"><a href="courses.php" class="mode-text home-link-underline stretched-link position-md-relative">Informazioni sui corsi</a></h2>
                     <p class="d-none d-md-inline">Scopri le informazioni sui tuoi corsi universitari.</p>
                 </div>
             </div>

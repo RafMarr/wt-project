@@ -45,7 +45,7 @@ else {
             }
         }
         //-Qualcosa è andato storto
-        $templateParams["corsi"] = $dbh->getCourses();
+        $templateParams["corsi"] = $dbh->getDegreeCourses();
         $templateParams["titolo"] = "Registrati a Campus+";
         $templateParams["nome"] = "form-register.php";
         $templateParams["js"] = array("./js/register.js");
