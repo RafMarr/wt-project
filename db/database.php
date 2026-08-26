@@ -913,20 +913,28 @@ class DatabaseHelper {
         $degree_course_filter = "";
         $contract_type_filter = "";
         $params = array();
+        $bind_param_string = "";
 
         if ($degree_course !== null) {
             $degree_course_filter = " AND DegreeCourseID " . ($degree_course === "general" ? "is NULL" : "= ?");
             if ($degree_course !== "general") {
                 $params[] = $degree_course;
+                $bind_param_string .= "i";
             }
         }
         if ($contract_type !== null) {
             $contract_type_filter = " AND ContractType = ?";
             $params[] = $contract_type;
+            $bind_param_string .= "s";
         }
         
         $query = 'SELECT * FROM job_posts WHERE 1=1' . $degree_course_filter . $contract_type_filter;
-        $result = $this->db->execute_query($query, $params);
+        $stmt = $this->db->prepare($query);
+        if ($params !== []) {
+            $stmt->bind_param($bind_param_string, ...$params);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result !== false) {
             return $result->fetch_all(MYSQLI_ASSOC);
         } else {
