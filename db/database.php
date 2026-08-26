@@ -413,6 +413,29 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function checkCourseID($courseID) {
+        $query = "SELECT EXISTS(SELECT 1 FROM courses WHERE CourseID = ? LIMIT 1)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+
+        $stmt->bind_result($found);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$found;
+    }
+
+    public function getCourseInfo($courseID) {
+        $query = "SELECT * FROM courses WHERE CourseID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
     private function get_pony_price_filter_query_string(?string $price_filter) {
         $pony_price_filter_query_string = '';
         switch ($price_filter) {
