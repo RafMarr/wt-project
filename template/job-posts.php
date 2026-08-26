@@ -38,7 +38,7 @@
             </svg>
         </button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body mode-text">
         <p class="mb-2">Categoria annunci</p>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="category" id="category-all" value="all" checked />

@@ -69,8 +69,8 @@ if (isset($templateParams['operation-successful'])) {
             </svg>
         </button>
     </div>
-    <div class="offcanvas-body">
-        <label for="category-filter" class="form-label mode-text">Laurea richiesta</label>
+    <div class="offcanvas-body mode-text">
+        <label for="category-filter" class="form-label">Laurea richiesta</label>
         <select class="form-select border-mode-text" name="category" id="category-filter">
             <option selected value="all">Tutti gli annunci</option>
             <option value="general">Nessuna</option>

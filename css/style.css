@@ -68,8 +68,6 @@
     --mode-theme-gray: var(--gray-light);
     --mode-border-gray: var(--gray-border-light);
     --mode-theme-link-color: var(--link-color-light);
-    --mode-alert-bg: var(--bs-dark-bg-subtle);
-    --mode-alert-border: var(--bs-dark-border-subtle);
 
     transition: background-color 0.3s;
 }
@@ -97,8 +95,6 @@
     --mode-theme-gray: var(--current-mode-theme-bg-dark);
     --mode-border-gray: var(--current-mode-theme-text-dark);
     --mode-theme-link-color: var(--link-color-dark);
-    --mode-alert-bg: var(--bs-light-bg-subtle);
-    --mode-alert-border: var(--bs-light-border-subtle);
   }
 }
 
@@ -141,8 +137,9 @@
 }
 
 .mode-alert {
-    background-color: var(--mode-alert-bg);
-    border-color: var(--mode-alert-border);
+    color: var(--current-mode-theme-text-light);
+    background-color: var(--bs-light-bg-subtle);
+    border-color: var(--bs-light-border-subtle);
 }
 
 .mode-shadow-text {
