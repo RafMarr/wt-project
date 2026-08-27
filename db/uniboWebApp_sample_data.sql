@@ -3044,7 +3044,10 @@ values ("80b37786bac7", 2, '2026-07-13', '10:00:00', '11:00:00', "0001112223", 6
        ("701c99bb1e8a", 3, '2026-07-30', '10:00:00', '11:00:00', "0001112223", 8.5),
        ("7a218b5b9479", 12, '2026-07-30', '10:00:00', '14:30:00', "5514790136", 18),
        ("ac6b55e87710", 8, '2026-09-17', '10:00:00', '11:20:00', "0001112223", 6),
-       ("ec1efcfde162", 11, '2026-09-29', '12:00:00', '18:00:00', "5514790136", 63);
+       ("ec1efcfde162", 11, '2026-09-29', '12:00:00', '18:00:00', "5514790136", 63),
+       ("abb4fdfde422", 11, '2026-09-10', '11:00:00', '14:00:00', "0944509445", 31.5),
+       ("bcc5acfdee11", 8, '2026-09-11', '15:00:00', '17:00:00', "4246422893", 9),
+       ("2a10f3ece1a4", 3, '2026-09-09', '09:00:00', '10:30:00', "0944509445", 12.75);
 
 insert into job_posts(Title, InsertionDate, Author, Description, WorkingTime, EnterpriseAddress, HourlySalary, ContractType, AuthorPhoneNumber, AuthorEmail, DegreeCourseID)
 values ("Cercasi cameriere/a", '2026-08-01', 'Ristorante "Da Gino"', "Cercasi cameriere/a per turno serale infrasettimanale. Non è richiesta esperienza pregressa. Astenersi perditempo", "Dal lunedì al venerdì dalle 19:00 alle 23:00", "Via della Libertà 64, Cesena (FC), 45721", 6.50, "Part-time", "0547 812897", "gino.pappardella@yahoo.it", null),
