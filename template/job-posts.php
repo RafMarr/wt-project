@@ -39,32 +39,36 @@
         </button>
     </div>
     <div class="offcanvas-body mode-text">
-        <p class="mb-2">Categoria annunci</p>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="category" id="category-all" value="all" checked />
-            <label class="form-check-label" for="category-all">Tutti</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="category" id="category-general" value="general" />
-            <label class="form-check-label" for="category-general">Annunci non rivolti ad un corso di laurea</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="category" id="category-specific" value="<?php echo $dbh->get_degree_course_of_student($_SESSION['idutente']) ?>" />
-            <label class="form-check-label" for="category-specific">Annunci rivolti al mio corso di laurea</label>
-        </div>
-        <p class="mt-4 mb-2">Tipologia contratto</p>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-all" value="all" checked />
-            <label class="form-check-label" for="contract-type-all">Tutti</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-full-time" value="Full-time" />
-            <label class="form-check-label" for="contract-type-full-time">Full-time</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-part-time" value="Part-time" />
-            <label class="form-check-label" for="contract-type-part-time">Part-time</label>
-        </div>
+        <fieldset>
+            <legend class="fs-6 mb-2">Categoria annunci</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="category-all" value="all" checked />
+                <label class="form-check-label" for="category-all">Tutti</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="category-general" value="general" />
+                <label class="form-check-label" for="category-general">Annunci non rivolti ad un corso di laurea</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="category-specific" value="<?php echo $dbh->get_degree_course_of_student($_SESSION['idutente']) ?>" />
+                <label class="form-check-label" for="category-specific">Annunci rivolti al mio corso di laurea</label>
+            </div>
+        </fieldset>
+        <fieldset class="mt-4">
+            <legend class="fs-6 mb-2">Tipologia contratto</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-all" value="all" checked />
+                <label class="form-check-label" for="contract-type-all">Tutti</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-full-time" value="Full-time" />
+                <label class="form-check-label" for="contract-type-full-time">Full-time</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-part-time" value="Part-time" />
+                <label class="form-check-label" for="contract-type-part-time">Part-time</label>
+            </div>
+        </fieldset>
         <div class="d-flex justify-content-center align-items-center">
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>

@@ -50,19 +50,21 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        <p class="mb-2">Disponibilità pony</p>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-all" value="all" checked />
-            <label class="form-check-label" for="pony-availability-all">Tutti</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-available" value="available" />
-            <label class="form-check-label" for="pony-availability-available">Disponibili</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-not-available" value="not-available" />
-            <label class="form-check-label" for="pony-availability-not-available">Non disponibili</label>
-        </div>
+        <fieldset>
+            <legend class="fs-6 mb-2">Disponibilità pony</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-all" value="all" checked />
+                <label class="form-check-label" for="pony-availability-all">Tutti</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-available" value="available" />
+                <label class="form-check-label" for="pony-availability-available">Disponibili</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-not-available" value="not-available" />
+                <label class="form-check-label" for="pony-availability-not-available">Non disponibili</label>
+            </div>
+        </fieldset>
         <div class="d-flex justify-content-center align-items-center">
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>
