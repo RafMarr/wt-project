@@ -1,3 +1,12 @@
+const main = document.querySelector('main');
+main.classList.add('position-relative');
+/* Removing from main tag the bootstrap classes that add padding top and margin top */
+main.classList.forEach(c => {
+    if (c.match(/pt-\d/) !== null || c.match(/mt-\d/) !== null) {
+        main.classList.remove(c);
+    }
+});
+
 const resetFiltersButton = document.getElementById('resetFiltersBtn');
 const luogoFilter = document.getElementById('luogoFilter');
 const statoFilter = document.getElementById('statoFilter');
