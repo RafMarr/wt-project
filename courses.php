@@ -25,6 +25,8 @@ else {
     if ($dbh->checkAdmin($_SESSION["idutente"])) {
         $templateParams["admin"] = true;
         $templateParams["lista-corsi"] = $dbh->getCoursesLabels();
+        $templateParams["js"] = array("js/corsi-admin.js");
+        $templateParams["corsi-laurea"] = $dbh->getDegreeCourses();
     }
     else {
         $templateParams["lista-corsi"] = $dbh->getCoursesLabelsFromEmail($_SESSION["idutente"]);

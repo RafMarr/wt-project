@@ -1,9 +1,32 @@
 <div class="container-fluid row text-center justify-content-center m-0 p-0">
     <div class="col-10 col-md-8">
 
-        <h1 class="fs-2 mb-4">Informazioni sui corsi</h1>
+        <h1 class="mb-4">Informazioni sui corsi</h1>
 
-        <div class="d-md-none">
+        <?php if (isset($templateParams["admin"])): ?>
+          <div class="row justify-content-center mb-4">
+            <label for="degree-select" class="col-4 form-label my-2">Corso di Laurea: </label>
+            <select id="degree-select" class="form-select w-50">
+              <option value="0">Scegli...</option>
+                <optgroup label="Triennale">
+                    <?php foreach ($templateParams["corsi-laurea"] as $corso): 
+                      if ($corso["Type"] === "Laurea triennale"): ?>
+                      <option value="<?php echo $corso["DegreeCourseID"]; ?>"><?php echo $corso["Name"]; ?></option>
+                    <?php endif;
+                    endforeach; ?>
+                </optgroup>
+                <optgroup label="Magistrale">
+                    <?php foreach ($templateParams["corsi-laurea"] as $corso): 
+                      if ($corso["Type"] === "Laurea magistrale"): ?>
+                      <option value="<?php echo $corso["DegreeCourseID"]; ?>"><?php echo $corso["Name"]; ?></option>
+                    <?php endif;
+                    endforeach; ?>
+                </optgroup>
+            </select>
+          </div>
+        <?php endif; ?>
+
+        <div id="small-media-container" class="d-md-none">
           <div class="accordion mb-5 mx-auto" id="accordionPrimoAnno">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -177,7 +200,7 @@
 
         <!-- Versione Desktop senza accordion -->
 
-        <div class="d-none d-md-block">
+        <div id="medium-media-container" class="d-none d-md-block">
             <div class="mb-3 p-2 border-b-2 border-mode-gray">
                 <h2>Primo anno<?php if (isset($templateParams["admin"])) echo " triennale"; ?></h2>
                 <div class="row justify-content-center">
