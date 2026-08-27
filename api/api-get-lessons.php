@@ -1,6 +1,11 @@
 <?php
 require_once('./../bootstrap.php');
 
+if (!isUserLoggedIn()) {
+    http_response_code(401);
+    exit;
+}
+
 $result = [];
 if (isset($_SESSION["idutente"]) && isset($_POST["date"]) && isset($_POST["year"])) {
     $date = $_POST["date"];
