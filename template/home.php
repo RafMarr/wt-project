@@ -36,21 +36,6 @@
         <div class="col-10 mode-shadow-text shadow-md-none border-solid border-3 border-mode-text border-md-0 rounded-3 p-2">
             <div class="d-md-flex position-relative">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="50" fill="currentColor" class="bi bi-bus-front col-md-5 max-height-md-120" viewBox="0 0 16 16">
-                <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
-                <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
-                </svg>
-                <div class="d-none d-md-block col-md-1"></div>
-                <div class="col-12 col-md-6 mt-2 text-md-start">
-                    <h2 class="fs-5"><a href="eventi.php" class="mode-text home-link-underline stretched-link position-md-relative">Eventi e promozioni</a></h2>
-                    <p class="d-none d-md-inline">Scopri gli eventi universitari e le promozioni a te dedicate.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-md-5 row justify-content-center mb-3 mx-0 p-0">
-        <div class="col-10 mode-shadow-text shadow-md-none border-solid border-3 border-mode-text border-md-0 rounded-3 p-2">
-            <div class="d-md-flex position-relative">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="50" fill="currentColor" class="bi bi-bus-front col-md-5 max-height-md-120" viewBox="0 0 16 16">
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                 </svg>
                 <div class="d-none d-md-block col-md-1"></div>
