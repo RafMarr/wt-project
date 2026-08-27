@@ -2,7 +2,7 @@
     <div class="col-10 col-md-8">
         <h1 class="fs-2"><?php echo $templateParams["course-info"]["CourseID"] . " - " . $templateParams["course-info"]["Name"]; ?></h1>
 
-        <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2 mt-4 mb-5 text-start">
+        <div class="border-mode-gray border-2 border-solid rounded border-md-0 theme-bg-md-transparent mode-gray p-2 mt-4 mb-5 text-start">
             <p class="mb-2"><strong>Docenza</strong></p>
             <ul class="list-style-none">
             <?php foreach($templateParams["course-info"]["course-profs"] as $docente): ?>
