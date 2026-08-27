@@ -42,603 +42,109 @@ selectDegree.addEventListener("change", () => {
     updateDivCourses();
 });
 
-function updateDivCourses() {
-    let divSmallMediaContainerContent = "";
-    let divMediumMediaContainerContent = "";
-    if (selectDegree.value === "0") {
-        divSmallMediaContainerContent = `<div class="accordion mb-5 mx-auto" id="accordionPrimoAnno">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                            Primo anno triennale
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse border border-1 border-mode-gray" data-bs-parent="#accordionPrimoAnno">
-                                            <div class="accordion-body text-start mode-bg-text">
-                                            <section class="pt-3">
-                                                <h3>Primo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            <section class="pt-3">
-                                                <h3>Secondo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion mb-5 mx-auto" id="accordionSecondoAnno">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Secondo anno triennale
-                                            </button>
-                                        </h2>
-                                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionSecondoAnno">
-                                            <div class="accordion-body text-start mode-bg-text">
-                                            <section class="pt-3">
-                                                <h3>Primo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            <section class="pt-3">
-                                                <h3>Secondo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>`;
-        divSmallMediaContainerContent += `<div class="accordion mb-5 mx-auto" id="accordionTerzoAnno">
-                                    <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Terzo anno triennale
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionTerzoAnno">
-                                        <div class="accordion-body text-start mode-bg-text">
-                                        <section class="pt-3">
-                                            <h3>Primo Semestre</h3>
-                                            <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 3 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                        </section>
-                                        <section class="pt-3">
-                                            <h3>Secondo Semestre</h3>
-                                            <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 3 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                        </section>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>`;
-        divSmallMediaContainerContent += `<div class="accordion mb-5 mx-auto" id="accordionQuartoAnno">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            Primo anno magistrale
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionQuartoAnno">
-                                            <div class="accordion-body text-start mode-bg-text">
-                                            <section class="pt-3">
-                                                <h3>Primo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 1 && corso.Type === "Laurea magistrale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            <section class="pt-3">
-                                                <h3>Secondo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 2 && corso.Type === "Laurea magistrale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion mb-5 mx-auto" id="accordionQuintoAnno">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                            Secondo anno magistrale
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionQuintoAnno">
-                                            <div class="accordion-body text-start mode-bg-text">
-                                            <section class="pt-3">
-                                                <h3>Primo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 1 && corso.Type === "Laurea magistrale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            <section class="pt-3">
-                                                <h3>Secondo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 2 && corso.Type === "Laurea magistrale") {
-            divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>`;
-        divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
-
-        divMediumMediaContainerContent = `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Primo anno triennale</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>
-            <div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Secondo anno triennale</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>`;
-        divMediumMediaContainerContent += `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-            <h2>Terzo anno triennale</h2>
-            <div class="row justify-content-center">
-                <section class="col-6 p-2 px-4 text-start">
-                    <h3>Primo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 3 && corso.Semester === 1 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                </section>
-                <section class="col-6 p-2 px-4 text-start">
-                    <h3>Secondo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 3 && corso.Semester === 2 && corso.Type === "Laurea triennale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                </section>
-            </div>
-        </div>`;
-        divMediumMediaContainerContent += `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Primo anno magistrale</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 1 && corso.Type === "Laurea magistrale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 1 && corso.Semester === 2 && corso.Type === "Laurea magistrale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>
-            <div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Secondo anno magistrale</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 1 && corso.Type === "Laurea magistrale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-        courses.forEach(corso => {
-            if (corso.Year === 2 && corso.Semester === 2 && corso.Type === "Laurea magistrale") {
-            divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-            }
-        });
-        divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>`;
-        divMediumMediaContainer.innerHTML = divMediumMediaContainerContent;
-    }
-    else {
-        if (courses[0].Type === "Laurea triennale") {
-            divSmallMediaContainerContent = `<div class="accordion mb-5 mx-auto" id="accordionPrimoAnno">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                  Primo anno
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse border border-1 border-mode-gray" data-bs-parent="#accordionPrimoAnno">
-                <div class="accordion-body text-start mode-bg-text">
-                  <section class="pt-3">
-                    <h3>Primo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 1) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                  </section>
-                  <section class="pt-3">
-                    <h3>Secondo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 2) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion mb-5 mx-auto" id="accordionSecondoAnno">
-              <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Secondo anno
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionSecondoAnno">
-                <div class="accordion-body text-start mode-bg-text">
-                  <section class="pt-3">
-                    <h3>Primo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 1) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                  </section>
-                  <section class="pt-3">
-                    <h3>Secondo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 2) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion mb-5 mx-auto" id="accordionTerzoAnno">
-              <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Terzo anno
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionTerzoAnno">
-                <div class="accordion-body text-start mode-bg-text">
-                  <section class="pt-3">
-                    <h3>Primo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-                courses.forEach(corso => {
-                    if (corso.Year === 3 && corso.Semester === 1) {
-                    divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                    }
-                });
-                divSmallMediaContainerContent += `</ul>
-                  </section>
-                  <section class="pt-3">
-                    <h3>Secondo Semestre</h3>
-                    <ul class="accordion-list px-2 m-0">`;
-                courses.forEach(corso => {
-                    if (corso.Year === 3 && corso.Semester === 2) {
-                    divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                    }
-                });
-                divSmallMediaContainerContent += `</ul>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>`;
-                divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
-
-            divMediumMediaContainerContent = `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Primo anno</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 1) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 2) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>
-            <div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Secondo anno</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 1) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 2) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>`;
-            divMediumMediaContainerContent += `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Terzo anno</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 3 && corso.Semester === 1) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Secondo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 3 && corso.Semester === 2) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
-                    </section>
-                </div>
-            </div>`;
-            divMediumMediaContainer.innerHTML = divMediumMediaContainerContent;
+function smallMediaSectionTemplate(id, target, h2, year, degreeType) {
+    let result = `<div class="accordion mb-5 mx-auto" id="${id}">
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${target}" aria-expanded="false" aria-controls="${target}">
+                        ${h2}
+                        </button>
+                    </h2>
+                    <div id="${target}" class="accordion-collapse collapse border border-1 border-mode-gray" data-bs-parent="#${id}">
+                        <div class="accordion-body text-start mode-bg-text">
+                        <section class="pt-3">
+                            <h3>Primo Semestre</h3>
+                            <ul class="accordion-list px-2 m-0">`;
+    courses.forEach(corso => {
+        if (corso.Year === year && corso.Semester === 1 && corso.Type === degreeType) {
+        result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
         }
-        else if (courses[0].Type === "Laurea magistrale") {
-            divSmallMediaContainerContent += `<div class="accordion mb-5 mx-auto" id="accordionQuartoAnno">
-                                        <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                            Primo anno
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionQuartoAnno">
-                                            <div class="accordion-body text-start mode-bg-text">
-                                            <section class="pt-3">
-                                                <h3>Primo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 1) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                                            </section>
-                                            <section class="pt-3">
-                                                <h3>Secondo Semestre</h3>
-                                                <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 2) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                                                </section>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion mb-5 mx-auto" id="accordionQuintoAnno">
-                                            <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button fw-bold border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                Secondo anno
-                                                </button>
-                                            </h2>
-                                            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionQuintoAnno">
-                                                <div class="accordion-body text-start mode-bg-text">
-                                                <section class="pt-3">
-                                                    <h3>Primo Semestre</h3>
-                                                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 1) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                                                </section>
-                                                <section class="pt-3">
-                                                    <h3>Secondo Semestre</h3>
-                                                    <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 2) {
-                divSmallMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divSmallMediaContainerContent += `</ul>
-                                                </section>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>`;
-            divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
-
-            divMediumMediaContainerContent += `<div class="mb-3 p-2 border-b-2 border-mode-gray">
-                <h2>Primo anno</h2>
-                <div class="row justify-content-center">
-                    <section class="col-6 p-2 px-4 text-start">
-                        <h3>Primo Semestre</h3>
-                        <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 1) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
+    });
+    result +=               `</ul>
                         </section>
-                        <section class="col-6 p-2 px-4 text-start">
+                        <section class="pt-3">
                             <h3>Secondo Semestre</h3>
                             <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 1 && corso.Semester === 2) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
+    courses.forEach(corso => {
+        if (corso.Year === year && corso.Semester === 2 && corso.Type === degreeType) {
+        result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
+        }
+    });
+    result +=               `</ul>
                         </section>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3 p-2 border-b-2 border-mode-gray">
-                    <h2>Secondo anno</h2>
+                    </div>
+                </div>`;
+    return result;
+}
+
+function mediumMediaSectionTemplate(h2, year, degreeType) {
+    let result = `<div class="mb-3 p-2 border-b-2 border-mode-gray">
+                    <h2>${h2}</h2>
                     <div class="row justify-content-center">
                         <section class="col-6 p-2 px-4 text-start">
                             <h3>Primo Semestre</h3>
                             <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 1) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
+    courses.forEach(corso => {
+        if (corso.Year === year && corso.Semester === 1 && corso.Type === degreeType) {
+        result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
+        }
+    });
+    result +=               `</ul>
                         </section>
                         <section class="col-6 p-2 px-4 text-start">
                             <h3>Secondo Semestre</h3>
                             <ul class="accordion-list px-2 m-0">`;
-            courses.forEach(corso => {
-                if (corso.Year === 2 && corso.Semester === 2) {
-                divMediumMediaContainerContent += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
-                }
-            });
-            divMediumMediaContainerContent += `</ul>
+    courses.forEach(corso => {
+        if (corso.Year === year && corso.Semester === 2 && corso.Type === degreeType) {
+        result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
+        }
+    });
+    result +=               `</ul>
                         </section>
                     </div>
                 </div>`;
+    return result;
+}
+
+function updateDivCourses() {
+    let divSmallMediaContainerContent = "";
+    let divMediumMediaContainerContent = "";
+    if (selectDegree.value === "0") {
+        divSmallMediaContainerContent = smallMediaSectionTemplate("accordionPrimoAnno", "collapseOne", "Primo anno triennale", 1, "Laurea triennale");
+        divSmallMediaContainerContent += smallMediaSectionTemplate("accordionSecondoAnno", "collapseTwo", "Secondo anno triennale", 2, "Laurea triennale");
+        divSmallMediaContainerContent += smallMediaSectionTemplate("accordionTerzoAnno", "collapseThree", "Terzo anno triennale", 3, "Laurea triennale");
+        divSmallMediaContainerContent += smallMediaSectionTemplate("accordionQuartoAnno", "collapseFour", "Primo anno magistrale", 1, "Laurea magistrale");
+        divSmallMediaContainerContent += smallMediaSectionTemplate("accordionQuintoAnno", "collapseFive", "Secondo anno magistrale", 2, "Laurea magistrale");
+        divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
+
+        divMediumMediaContainerContent = mediumMediaSectionTemplate("Primo anno triennale", 1, "Laurea triennale");
+        divMediumMediaContainerContent += mediumMediaSectionTemplate("Secondo anno triennale", 2, "Laurea triennale");
+        divMediumMediaContainerContent += mediumMediaSectionTemplate("Terzo anno triennale", 3, "Laurea triennale");
+        divMediumMediaContainerContent += mediumMediaSectionTemplate("Primo anno magistrale", 1, "Laurea magistrale");
+        divMediumMediaContainerContent += mediumMediaSectionTemplate("Secondo anno magistrale", 2, "Laurea magistrale");
+        divMediumMediaContainer.innerHTML = divMediumMediaContainerContent;
+    }
+    else {
+        if (courses[0].Type === "Laurea triennale") {
+            divSmallMediaContainerContent = smallMediaSectionTemplate("accordionPrimoAnno", "collapseOne", "Primo anno", 1, "Laurea triennale");
+            divSmallMediaContainerContent += smallMediaSectionTemplate("accordionSecondoAnno", "collapseTwo", "Secondo anno", 2, "Laurea triennale");
+            divSmallMediaContainerContent += smallMediaSectionTemplate("accordionTerzoAnno", "collapseThree", "Terzo anno", 3, "Laurea triennale");
+            divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
+
+            divMediumMediaContainerContent = mediumMediaSectionTemplate("Primo anno", 1, "Laurea triennale");
+            divMediumMediaContainerContent += mediumMediaSectionTemplate("Secondo anno", 2, "Laurea triennale");
+            divMediumMediaContainerContent += mediumMediaSectionTemplate("Terzo anno", 3, "Laurea triennale");
+            divMediumMediaContainer.innerHTML = divMediumMediaContainerContent;
+        }
+        else if (courses[0].Type === "Laurea magistrale") {
+            divSmallMediaContainerContent = smallMediaSectionTemplate("accordionQuartoAnno", "collapseFour", "Primo anno", 1, "Laurea magistrale");
+            divSmallMediaContainerContent += smallMediaSectionTemplate("accordionQuintoAnno", "collapseFive", "Secondo anno", 2, "Laurea magistrale");
+            divSmallMediaContainer.innerHTML = divSmallMediaContainerContent;
+
+            divMediumMediaContainerContent = mediumMediaSectionTemplate("Primo anno", 1, "Laurea magistrale");
+            divMediumMediaContainerContent += mediumMediaSectionTemplate("Secondo anno", 2, "Laurea magistrale");
             divMediumMediaContainer.innerHTML = divMediumMediaContainerContent;
         }
     }
