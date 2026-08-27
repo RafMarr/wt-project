@@ -541,13 +541,13 @@ class DatabaseHelper {
      * Retrieves the maximum length of the char or varchar field `$field_name` of table
      * `$table_name`.
      * @param $field_name the field name. Its type MUST be `char` or `varchar`, otherwise
-     * there will be an error
+     * `NULL` will be returned
      * @return int the maximum length of the database field `$table_name.$field_name`
      */
     public function get_string_field_max_length(string $table_name, string $field_name) {
         /* for more info about INFORMATION_SCHEMA.COLUMNS check here:
         https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.0/en/information-schema-columns-table.html */
-        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "?" AND column_name = "?"';
+        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ? AND column_name = ?';
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss', $table_name, $field_name);
         $stmt->execute();
