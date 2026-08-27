@@ -447,6 +447,19 @@ class DatabaseHelper {
         return $result->fetch_assoc();
     }
 
+    public function getCourseProfessors($courseID) {
+        $query = "SELECT p.Name, p.Surname, p.Email, p.WebsiteAddress, cm.Module FROM professors p
+        JOIN course_modules cm ON cm.Professor = p.Email
+        WHERE cm.CourseID = ?";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     private function get_pony_price_filter_query_string(?string $price_filter) {
         $pony_price_filter_query_string = '';
         switch ($price_filter) {

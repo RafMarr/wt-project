@@ -9,7 +9,7 @@
         <div class="accordion-body text-start mode-bg-text">
             <section class="pt-3">
             <h3>Primo Semestre</h3>
-            <ul class="accordion-list px-2 m-0">
+            <ul class="list-style-none px-2 m-0">
             <?php foreach($templateParams["lista-corsi"] as $corso): 
                 if ($corso["Year"] === $templateParams["section"]["year"] && $corso["Semester"] === 1 && (!isset($templateParams["admin"]) || $corso["Type"] === $templateParams["section"]["degree-type"])): ?>
                 <li class="my-2"><a class="mode-text" href="courses.php?courseID=<?php echo $corso["CourseID"]; ?>"><?php echo $corso["CourseID"] . " - " . $corso["Name"]; ?></a></li>
@@ -19,7 +19,7 @@
             </section>
             <section class="pt-3">
             <h3>Secondo Semestre</h3>
-            <ul class="accordion-list px-2 m-0">
+            <ul class="list-style-none px-2 m-0">
             <?php foreach($templateParams["lista-corsi"] as $corso): 
                 if ($corso["Year"] === $templateParams["section"]["year"] && $corso["Semester"] === 2 && (!isset($templateParams["admin"]) || $corso["Type"] === $templateParams["section"]["degree-type"])): ?>
                 <li class="my-2"><a class="mode-text" href="courses.php?courseID=<?php echo $corso["CourseID"]; ?>"><?php echo $corso["CourseID"] . " - " . $corso["Name"]; ?></a></li>

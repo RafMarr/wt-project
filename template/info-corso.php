@@ -2,9 +2,24 @@
     <div class="col-10 col-md-8">
         <h1 class="fs-2"><?php echo $templateParams["course-info"]["CourseID"] . " - " . $templateParams["course-info"]["Name"]; ?></h1>
 
-        <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2 mb-5 text-start">
+        <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2 mt-4 mb-5 text-start">
+            <p class="mb-2"><strong>Docenza</strong></p>
+            <ul class="list-style-none">
+            <?php foreach($templateParams["course-info"]["course-profs"] as $docente): ?>
+                <li class="mb-1"><?php echo $docente["Name"] . " " . $docente["Surname"] . " (Modulo " . $docente["Module"] . ")"; ?></li>
+            <?php endforeach; ?>
+            </ul>
             <p><strong>CFU:</strong> <?php echo $templateParams["course-info"]["CFU"]; ?></p>
-            <a href="<?php echo $templateParams["course-info"]["ResourcesURL"]; ?>">Risorse didattiche su Virtuale</a>
+            <p class="mb-2"><strong>Contatti Docenza</strong></p>
+            <ul class="list-style-none">
+                <?php foreach($templateParams["course-info"]["course-profs"] as $docente): ?>
+                    <li class="mb-2">
+                        <p class="mb-1"><strong>Email:</strong> <?php echo $docente["Email"]; ?></p>
+                        <p class="mb-1"><strong>Sito Web:</strong> <a class="mode-link-color" href="<?php echo $docente["WebsiteAddress"]; ?>">Sito personale</a></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <a class="mode-link-color" href="<?php echo $templateParams["course-info"]["ResourcesURL"]; ?>">Risorse didattiche su Virtuale</a>
         </div>
 
         <div class="accordion mb-5 mx-auto" id="accordionModalitaEsame">

@@ -18,6 +18,7 @@ if (isset($_GET["courseID"])) {
         exit();
     }
     $templateParams["course-info"] = $dbh->getCourseInfo($_GET["courseID"]);
+    $templateParams["course-info"]["course-profs"] = $dbh->getCourseProfessors($_GET["courseID"]);
     $templateParams["titolo"] = $templateParams["course-info"]["Name"] . " - " . $templateParams["course-info"]["CourseID"];
     $templateParams["nome"] = "info-corso.php";
 }

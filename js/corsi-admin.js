@@ -54,7 +54,7 @@ function smallMediaSectionTemplate(id, target, h2, year, degreeType) {
                         <div class="accordion-body text-start mode-bg-text">
                         <section class="pt-3">
                             <h3>Primo Semestre</h3>
-                            <ul class="accordion-list px-2 m-0">`;
+                            <ul class="list-style-none px-2 m-0">`;
     courses.forEach(corso => {
         if (corso.Year === year && corso.Semester === 1 && corso.Type === degreeType) {
         result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
@@ -64,7 +64,7 @@ function smallMediaSectionTemplate(id, target, h2, year, degreeType) {
                         </section>
                         <section class="pt-3">
                             <h3>Secondo Semestre</h3>
-                            <ul class="accordion-list px-2 m-0">`;
+                            <ul class="list-style-none px-2 m-0">`;
     courses.forEach(corso => {
         if (corso.Year === year && corso.Semester === 2 && corso.Type === degreeType) {
         result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
@@ -85,7 +85,7 @@ function mediumMediaSectionTemplate(h2, year, degreeType) {
                     <div class="row justify-content-center">
                         <section class="col-6 p-2 px-4 text-start">
                             <h3>Primo Semestre</h3>
-                            <ul class="accordion-list px-2 m-0">`;
+                            <ul class="list-style-none px-2 m-0">`;
     courses.forEach(corso => {
         if (corso.Year === year && corso.Semester === 1 && corso.Type === degreeType) {
         result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
@@ -95,7 +95,7 @@ function mediumMediaSectionTemplate(h2, year, degreeType) {
                         </section>
                         <section class="col-6 p-2 px-4 text-start">
                             <h3>Secondo Semestre</h3>
-                            <ul class="accordion-list px-2 m-0">`;
+                            <ul class="list-style-none px-2 m-0">`;
     courses.forEach(corso => {
         if (corso.Year === year && corso.Semester === 2 && corso.Type === degreeType) {
         result += `<li class="my-2"><a class="mode-text" href="courses.php?courseID=${corso.CourseID}">${corso.CourseID} - ${corso.Name}</a></li>`;
