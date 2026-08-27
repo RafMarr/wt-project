@@ -1,3 +1,12 @@
+const main = document.querySelector('main');
+main.classList.add('position-relative');
+/* Removing from main tag the bootstrap classes that add padding top and margin top */
+main.classList.forEach(c => {
+    if (c.match(/pt-\d/) !== null || c.match(/mt-\d/) !== null) {
+        main.classList.remove(c);
+    }
+});
+
 const modalStateSelect = document.getElementById("state-select");
 const modalApplyButton = document.getElementById("modal-apply-button");
 const modalDeleteButton = document.getElementById("modal-delete-button");

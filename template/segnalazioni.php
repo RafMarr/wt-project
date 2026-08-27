@@ -1,4 +1,4 @@
-<div class="container-fluid text-center pt-4">
+<div class="container-fluid text-center pt-5">
     <h1>Segnalazioni</h1>
     <section>
         <h2><a href="report.php?action=send-report" class="btn border-top-0 border-start-0 border-end-0 py-1 px-2 border border-2 mode-container mode-text position-absolute top-0 start-0">Fai una segnalazione</a></h2>

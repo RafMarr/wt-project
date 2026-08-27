@@ -1,25 +1,28 @@
-<div class="container-fluid text-center">
+<div class="container-fluid text-center pt-5">
     <h1>Gestisci Segnalazioni</h1>
-    <button type="button" class="btn theme-bg-text" data-bs-toggle="offcanvas" data-bs-target="#filtersMenu" aria-controls="filtersMenu">
+    <button type="button" class="btn border-top-0 border-start-0 border-end-0 py-1 px-2 border border-2 mode-container mode-text position-absolute top-0 end-0" data-bs-toggle="offcanvas" data-bs-target="#filtersMenu" aria-controls="filtersMenu">
         Filtra ricerca
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
         </svg>
     </button>
-    <div id="report-container" class="row justify-content-center gap-2">
+    <h2 class="visually-hidden">Lista Segnalazioni</h2>
+    <div id="report-container" class="rrow col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
         <?php
         foreach ($templateParams["reports"] as $report):
             $place = $dbh->getPlaceFromID($report["PlaceID"]);
             ?>
-            <div data-report-id="<?php echo $report["ReportID"]; ?>" class="border-mode-gray border-2 border-solid rounded mode-gray p-2 col-10 col-md-5 col-xl-3">
-                <h3 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h3>
-                <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
-                <p class="state-p"><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
-                <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>
-                <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>
-                <div class="row justify-content-center gap-2">
-                    <button class="col-8 col-md-5 btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#cambia-stato-report">Cambia Stato</button>
-                    <button class="col-8 col-md-5 btn mode-danger" data-bs-toggle="modal" data-bs-target="#elimina-segnalazione">Elimina</button>
+            <div class="col">
+                <div data-report-id="<?php echo $report["ReportID"]; ?>" class="border-mode-gray border-2 border-solid rounded mode-gray p-2">
+                    <h3 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h3>
+                    <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
+                    <p class="state-p"><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
+                    <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>
+                    <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>
+                    <div class="row justify-content-center gap-2">
+                        <button class="col-8 col-md-5 btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#cambia-stato-report">Cambia Stato</button>
+                        <button class="col-8 col-md-5 btn mode-danger" data-bs-toggle="modal" data-bs-target="#elimina-segnalazione">Elimina</button>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
