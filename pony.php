@@ -21,8 +21,6 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
             $templateParams["nome"] = "template/admin/pony-form.php";
             $templateParams["js"] = array();
             $templateParams["action"] = $_GET['action'];
-            $templateParams["description-max-length"] = $dbh->get_ponies_description_max_length();
-            $templateParams["special-marks-max-length"] = $dbh->get_ponies_special_marks_max_length();
             $templateParams["breeds"] = $dbh->get_pony_breeds();
         } else if ($_GET['action'] === "edit-pony") {
             if (isset($_GET['pony-id']) && $dbh->is_pony_id_valid($_GET['pony-id'])) {
@@ -31,8 +29,6 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
                 $templateParams["js"] = array();
                 $templateParams["action"] = $_GET['action'];
                 $templateParams["pony"] = $dbh->get_pony_info($_GET['pony-id'])[0];
-                $templateParams["description-max-length"] = $dbh->get_ponies_description_max_length();
-                $templateParams["special-marks-max-length"] = $dbh->get_ponies_special_marks_max_length();
                 $templateParams["breeds"] = $dbh->get_pony_breeds();
             } else {
                 header('location: pony.php');

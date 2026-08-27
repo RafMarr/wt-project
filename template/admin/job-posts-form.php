@@ -1,14 +1,16 @@
+<?php define("DB_TABLE_NAME", "job_posts") ?>
+
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
     <h1 class="fs-2 mb-3"><?php echo $templateParams['action'] === 'add' ? "Crea annuncio di lavoro" : "Modifica annuncio di lavoro" ?></h1>
     <p>* Indica i campi obbligatori.</p>
     <form action="api/api-job-posts.php" method="POST" class="col-10 col-md-6">
         <div class="mb-3 text-start">
             <label for="title" class="form-label">Titolo annuncio *</label>
-            <input type="text" class="form-control border-mode-text" name="title" id="title" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Title'] . "\"" : "" ?> required />
+            <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Title") ?>" class="form-control border-mode-text" name="title" id="title" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Title'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
             <label for="author" class="form-label">Nome impresa/azienda *</label>
-            <input type="text" class="form-control border-mode-text" name="author" id="author" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Author'] . "\"" : "" ?> required />
+            <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Author") ?>" class="form-control border-mode-text" name="author" id="author" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Author'] . "\"" : "" ?> required />
         </div>
         <fieldset class="mb-3 text-start">
             <legend class="fs-6">Tipologia contratto *</legend>
@@ -23,15 +25,15 @@
         </fieldset>
         <div class="mb-3 text-start">
             <label for="description" class="form-label">Descrizione annuncio *</label>
-            <textarea rows="6" class="form-control border-mode-text" name="description" id="description" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["Description"] ?><?php endif; ?></textarea>
+            <textarea rows="6" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Description") ?>" class="form-control border-mode-text" name="description" id="description" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["Description"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
             <label for="working-time" class="form-label">Orari di lavoro *</label>
-            <textarea rows="4" class="form-control border-mode-text" name="working-time" id="working-time" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["WorkingTime"] ?><?php endif; ?></textarea>
+            <textarea rows="4" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "WorkingTime") ?>" class="form-control border-mode-text" name="working-time" id="working-time" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["WorkingTime"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
             <label for="enterprise-address" class="form-label">Indirizzo impresa/azienda *</label>
-            <textarea rows="3" class="form-control border-mode-text" name="enterprise-address" id="enterprise-address" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["EnterpriseAddress"] ?><?php endif; ?></textarea>
+            <textarea rows="3" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "EnterpriseAddress") ?>" class="form-control border-mode-text" name="enterprise-address" id="enterprise-address" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["EnterpriseAddress"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
             <label class="form-label" for="hourly-salary">Paga oraria (€) *</label>
@@ -39,11 +41,11 @@
         </div>
         <div class="mb-3 text-start">
             <label for="author-phone-number" class="form-label">Recapito telefonico impresa/azienda *</label>
-            <input type="tel" class="form-control border-mode-text" name="author-phone-number" id="author-phone-number" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorPhoneNumber'] . "\"" : "" ?> required />
+            <input type="tel" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "AuthorPhoneNumber") ?>" class="form-control border-mode-text" name="author-phone-number" id="author-phone-number" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorPhoneNumber'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
             <label for="author-email" class="form-label">Indirizzo email impresa/azienda *</label>
-            <input type="email" class="form-control border-mode-text" name="author-email" id="author-email" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorEmail'] . "\"" : "" ?> required />
+            <input type="email" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "AuthorEmail") ?>" class="form-control border-mode-text" name="author-email" id="author-email" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorEmail'] . "\"" : "" ?> required />
         </div>
         <fieldset class="mb-3 text-start">
             <legend class="fs-6">L'annuncio è rivolto ad uno specifico corso di laurea? *</legend>
