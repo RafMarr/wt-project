@@ -20,7 +20,6 @@ else {
             }
         }
         //Qualcosa è andato storto
-        //Aggiungere campo email per UX tramite js;
         $templateParams["titolo"] = "Accedi a Campus+";
         $templateParams["nome"] = "form-login.php";
         $templateParams["js"] = array("./js/login.js");

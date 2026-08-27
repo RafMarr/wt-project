@@ -6,7 +6,7 @@ if(!isUserLoggedIn()) {
     exit();
 }
 
-$templateParams["titolo"] = "Campus+ - Home";
+$templateParams["titolo"] = "Home";
 
 
 $templateParams["nome"] = "home.php";

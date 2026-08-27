@@ -6,7 +6,7 @@ if(!isUserLoggedIn()) {
     exit();
 }
 
-$templateParams["titolo"] = "Campus+ - Storico prenotazioni";
+$templateParams["titolo"] = "Storico prenotazioni";
 if ($dbh->checkStudent($_SESSION['idutente'])) {
     $templateParams["nome"] = "template/pony-reservations-history.php";
     $templateParams["js"] = array();
