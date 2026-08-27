@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-9 d-flex align-items-center justify-content-start text-start">
-                        <h2 class="fs-4 my-1"><a class="mode-text" href="#"><?php echo $lesson["CourseName"]; ?></a></h2>
+                        <h2 class="fs-4 my-1"><a class="mode-text" href="courses.php?courseID=<?php echo $lesson["CourseID"]; ?>"><?php echo $lesson["CourseName"]; ?></a></h2>
                     </div>
                 </div>
                 <div class="row align-items-center col-12 my-1 justify-content-md-start">
