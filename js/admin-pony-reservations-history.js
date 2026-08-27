@@ -78,7 +78,7 @@ function generateReservationsCards(reservations) {
                     <p class="mb-1"><span class="fw-bold">Ora fine:</span> ${r["EndHour"].replace(":00", "")}</p>
                     <p class="mb-1"><span class="fw-bold">Matricola studente:</span> ${r["StudentID"]}</p>
                     <p class="mb-1"><span class="fw-bold">Nome studente:</span> ${r["StudentName"]} ${r["StudentSurname"]}</p>
-                    <p class="mb-1"><span class="fw-bold">Email studente:</span> ${r["Email"]}</p>
+                    <p class="mb-1"><span class="fw-bold">Email studente:</span> <a href="mailto:${r["Email"]}">${r["Email"]}</a></p>
                     <p class="mb-4"><span class="fw-bold">Totale:</span> € ${r["PaidAmount"]}</p>
                 </div>
             </article>
