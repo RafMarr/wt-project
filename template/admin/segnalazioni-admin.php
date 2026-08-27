@@ -7,7 +7,7 @@
         </svg>
     </button>
     <h2 class="visually-hidden">Lista Segnalazioni</h2>
-    <div id="report-container" class="rrow col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
+    <div id="report-container" class="col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
         <?php
         foreach ($templateParams["reports"] as $report):
             $place = $dbh->getPlaceFromID($report["PlaceID"]);
@@ -66,15 +66,16 @@
     <div class="modal-dialog">
         <div class="modal-content mode-bg-text">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalCambiaStatoLabel"><label for="state-select">Cambia Stato</label></h2>
+                <h2 class="modal-title" id="modalCambiaStatoLabel">Cambia Stato</h2>
                 <button type="button" class="close-btn mode-text" data-bs-dismiss="modal" aria-label="Close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" aria-hidden="true">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                     </svg>
                 </button>
             </div>
-            <div class="modal-body">
-                <select id="state-select" class="form-select">
+            <div class="modal-body row justify-content-center gap-2">
+                <label class="col-2 m-0 my-auto text-center form-label" for="state-select">Stato</label>
+                <select id="state-select" class="w-75 form-select">
                     <?php foreach ($templateParams["states"] as $state): ?>
                         <option value="<?php echo $state["State"]; ?>"><?php echo $state["State"]; ?></option>
                     <?php endforeach; ?>
