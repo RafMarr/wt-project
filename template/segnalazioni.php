@@ -9,17 +9,19 @@
             <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
         </svg>
     </button>
-    <div id="report-container" class="row justify-content-center gap-2">
+    <div id="report-container" class="row col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
         <?php
         foreach ($templateParams["reports"] as $report):
             $place = $dbh->getPlaceFromID($report["PlaceID"]);
             ?>
-            <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2 col-10 col-md-5 col-xl-3">
-                <h3 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h3>
-                <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
-                <p><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
-                <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>
-                <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>
+            <div class="col">
+                <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2">
+                    <h3 class="border-b-2 border-mode-gray rounded"><?php echo $report["Type"]; ?></h3>
+                    <p><strong>Luogo</strong>: <?php echo $place["Name"]; ?></p>
+                    <p><strong>Stato</strong>: <?php echo $report["State"]; ?></p>
+                    <p><strong>Data Inserimento</strong>: <?php echo $report["CreationDate"]; ?></p>
+                    <p><strong>Descrizione</strong>: <?php echo $report["Description"]; ?></p>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
