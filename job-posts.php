@@ -3,6 +3,7 @@ require_once("bootstrap.php");
 
 if(!isUserLoggedIn()) {
     header("location: preview.php");
+    exit();
 }
 
 if ($dbh->checkStudent($_SESSION['idutente'])) {
@@ -28,6 +29,7 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
             $templateParams["degree-courses"] = $dbh->get_degree_courses();
         } else {
             header("location: job-posts.php");
+            exit();
         }
     } else {
         $templateParams["titolo"] = "Campus+ - Gestione annunci di lavoro";

@@ -10,5 +10,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 header("Content-Type: application/json");
 echo json_encode($result);
+exit();
 
 ?>

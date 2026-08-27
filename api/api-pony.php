@@ -6,7 +6,7 @@ $price_filter_parameter = isset($_GET['price-filter']) && in_array($_GET['price-
 
 if (!isUserLoggedIn()) {
     http_response_code(401);
-    exit;
+    exit();
 }
 
 $is_student = $dbh->checkStudent($_SESSION['idutente']);
@@ -19,7 +19,7 @@ if (!$is_student && isset($_POST['action']) && isset($_POST['pony-id'])) {
         header("Content-Type: application/json");
         echo json_encode($dbh->make_pony_visible($_POST['pony-id']));
     }
-    exit;
+    exit();
 }
 
 if (isset($_GET['day']) && isset($_GET['start']) && isset($_GET['end'])) {
@@ -58,5 +58,6 @@ for ($i = 0; $i < count($result['ponies']); $i++) {
 
 header("Content-Type: application/json");
 echo json_encode($result);
+exit();
 
 ?>

@@ -3,6 +3,7 @@ require_once("bootstrap.php");
 
 if(!isUserLoggedIn()) {
     header("location: preview.php");
+    exit();
 }
 
 if ($dbh->checkStudent($_SESSION['idutente'])) {
@@ -35,6 +36,7 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
                 $templateParams["breeds"] = $dbh->get_pony_breeds();
             } else {
                 header('location: pony.php');
+                exit();
             }
         }
     } else {

@@ -3,7 +3,7 @@ require_once('./../bootstrap.php');
 
 if (!isUserLoggedIn()) {
     http_response_code(401);
-    exit;
+    exit();
 }
 
 $result = [];
@@ -14,5 +14,6 @@ if (isset($_POST["type"])) {
 
 header("Content-Type: application/json");
 echo json_encode($result);
+exit();
 
 ?>

@@ -5,7 +5,7 @@ $pony_availability_parameter_values = array("available" => true, "not-available"
 
 if (!isUserLoggedIn()) {
     http_response_code(401);
-    exit;
+    exit();
 }
 
 if (isset($_POST['action'])) {
@@ -27,6 +27,7 @@ if (isset($_POST['action'])) {
         
             header("Content-Type: application/json");
             echo json_encode($is_booking_successful);
+            exit();
         }
     } else if ($_POST['action'] === "delete-booking") {
         if (isset($_POST["booking-id"])) {
@@ -34,11 +35,13 @@ if (isset($_POST['action'])) {
 
             header("Content-Type: application/json");
             echo json_encode($is_deletion_successful);
+            exit();
         }
     } else if ($_POST['action'] === "check-pony-future-reservations") {
         if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_POST['pony-id'])) {
             header("Content-Type: application/json");
             echo json_encode($dbh->has_future_reservations($_POST['pony-id']));
+            exit();
         }
     } else if ($_POST['action'] === "filter" && isset($_POST['period']) && $dbh->checkAdmin($_SESSION['idutente'])) {
         $student_id_parameter = isset($_POST['student-id']) ? $_POST['student-id'] : null;
@@ -51,6 +54,7 @@ if (isset($_POST['action'])) {
         } else if ($_POST['period'] === "past") {
             echo json_encode($dbh->admin_get_past_pony_bookings($student_id_parameter, $pony_name_parameter, $is_available_parameter));
         }
+        exit();
     }
 }
 

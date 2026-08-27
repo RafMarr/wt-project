@@ -30,7 +30,7 @@ if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_GET['action'])) {
         }
 
         header('location: pony.php?operation-successful=' . ($addition_successful ? "true" : "false"));
-        exit;
+        exit();
     } else if ($_GET['action'] === "edit-pony" && isset($_POST['name'])
       && isset($_POST['breed']) && isset($_POST['hourly-fee'])
       && isset($_POST['special-marks']) && isset($_POST['description'])
@@ -58,11 +58,13 @@ if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_GET['action'])) {
         }
 
         header('location: pony.php?operation-successful=' . ($edit_successful ? "true" : "false"));
-        exit;
+        exit();
     } else {
         header('location: pony.php?operation-successful=false');
+        exit();
     }
 } else {
     header('location: pony.php?operation-successful=false');
+    exit();
 }
 ?>

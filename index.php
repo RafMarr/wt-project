@@ -3,6 +3,7 @@ require_once("bootstrap.php");
 
 if(!isUserLoggedIn()) {
     header("location: preview.php");
+    exit();
 }
 
 $templateParams["titolo"] = "Campus+ - Home";
