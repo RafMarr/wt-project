@@ -11,8 +11,8 @@
                 <div class="d-none d-md-block col-md-1"></div>
                 <!-- Usato un trucco mostrato qui https://getbootstrap.com/docs/5.0/helpers/stretched-link/ per gestire la grandezza del link tra dispositivi diversi -->
                 <div class="col-12 col-md-6 mt-2 text-md-start">
-                    <h2 class="fs-5"><a href="pony.php" class="mode-text home-link-underline stretched-link position-md-relative"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? 'Gestione pony' : 'Noleggia un pony' ?></a></h2>
-                    <p class="d-none d-md-inline"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? "Gestisci il catalogo di pony dell'ippodromo." : 'Controlla e gestisci le tue corse con i pony.' ?></p>
+                    <h2 class="fs-5"><a href="pony.php" class="mode-text home-link-underline stretched-link position-md-relative"><?php echo isset($templateParams["admin"]) ? 'Gestione pony' : 'Noleggia un pony' ?></a></h2>
+                    <p class="d-none d-md-inline"><?php echo isset($templateParams["admin"]) ? "Gestisci il catalogo di pony dell'ippodromo." : 'Controlla e gestisci le tue corse con i pony.' ?></p>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="d-none d-md-block col-md-1"></div>
                 <div class="col-12 col-md-6 mt-2 text-md-start">
                     <h2 class="fs-5"><a href="job-posts.php" class="mode-text home-link-underline stretched-link position-md-relative">Annunci di lavoro</a></h2>
-                    <p class="d-none d-md-inline"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? 'Gestisci gli annunci di lavoro rivolti agli studenti del Campus.' : 'Controlla qui gli annunci di lavoro a te dedicati.' ?></p>
+                    <p class="d-none d-md-inline"><?php echo isset($templateParams["admin"]) ? 'Gestisci gli annunci di lavoro rivolti agli studenti del Campus.' : 'Controlla qui gli annunci di lavoro a te dedicati.' ?></p>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <div class="d-none d-md-block col-md-1"></div>
                 <div class="col-12 col-md-6 mt-2 text-md-start">
                     <h2 class="fs-5"><a href="lessons.php" class="mode-text home-link-underline stretched-link position-md-relative">Orario delle lezioni</a></h2>
-                    <p class="d-none d-md-inline"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? 'Visualizza l\'orario delle lezioni dei corsi del Campus.' : 'Controlla gli orari delle lezioni dei tuoi corsi.' ?></p>
+                    <p class="d-none d-md-inline"><?php echo isset($templateParams["admin"]) ? 'Visualizza l\'orario delle lezioni dei corsi del Campus.' : 'Controlla gli orari delle lezioni dei tuoi corsi.' ?></p>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 <div class="d-none d-md-block col-md-1"></div>
                 <div class="col-12 col-md-6 mt-2 text-md-start">
                     <h2 class="fs-5"><a href="courses.php" class="mode-text home-link-underline stretched-link position-md-relative">Informazioni sui corsi</a></h2>
-                    <p class="d-none d-md-inline"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? 'Visualizza le informazioni dei corsi tenuti nel Campus.' : 'Scopri le informazioni sui tuoi corsi universitari.' ?></p>
+                    <p class="d-none d-md-inline"><?php echo isset($templateParams["admin"]) ? 'Visualizza le informazioni dei corsi tenuti nel Campus.' : 'Scopri le informazioni sui tuoi corsi universitari.' ?></p>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <div class="d-none d-md-block col-md-1"></div>
                 <div class="col-12 col-md-6 mt-2 text-md-start">
                     <h2 class="fs-5"><a href="report.php" class="mode-text home-link-underline stretched-link position-md-relative">Segnalazioni</a></h2>
-                    <p class="d-none d-md-inline"><?php echo $dbh->checkAdmin($_SESSION['idutente']) ? 'Gestisci le segnalazioni effettuate dagli studenti.' : 'Segnala al personale o controlla i problemi del Campus.' ?></p>
+                    <p class="d-none d-md-inline"><?php echo isset($templateParams["admin"]) ? 'Gestisci le segnalazioni effettuate dagli studenti.' : 'Segnala al personale o controlla i problemi del Campus.' ?></p>
                 </div>
             </div>
         </div>

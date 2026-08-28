@@ -6,6 +6,10 @@ if(!isUserLoggedIn()) {
     exit();
 }
 
+if($dbh->checkAdmin($_SESSION['idutente'])) {
+    $templateParams["admin"] = "";
+}
+
 $templateParams["titolo"] = "Home";
 
 
