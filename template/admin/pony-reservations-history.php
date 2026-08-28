@@ -12,7 +12,7 @@
                         <p class="mb-1"><span class="fw-bold">Ora fine:</span> <?php echo preg_replace('/:00/', '', $r["EndHour"], 1)?></p>
                         <p class="mb-1"><span class="fw-bold">Matricola studente:</span> <?php echo $r["StudentID"]?></p>
                         <p class="mb-1"><span class="fw-bold">Nome studente:</span> <?php echo $r["StudentName"] . " " . $r["StudentSurname"]?></p>
-                        <p class="mb-1"><span class="fw-bold">Email studente:</span> <?php echo $r["Email"]?></p>
+                        <p class="mb-1"><span class="fw-bold">Email studente:</span> <a class="mode-link-color" href="mailto:<?php echo $r["Email"]?>"><?php echo $r["Email"]?></a></p>
                         <p class="mb-4"><span class="fw-bold">Totale:</span> € <?php echo $r["PaidAmount"]?></p>
                     </div>
                 </article>
@@ -36,7 +36,7 @@
             </svg>
         </button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body mode-text">
         <div class="d-flex justify-content-start align-items-center mb-3">
             <label for="student-id-filter" class="form-label col-4 mb-0 me-3 mode-text">Matricola studente</label>
             <input type="text" class="form-control border-mode-text" name="student-id" id="student-id-filter" maxlength="10" />
@@ -50,19 +50,21 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        <p class="mb-2">Disponibilità pony</p>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-all" value="all" checked />
-            <label class="form-check-label" for="pony-availability-all">Tutti</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-available" value="available" />
-            <label class="form-check-label" for="pony-availability-available">Disponibili</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-not-available" value="not-available" />
-            <label class="form-check-label" for="pony-availability-not-available">Non disponibili</label>
-        </div>
+        <fieldset>
+            <legend class="fs-6 mb-2">Disponibilità pony</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-all" value="all" checked />
+                <label class="form-check-label" for="pony-availability-all">Tutti</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-available" value="available" />
+                <label class="form-check-label" for="pony-availability-available">Disponibili</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pony-availability" id="pony-availability-not-available" value="not-available" />
+                <label class="form-check-label" for="pony-availability-not-available">Non disponibili</label>
+            </div>
+        </fieldset>
         <div class="d-flex justify-content-center align-items-center">
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>

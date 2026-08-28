@@ -42,7 +42,7 @@ if (isset($templateParams['operation-successful'])) {
                         <p class="mb-1"><span class="fw-bold">Tipologia contratto:</span> <?php echo $jp["ContractType"]?></p>
                         <address class="mb-4">
                             <p class="mb-1"><span class="fw-bold">Recapito telefonico:</span> <?php echo $jp["AuthorPhoneNumber"]?></p>
-                            <p class="m-0"><span class="fw-bold">Email:</span> <a href="mailto:<?php echo $jp["AuthorEmail"]?>"><?php echo $jp["AuthorEmail"]?></a></p>
+                            <p class="m-0"><span class="fw-bold">Email:</span> <a class="mode-link-color" href="mailto:<?php echo $jp["AuthorEmail"]?>"><?php echo $jp["AuthorEmail"]?></a></p>
                         </address>
                     </div>
                     <div class="d-flex justify-content-center gap-4 mt-md-auto">
@@ -78,19 +78,21 @@ if (isset($templateParams['operation-successful'])) {
                 <option value="<?php echo $dc["DegreeCourseID"] ?>"><?php echo $dc["Name"] ?> (<?php echo $dc["Type"] ?>)</option>
             <?php endforeach; ?>
         </select>
-        <p class="mt-4 mb-2">Tipologia contratto</p>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-all" value="all" checked />
-            <label class="form-check-label" for="contract-type-all">Tutti</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-full-time" value="Full-time" />
-            <label class="form-check-label" for="contract-type-full-time">Full-time</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="contract-type" id="contract-type-part-time" value="Part-time" />
-            <label class="form-check-label" for="contract-type-part-time">Part-time</label>
-        </div>
+        <fieldset class="mt-4">
+            <legend class="fs-6 mb-2">Tipologia contratto</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-all" value="all" checked />
+                <label class="form-check-label" for="contract-type-all">Tutti</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-full-time" value="Full-time" />
+                <label class="form-check-label" for="contract-type-full-time">Full-time</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="contract-type" id="contract-type-part-time" value="Part-time" />
+                <label class="form-check-label" for="contract-type-part-time">Part-time</label>
+            </div>
+        </fieldset>
         <div class="d-flex justify-content-center align-items-center">
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>

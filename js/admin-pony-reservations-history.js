@@ -78,7 +78,7 @@ function generateReservationsCards(reservations) {
                     <p class="mb-1"><span class="fw-bold">Ora fine:</span> ${r["EndHour"].replace(":00", "")}</p>
                     <p class="mb-1"><span class="fw-bold">Matricola studente:</span> ${r["StudentID"]}</p>
                     <p class="mb-1"><span class="fw-bold">Nome studente:</span> ${r["StudentName"]} ${r["StudentSurname"]}</p>
-                    <p class="mb-1"><span class="fw-bold">Email studente:</span> ${r["Email"]}</p>
+                    <p class="mb-1"><span class="fw-bold">Email studente:</span> <a class="mode-link-color" href="mailto:${r["Email"]}">${r["Email"]}</a></p>
                     <p class="mb-4"><span class="fw-bold">Totale:</span> € ${r["PaidAmount"]}</p>
                 </div>
             </article>
@@ -90,8 +90,7 @@ function generateReservationsCards(reservations) {
 }
 
 async function filterReservations(studentIdFilter, ponyNameFilter, availabilityFilter) {
-    const url = 'api/api-pony-booking.php'
-    const filtersParameters = new FormData()
+    const filtersParameters = new URLSearchParams()
     filtersParameters.append('action', 'filter')
     filtersParameters.append('period', 'past')
     if (studentIdFilter !== null) {
@@ -103,12 +102,10 @@ async function filterReservations(studentIdFilter, ponyNameFilter, availabilityF
     if (availabilityFilter !== null) {
         filtersParameters.append('pony-availability', availabilityFilter)
     }
+    const url = `api/api-pony-booking.php?${filtersParameters}`
 
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            body: filtersParameters
-        })
+        const response = await fetch(url)
         if (!response.ok) {
             throw new Error("Response status: " + response.status)
         }

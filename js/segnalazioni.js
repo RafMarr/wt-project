@@ -1,3 +1,12 @@
+const main = document.querySelector('main');
+main.classList.add('position-relative');
+/* Removing from main tag the bootstrap classes that add padding top and margin top */
+main.classList.forEach(c => {
+    if (c.match(/pt-\d/) !== null || c.match(/mt-\d/) !== null) {
+        main.classList.remove(c);
+    }
+});
+
 const resetFiltersButton = document.getElementById('resetFiltersBtn');
 const luogoFilter = document.getElementById('luogoFilter');
 const statoFilter = document.getElementById('statoFilter');
@@ -15,12 +24,14 @@ resetFiltersButton.addEventListener('click', () => {
 function updateDivReports() {
     divContainer.innerHTML = "";
     reports.forEach(report => {
-        divContainer.innerHTML += `<div class="border-mode-gray border-2 border-solid rounded mode-gray p-2 col-10 col-md-5 col-xl-3">
-                                        <h3 class="border-b-2 border-mode-gray rounded">${report.Type}</h3>
-                                        <p><strong>Luogo</strong>: ${report.Name}</p>
-                                        <p><strong>Stato</strong>: ${report.State}</p>
-                                        <p><strong>Data Inserimento</strong>: ${report.CreationDate}</p>
-                                        <p><strong>Descrizione</strong>: ${report.Description}</p>
+        divContainer.innerHTML += `<div class="col">
+                                        <div class="border-mode-gray border-2 border-solid rounded mode-gray p-2">
+                                            <h3 class="border-b-2 border-mode-gray rounded">${report.Type}</h3>
+                                            <p><strong>Luogo</strong>: ${report.Name}</p>
+                                            <p><strong>Stato</strong>: ${report.State}</p>
+                                            <p><strong>Data Inserimento</strong>: ${report.CreationDate}</p>
+                                            <p><strong>Descrizione</strong>: ${report.Description}</p>
+                                        </div>
                                     </div>`;
     });
 }

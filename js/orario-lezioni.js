@@ -20,7 +20,7 @@ function updateDivLessons() {
                                             </div>
                                         </div>
                                         <div class="col-9 d-flex align-items-center justify-content-start text-start">
-                                            <h2 class="fs-4 my-1"><a class="mode-text" href="#">${lesson.CourseName}</a></h2>
+                                            <h2 class="fs-4 my-1"><a class="mode-text" href="courses.php?courseID=${lesson.CourseID}">${lesson.CourseName}</a></h2>
                                         </div>
                                     </div>
                                     <div class="row align-items-center row-gap-2 col-12 my-1 justify-content-md-start">

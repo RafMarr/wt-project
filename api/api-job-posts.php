@@ -3,7 +3,7 @@ require_once "../bootstrap.php";
 
 if (!isUserLoggedIn()) {
     http_response_code(401);
-    exit;
+    exit();
 }
 
 $action = null;
@@ -22,10 +22,12 @@ if ($action === "filter") {
 
     header("Content-Type: application/json");
     echo json_encode($dbh->get_job_posts($degree_course_parameter, $contract_type_parameter));
+    exit();
 } else if ($action === "delete" && isset($_POST['job-post-id'])) {
 
     header("Content-Type: application/json");
     echo json_encode($dbh->delete_job_post($_POST['job-post-id']));
+    exit();
 } else if ($action === "add" && $dbh->checkAdmin($_SESSION['idutente'])
  && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['contract-type'])
  && isset($_POST['description']) && isset($_POST['working-time']) && isset($_POST['enterprise-address'])
@@ -49,7 +51,7 @@ if ($action === "filter") {
         $author_email, $degree_course_id);
         
     header('location: ../job-posts.php?operation-successful=' . ($addition_successful ? "true" : "false"));
-    exit;
+    exit();
 
 } else if ($action === "edit" && $dbh->checkAdmin($_SESSION['idutente'])
  && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['contract-type'])
@@ -74,6 +76,6 @@ if ($action === "filter") {
         $author_email, $degree_course_id, $_POST['job-post-id']);
         
     header('location: ../job-posts.php?operation-successful=' . ($edit_successful ? "true" : "false"));
-    exit;
+    exit();
 }
 ?>

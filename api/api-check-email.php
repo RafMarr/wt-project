@@ -9,5 +9,6 @@ if (isset($_POST["email"])) {
 
 header("Content-Type: application/json");
 echo json_encode($result);
+exit();
 
 ?>

@@ -19,11 +19,13 @@
     --main-bg-light-rgb: var(--main-white-rgb);
     --main-text-light: #141414;
     --main-text-light-rgb: 20, 20, 20;
+    --main-accordion-arrow-light: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23141414' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
     /* Palette Tema Rosso Principale Scuro */ 
     --main-bg-dark: var(--main-text-light);
     --main-text-dark: var(--main-bg-light);
     --main-text-dark-rgb: var(--main-bg-light-rgb);
+    --main-accordion-arrow-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FEF8EC' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
     /* Palette Tema Verde Secondario Chiaro */
     --secondary-green: #34642E;
@@ -34,11 +36,13 @@
     --secondary-bg-light-rbg: var(--secondary-white-rgb);
     --secondary-text-light: #201D1D;
     --secondary-text-light-rgb: 32, 29, 29;
+    --secondary-accordion-arrow-light: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23201D1D' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
     /* Palette Tema Verde Secondario Scuro */
     --secondary-bg-dark: var(--secondary-text-light);
     --secondary-text-dark: var(--secondary-bg-light);
     --secondary-text-dark-rgb: var(--secondary-bg-light-rbg);
+    --secondary-accordion-arrow-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ECF9D8' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
     /* -- Dichiarazione variabili del tema -- */
 
@@ -53,6 +57,8 @@
     --current-mode-theme-bg-dark: var(--main-bg-dark);
     --current-mode-theme-text-dark: var(--main-text-dark);
     --current-mode-theme-text-dark-rgb: var(--main-text-dark-rgb);
+    --current-mode-accordion-arrow-light: var(--main-accordion-arrow-light);
+    --current-mode-accordion-arrow-dark: var(--main-accordion-arrow-dark);
 
     /* Colori del tema principale / Secondario immutabili */
     --theme-bg: var(--current-theme-bg);
@@ -68,6 +74,8 @@
     --mode-theme-gray: var(--gray-light);
     --mode-border-gray: var(--gray-border-light);
     --mode-theme-link-color: var(--link-color-light);
+    --mode-accordion-btn-bg: var(--bs-accordion-btn-bg);
+    --mode-accordion-arrow: var(--current-mode-accordion-arrow-light);
 
     transition: background-color 0.3s;
 }
@@ -84,6 +92,8 @@
     --current-mode-theme-bg-dark: var(--secondary-bg-dark);
     --current-mode-theme-text-dark: var(--secondary-text-dark);
     --current-mode-theme-text-dark-rgb: var(--secondary-text-dark-rgb);
+    --current-mode-accordion-arrow-light: var(--secondary-accordion-arrow-light);
+    --current-mode-accordion-arrow-dark: var(--secondary-accordion-arrow-dark);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -95,6 +105,8 @@
     --mode-theme-gray: var(--current-mode-theme-bg-dark);
     --mode-border-gray: var(--current-mode-theme-text-dark);
     --mode-theme-link-color: var(--link-color-dark);
+    --mode-accordion-btn-bg: var(--mode-theme-text);
+    --mode-accordion-arrow: var(--current-mode-accordion-arrow-dark);
   }
 }
 
@@ -244,7 +256,7 @@ a.nav-link.theme-text:hover {
     box-shadow: 0 0 0 .25rem var(--mode-theme-text);
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus, .form-select:focus, .accordion-button:focus {
     box-shadow: 0 0 0 .25rem rgba(var(--theme-bg-rgb), 0.8);
 }
 
@@ -257,6 +269,27 @@ nav .nav-link:focus, header .nav-link:focus {
 
 #booking-message {
     color: var(--main-text-light);
+}
+
+.accordion-button {
+    background-color: var(--mode-theme-gray);
+    color: var(--mode-theme-text);
+}
+.accordion-button::after {
+    background-image: var(--mode-accordion-arrow);
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--current-mode-theme-text-light);
+    border-color: var(--mode-border-gray);
+    background-color: var(--mode-accordion-btn-bg);
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: var(--current-mode-accordion-arrow-light);
+}
+
+ul.list-style-none {
+    list-style-type: none;
 }
 
 /* Css Custom */

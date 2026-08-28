@@ -9,5 +9,6 @@ if (isset($_POST["idNumber"])) {
 
 header("Content-Type: application/json");
 echo json_encode($result);
+exit();
 
 ?>

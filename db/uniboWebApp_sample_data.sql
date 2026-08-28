@@ -3044,7 +3044,10 @@ values ("80b37786bac7", 2, '2026-07-13', '10:00:00', '11:00:00', "0001112223", 6
        ("701c99bb1e8a", 3, '2026-07-30', '10:00:00', '11:00:00', "0001112223", 8.5),
        ("7a218b5b9479", 12, '2026-07-30', '10:00:00', '14:30:00', "5514790136", 18),
        ("ac6b55e87710", 8, '2026-09-17', '10:00:00', '11:20:00', "0001112223", 6),
-       ("ec1efcfde162", 11, '2026-09-29', '12:00:00', '18:00:00', "5514790136", 63);
+       ("ec1efcfde162", 11, '2026-09-29', '12:00:00', '18:00:00', "5514790136", 63),
+       ("abb4fdfde422", 11, '2026-09-10', '11:00:00', '14:00:00', "0944509445", 31.5),
+       ("bcc5acfdee11", 8, '2026-09-11', '15:00:00', '17:00:00', "4246422893", 9),
+       ("2a10f3ece1a4", 3, '2026-09-09', '09:00:00', '10:30:00', "0944509445", 12.75);
 
 insert into job_posts(Title, InsertionDate, Author, Description, WorkingTime, EnterpriseAddress, HourlySalary, ContractType, AuthorPhoneNumber, AuthorEmail, DegreeCourseID)
 values ("Cercasi cameriere/a", '2026-08-01', 'Ristorante "Da Gino"', "Cercasi cameriere/a per turno serale infrasettimanale. Non è richiesta esperienza pregressa. Astenersi perditempo", "Dal lunedì al venerdì dalle 19:00 alle 23:00", "Via della Libertà 64, Cesena (FC), 45721", 6.50, "Part-time", "0547 812897", "gino.pappardella@yahoo.it", null),
@@ -3052,3 +3055,10 @@ values ("Cercasi cameriere/a", '2026-08-01', 'Ristorante "Da Gino"', "Cercasi ca
        ("Cercasi junior developer", '2026-06-25', "Coding together", "Cercasi junior developer full-time in smartworking.\nSiamo un'azienda giovane, dinamica, e aperta a tutti. Offriamo tutti i comfort per lavorare al meglio.\nAi dipendenti viene fornito un computer aziendale.\nRichiesto livello B2 in inglese. Non è richiesta laurea triennale", "Dal lunedì al venerdì dalle 9:00 alle 17:00", "95 Sunset Boulevard, San Francisco, California, Stati Uniti", 12, "Full-time", "+1628 442185609", "williamclarkhr@codingtogether.com", 8615),
        ("Cercasi AI Engineer", '2026-08-05', "OpenGladiator", "OpenGladiator è una startup pronta ad inserirsi nel mercato informatico per analisi sulle corse dei cavalli. Cerchiamo un AI Engineer motivato, pronto a mettersi in gioco e a mostrare le proprie abilità!\nLavoro ibrido (70% smartworking).\nNon è richiesta esperienza pregressa.\nRichiesta conoscenza della lingua inglese al livello B1.\nRichiesta laurea triennale in Informatica o Ingegneria Informatica", "Dal lunedì al giovedì dalle 11:00 alle 16:00", "Via Grande Torino 1420, Torino (TO), 10151", 9, "Part-time", "380 5711347", "emilioferretti@hr.opengladiator.com", 8614),
        ("Cercasi ingegnere elettronico", '2026-07-17', "Solial SRL", "Siamo una società globale di consulenza hi-tech.\nCerchiamo un ingegnere elettronico con almeno due anni di esperienza per lavoro su progettazione di circuiti, integrazione di sistemi e sistemi embedded", "Dal lunedì al venerdì dalle 9:30 alle 18:30", "Via della Repubblica 64, Forlì (FC), 47122", 12, "Full-time", "0543 4237112", "robertocasadei@hr.solial.it", 5834);
+
+INSERT INTO `reports` (`ReportID`, `CreationDate`, `State`, `Description`, `Type`, `StudentID`, `PlaceID`, `SolvedDate`) VALUES
+(1, '2026-08-27', 'Non risolto', 'Non si puo\' passare', 'Puzza', '4246422893', '6668', NULL),
+(2, '2026-08-27', 'Non risolto', 'Manca la carta igienica', 'Enorme Problema', '4246422893', '6007', NULL),
+(3, '2026-08-27', 'Non risolto', 'Il computer della seconda fila sulla destra non parte', 'Computer', '0944509445', '6555', NULL),
+(4, '2026-08-27', 'Non risolto', 'Serve urgente staff alla segreteria', 'Manca Staff', '0944509445', '6208', NULL),
+(5, '2026-08-27', 'Non risolto', 'Un muro e crollato del tutto', 'Muro in pezzi', '0001112223', '6315', NULL);

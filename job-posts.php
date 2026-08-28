@@ -3,10 +3,11 @@ require_once("bootstrap.php");
 
 if(!isUserLoggedIn()) {
     header("location: preview.php");
+    exit();
 }
 
 if ($dbh->checkStudent($_SESSION['idutente'])) {
-    $templateParams["titolo"] = "Campus+ - Annunci di lavoro";
+    $templateParams["titolo"] = "Annunci di lavoro";
     $templateParams["nome"] = "template/job-posts.php";
     $templateParams["js"] = array("js/job-posts.js", "https://cdn.jsdelivr.net/npm/@js-temporal/polyfill/dist/index.umd.js");
     $templateParams["job-posts"] = $dbh->get_job_posts(null, null);
@@ -14,13 +15,13 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         if ($action === "add") {
-            $templateParams["titolo"] = "Campus+ - Crea nuovo annuncio di lavoro";
+            $templateParams["titolo"] = "Crea nuovo annuncio di lavoro";
             $templateParams["nome"] = "template/admin/job-posts-form.php";
             $templateParams["js"] = array("js/admin-job-posts-form.js");
             $templateParams["action"] = $_GET['action'];
             $templateParams["degree-courses"] = $dbh->get_degree_courses();
         } else if ($action === "edit" && isset($_GET['job-post-id']) && $dbh->is_job_post_id_valid($_GET['job-post-id'])) {
-            $templateParams["titolo"] = "Campus+ - Modifica annuncio di lavoro";
+            $templateParams["titolo"] = "Modifica annuncio di lavoro";
             $templateParams["nome"] = "template/admin/job-posts-form.php";
             $templateParams["js"] = array("js/admin-job-posts-form.js");
             $templateParams["action"] = $_GET['action'];
@@ -28,9 +29,10 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
             $templateParams["degree-courses"] = $dbh->get_degree_courses();
         } else {
             header("location: job-posts.php");
+            exit();
         }
     } else {
-        $templateParams["titolo"] = "Campus+ - Gestione annunci di lavoro";
+        $templateParams["titolo"] = "Gestione annunci di lavoro";
         $templateParams["nome"] = "template/admin/job-posts.php";
         $templateParams["js"] = array("js/admin-job-posts.js", "https://cdn.jsdelivr.net/npm/@js-temporal/polyfill/dist/index.umd.js", "js/modal-bs-error.js");
         $templateParams["job-posts"] = $dbh->get_job_posts(null, null);

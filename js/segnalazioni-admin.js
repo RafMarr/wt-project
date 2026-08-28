@@ -1,3 +1,12 @@
+const main = document.querySelector('main');
+main.classList.add('position-relative');
+/* Removing from main tag the bootstrap classes that add padding top and margin top */
+main.classList.forEach(c => {
+    if (c.match(/pt-\d/) !== null || c.match(/mt-\d/) !== null) {
+        main.classList.remove(c);
+    }
+});
+
 const modalStateSelect = document.getElementById("state-select");
 const modalApplyButton = document.getElementById("modal-apply-button");
 const modalDeleteButton = document.getElementById("modal-delete-button");
@@ -95,7 +104,8 @@ resetFiltersButton.addEventListener('click', () => {
 function updateDivReports() {
     divContainer.innerHTML = "";
     reports.forEach(report => {
-        divContainer.innerHTML += `<div data-report-id="${report.ReportID}" class="border-mode-gray border-2 border-solid rounded mode-gray p-2 col-10 col-md-5 col-xl-3">
+        divContainer.innerHTML += `<div class="col">
+                                    <div data-report-id="${report.ReportID}" class="border-mode-gray border-2 border-solid rounded mode-gray p-2">
                                         <h3 class="border-b-2 border-mode-gray rounded">${report.Type}</h3>
                                         <p><strong>Luogo</strong>: ${report.Name}</p>
                                         <p class="state-p"><strong>Stato</strong>: ${report.State}</p>
@@ -105,7 +115,8 @@ function updateDivReports() {
                                             <button class="col-8 col-md-5 btn theme-bg-text" data-bs-toggle="modal" data-bs-target="#cambia-stato-report">Cambia Stato</button>
                                             <button class="col-8 col-md-5 btn mode-danger" data-bs-toggle="modal" data-bs-target="#elimina-segnalazione">Elimina</button>
                                         </div>
-                                    </div>`;
+                                    </div>
+                                </div>`;
     });
 
     addButtonEventListeners();

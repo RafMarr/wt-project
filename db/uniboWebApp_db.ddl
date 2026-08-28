@@ -5,7 +5,7 @@ use UniboWebApp;
 -- _____________ 
 
 create table ACCOUNTS (
-     Email varchar(256) not null,
+     Email varchar(100) not null,
      Password varchar(30) not null,
      PermissionType varchar(30) not null,
      constraint IDACCOUNT primary key (Email),
@@ -13,10 +13,10 @@ create table ACCOUNTS (
      constraint PERMISSION_CHECK check (PermissionType in ('Admin', 'Studente')));
 
 create table ADMINS (
-     Name varchar(256) not null,
-     Surname varchar(256) not null,
+     Name varchar(50) not null,
+     Surname varchar(50) not null,
      AdminID int unsigned not null auto_increment,
-     Email varchar(256) not null,
+     Email varchar(100) not null,
      constraint IDADMIN primary key (AdminID),
      constraint FKaccount_admin_ID unique (Email));
 
@@ -34,7 +34,7 @@ create table COURSES (
 create table COURSE_MODULES (
      CourseID char(5) not null,
      Module tinyint unsigned not null,
-     Professor varchar(256) not null,
+     Professor varchar(100) not null,
      constraint IDCOURSE_MODULE primary key (CourseID, Module));
 
 create table DEGREE_COURSES (
@@ -89,19 +89,19 @@ create table LESSONS (
 
 create table PONIES (
      PonyID int auto_increment not null,
-     Name varchar(256) not null,
-     Breed varchar(256) not null,
+     Name varchar(50) not null,
+     Breed varchar(50) not null,
      HourlyFee decimal(4,2) not null,
      Image varchar(256) not null,
-     SpecMarks varchar(100),
-     Description varchar(100),
+     SpecMarks varchar(256),
+     Description varchar(256),
      IsAvailable boolean not null DEFAULT true,
      constraint IDPONY primary key (PonyID));
 
 create table PROFESSORS (
-     Name varchar(256) not null,
-     Surname varchar(256) not null,
-     Email varchar(256) not null,
+     Name varchar(50) not null,
+     Surname varchar(50) not null,
+     Email varchar(100) not null,
      WebsiteAddress varchar(500) not null,
      constraint IDPROFESSOR primary key (Email));
 
@@ -148,10 +148,10 @@ CREATE TABLE reports(
      constraint IDREPORT primary key (ReportID));
 
 create table STUDENTS (
-     Name varchar(256) not null,
-     Surname varchar(256) not null,
+     Name varchar(50) not null,
+     Surname varchar(50) not null,
      IdNumber char(10) not null,
-     Email varchar(256) not null,
+     Email varchar(100) not null,
      DegreeCourseID int unsigned not null,
      constraint IDSTUDENT primary key (IdNumber),
      constraint FKaccount_student_ID unique (Email));

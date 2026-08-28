@@ -85,7 +85,7 @@ class DatabaseHelper {
         return $id_number;
     }
 
-    public function getCourses() {
+    public function getDegreeCourses() {
         $query = "SELECT * FROM degree_courses";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
@@ -388,6 +388,78 @@ class DatabaseHelper {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getCoursesLabels() {
+        $query = "SELECT c.CourseID, c.Name, c.Semester, sp.Year, dc.Type FROM courses c
+                JOIN study_plans sp ON c.CourseID = sp.CourseID
+                JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCoursesLabelsWithDegree() {
+        $query = "SELECT c.CourseID, c.Name, c.Semester, sp.Year, dc.Type, dc.DegreeCourseID FROM courses c
+                JOIN study_plans sp ON c.CourseID = sp.CourseID
+                JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCoursesLabelsFromEmail($email) {
+        $query = "SELECT c.CourseID, c.Name, c.Semester, sp.Year, dc.Type FROM courses c
+                JOIN study_plans sp ON c.CourseID = sp.CourseID
+                JOIN degree_courses dc ON sp.DegreeCourseID = dc.DegreeCourseID
+                JOIN students s ON dc.DegreeCourseID = s.DegreeCourseID
+                WHERE s.Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function checkCourseID($courseID) {
+        $query = "SELECT EXISTS(SELECT 1 FROM courses WHERE CourseID = ? LIMIT 1)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+
+        $stmt->bind_result($found);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$found;
+    }
+
+    public function getCourseInfo($courseID) {
+        $query = "SELECT * FROM courses WHERE CourseID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc();
+    }
+
+    public function getCourseProfessors($courseID) {
+        $query = "SELECT p.Name, p.Surname, p.Email, p.WebsiteAddress, cm.Module FROM professors p
+        JOIN course_modules cm ON cm.Professor = p.Email
+        WHERE cm.CourseID = ?";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $courseID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     private function get_pony_price_filter_query_string(?string $price_filter) {
         $pony_price_filter_query_string = '';
         switch ($price_filter) {
@@ -466,39 +538,18 @@ class DatabaseHelper {
     }
 
     /**
-     * @return int the maximum length of the database field `reservations.ReservationID`
+     * Retrieves the maximum length of the char or varchar field `$field_name` of table
+     * `$table_name`.
+     * @param $field_name the field name. Its type MUST be `char` or `varchar`, otherwise
+     * `NULL` will be returned
+     * @return int the maximum length of the database field `$table_name.$field_name`
      */
-    private function get_reservation_id_length(): int {
+    public function get_string_field_max_length(string $table_name, string $field_name) {
         /* for more info about INFORMATION_SCHEMA.COLUMNS check here:
         https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.0/en/information-schema-columns-table.html */
-        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "reservations" AND column_name = "ReservationID"';
+        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ? AND column_name = ?';
         $stmt = $this->db->prepare($query);
-        $stmt->execute();
-
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]["CHARACTER_MAXIMUM_LENGTH"];
-    }
-
-    /**
-     * @return int the maximum length of the database field `ponies.SpecMarks`
-     */
-    public function get_ponies_special_marks_max_length(): int {
-        /* for more info about INFORMATION_SCHEMA.COLUMNS check here:
-        https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.0/en/information-schema-columns-table.html */
-        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "ponies" AND column_name = "SpecMarks"';
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]["CHARACTER_MAXIMUM_LENGTH"];
-    }
-
-    /**
-     * @return int the maximum length of the database field `ponies.Description`
-     */
-    public function get_ponies_description_max_length(): int {
-        /* for more info about INFORMATION_SCHEMA.COLUMNS check here:
-        https://dev.mysql.com/doc/mysql-infoschema-excerpt/8.0/en/information-schema-columns-table.html */
-        $query = 'SELECT CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "ponies" AND column_name = "Description"';
-        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $table_name, $field_name);
         $stmt->execute();
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]["CHARACTER_MAXIMUM_LENGTH"];
@@ -510,9 +561,9 @@ class DatabaseHelper {
      * @return string a valid reservation ID
      */
     private function generate_reservation_id(): string {
-        $reservation_id = bin2hex(random_bytes($this->get_reservation_id_length() / 2));
+        $reservation_id = bin2hex(random_bytes($this->get_string_field_max_length("reservations", "ReservationID") / 2));
         while ($this->reservation_id_exists($reservation_id)) {
-            $reservation_id = bin2hex(random_bytes($this->get_reservation_id_length() / 2));
+            $reservation_id = bin2hex(random_bytes($this->get_string_field_max_length("reservations", "ReservationID") / 2));
         }
         return $reservation_id;
     }

@@ -6,11 +6,7 @@ if (!isUserLoggedIn()) {
     exit();
 }
 
-$result = [];
-if (isset($_POST["type"])) {
-    $type = $_POST["type"];
-    $result = $dbh->getPlacesFromType($type);
-}
+$result = $dbh->getCoursesLabelsWithDegree();
 
 header("Content-Type: application/json");
 echo json_encode($result);

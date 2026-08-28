@@ -3,9 +3,10 @@ require_once("bootstrap.php");
 
 if(!isUserLoggedIn()) {
     header("location: preview.php");
+    exit();
 }
 
-$templateParams["titolo"] = "Campus+ - Storico prenotazioni";
+$templateParams["titolo"] = "Storico prenotazioni";
 if ($dbh->checkStudent($_SESSION['idutente'])) {
     $templateParams["nome"] = "template/pony-reservations-history.php";
     $templateParams["js"] = array();
