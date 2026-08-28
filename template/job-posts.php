@@ -15,7 +15,7 @@
                         <p class="mb-1"><span class="fw-bold">Tipologia contratto:</span> <?php echo $jp["ContractType"]?></p>
                         <address class="mb-4">
                             <p class="mb-1"><span class="fw-bold">Recapito telefonico:</span> <?php echo $jp["AuthorPhoneNumber"]?></p>
-                            <p class="m-0"><span class="fw-bold">Email:</span> <a href="mailto:<?php echo $jp["AuthorEmail"]?>"><?php echo $jp["AuthorEmail"]?></a></p>
+                            <p class="m-0"><span class="fw-bold">Email:</span> <a class="mode-link-color" href="mailto:<?php echo $jp["AuthorEmail"]?>"><?php echo $jp["AuthorEmail"]?></a></p>
                         </address>
                     </div>
                 </article>

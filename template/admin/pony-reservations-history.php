@@ -12,7 +12,7 @@
                         <p class="mb-1"><span class="fw-bold">Ora fine:</span> <?php echo preg_replace('/:00/', '', $r["EndHour"], 1)?></p>
                         <p class="mb-1"><span class="fw-bold">Matricola studente:</span> <?php echo $r["StudentID"]?></p>
                         <p class="mb-1"><span class="fw-bold">Nome studente:</span> <?php echo $r["StudentName"] . " " . $r["StudentSurname"]?></p>
-                        <p class="mb-1"><span class="fw-bold">Email studente:</span> <a href="mailto:<?php echo $r["Email"]?>"><?php echo $r["Email"]?></a></p>
+                        <p class="mb-1"><span class="fw-bold">Email studente:</span> <a class="mode-link-color" href="mailto:<?php echo $r["Email"]?>"><?php echo $r["Email"]?></a></p>
                         <p class="mb-4"><span class="fw-bold">Totale:</span> € <?php echo $r["PaidAmount"]?></p>
                     </div>
                 </article>

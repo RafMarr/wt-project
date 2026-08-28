@@ -69,7 +69,7 @@ function generateJobPostsCards(jobPosts) {
                     <p class="mb-1"><span class="fw-bold">Tipologia contratto:</span> ${jp["ContractType"]}</p>
                     <address class="mb-4">
                         <p class="mb-1"><span class="fw-bold">Recapito telefonico:</span> ${jp["AuthorPhoneNumber"]}</p>
-                        <p><span class="fw-bold">Email:</span> <a href="mailto:${jp["AuthorEmail"]}">${jp["AuthorEmail"]}</a></p>
+                        <p><span class="fw-bold">Email:</span> <a class="mode-link-color" href="mailto:${jp["AuthorEmail"]}">${jp["AuthorEmail"]}</a></p>
                     </address>
                 </div>
             </article>
