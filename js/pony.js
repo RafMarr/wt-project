@@ -273,7 +273,7 @@ function generatePoniesCards(ponies, enableBookingButtons = false) {
 
         let bookingButton
         if (enableBookingButtons) {
-            bookingButton = `<button type="button" onclick='setBookingModalContent("pony-${pony["PonyID"]}")' class="btn border-0 theme-bg-text" data-bs-toggle="modal" data-bs-target="#booking-modal">Prenota</button>`
+            bookingButton = `<button type="button" class="btn border-0 theme-bg-text" data-bs-toggle="modal" data-bs-target="#booking-modal">Prenota</button>`
         } else {
             bookingButton = '<button type="button" class="btn border-0 opacity-50 theme-bg-text" disabled>Prenota</button>'
         }
@@ -330,6 +330,10 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
             /* The booking buttons must be enabled only if the user has filled all the required fields */
             const poniesCards = generatePoniesCards(result['ponies'], areAllParamsSet)
             availablePoniesSection.innerHTML += poniesCards
+            document.querySelectorAll('button[data-bs-target="#booking-modal"]').forEach(b => {
+                const ponyArticleID = b.parentElement.parentElement.id
+                b.addEventListener('click', () => { setBookingModalContent(ponyArticleID) })
+            })
         } else {
             availablePoniesSection.innerHTML += `<p class="my-0 mx-auto">${result['error-msg']}</p>`
         }

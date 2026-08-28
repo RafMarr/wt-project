@@ -208,9 +208,9 @@ function generatePoniesCards(ponies) {
         }
 
         if (pony["IsAvailable"]) {
-            lastButton = `<button type="button" onclick='setHidePonyModalContent("pony-${pony["PonyID"]}")' class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#hide-pony-modal">Nascondi</button>`
+            lastButton = `<button type="button" class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#hide-pony-modal">Nascondi</button>`
         } else {
-            lastButton = `<button type="button" onclick='setMakePonyAvailableModalContent("pony-${pony["PonyID"]}")' class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#make-pony-available-modal">Mostra</button>`
+            lastButton = `<button type="button" class="btn mode-danger" data-bs-toggle="modal" data-bs-target="#make-pony-available-modal">Mostra</button>`
         }
 
         const marginBottomHourlyFee = (pony["SpecMarks"] == null && pony["Description"] == null) ? 'mb-4' : 'mb-1'
@@ -376,7 +376,7 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
             </div>`
         } else {
             availablePoniesSection.innerHTML = `<h2 class="text-center fs-3 mb-4">Pony disponibili</h2>
-            <p class="mt-4 mx-auto">${result['error-msg']}</p>`
+            <p class="mt-4 text-center">${result['error-msg']}</p>`
         }
         if (hiddenPonies.length > 0) {
             hiddenPoniesSection.innerHTML = `<h2 class="text-center fs-3 mb-4">Pony nascosti</h2>
@@ -386,6 +386,14 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
         } else {
             hiddenPoniesSection.innerHTML = ''
         }
+        document.querySelectorAll('button[data-bs-target="#hide-pony-modal"]').forEach(b => {
+            const ponyArticleID = b.parentElement.parentElement.id
+            b.addEventListener('click', () => { setHidePonyModalContent(ponyArticleID) })
+        })
+        document.querySelectorAll('button[data-bs-target="#make-pony-available-modal"]').forEach(b => {
+            const ponyArticleID = b.parentElement.parentElement.id
+            b.addEventListener('click', () => { setMakePonyAvailableModalContent(ponyArticleID) })
+        })
     } catch (error) {
         console.error(error.message)
     }
