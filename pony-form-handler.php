@@ -1,8 +1,8 @@
 <?php
 require_once("bootstrap.php");
 
-if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_GET['action'])) {
-    if ($_GET['action'] === "add-pony" && isset($_POST['name']) && isset($_POST['breed'])
+if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_POST['action'])) {
+    if ($_POST['action'] === "add-pony" && isset($_POST['name']) && isset($_POST['breed'])
     && isset($_POST['hourly-fee']) && isset($_FILES['image'])
     && isset($_POST['special-marks']) && isset($_POST['description'])) {
 
@@ -31,7 +31,7 @@ if ($dbh->checkAdmin($_SESSION['idutente']) && isset($_GET['action'])) {
 
         header('location: pony.php?operation-successful=' . ($addition_successful ? "true" : "false"));
         exit();
-    } else if ($_GET['action'] === "edit-pony" && isset($_POST['name'])
+    } else if ($_POST['action'] === "edit-pony" && isset($_POST['name'])
       && isset($_POST['breed']) && isset($_POST['hourly-fee'])
       && isset($_POST['special-marks']) && isset($_POST['description'])
       && isset($_POST['pony-id']) && isset($_POST['old-image-name'])) {

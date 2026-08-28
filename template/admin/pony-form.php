@@ -3,7 +3,7 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
     <h1 class="fs-2 mb-3"><?php echo $templateParams['action'] === 'add-pony' ? "Aggiungi pony" : "Modifica pony" ?></h1>
     <p>* Indica i campi obbligatori.</p>
-    <form action="pony-form-handler.php?action=<?php echo $templateParams['action'] ?>" method="POST" enctype="multipart/form-data" class="col-10 col-md-6">
+    <form action="pony-form-handler.php" method="POST" enctype="multipart/form-data" class="col-10 col-md-6">
         <div class="mb-3 text-start">
             <label for="name" class="form-label">Nome *</label>
             <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Name") ?>" class="form-control border-mode-text" name="name" id="name" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['Name'] . "\"" : "" ?> required />
@@ -45,6 +45,9 @@
             <label for="is-available" class="form-label">Rendi il pony disponibile per la prenotazione</label>
         </div>
         <?php endif; ?>
+
+        <input type="hidden" name="action" value="<?php echo $templateParams['action'] ?>"/>
+
         <?php if ($templateParams['action'] === 'edit-pony'): ?>
         <input type="hidden" name="pony-id" value="<?php echo $templateParams['pony']['PonyID'] ?>"/>
         <input type="hidden" name="old-image-name" value="<?php echo $templateParams['pony']['Image'] ?>"/>
