@@ -289,16 +289,13 @@ async function hidePony(ponyID) {
 }
 
 async function hasFutureReservations(ponyID) {
-    const url = 'api/api-pony-booking.php'
-    const parameters = new FormData()
+    const parameters = new URLSearchParams()
     parameters.append('action', 'check-pony-future-reservations')
     parameters.append('pony-id', ponyID)
+    const url = `api/api-pony-booking.php?${parameters}`
 
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            body: parameters
-        })
+        const response = await fetch(url)
         if (!response.ok) {
             throw new Error("Response status: " + response.status)
         }
