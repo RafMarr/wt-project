@@ -85,7 +85,7 @@ if (isset($templateParams['deletion-successful'])) {
             </svg>
         </button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body mode-text">
         <div class="d-flex justify-content-start align-items-center mb-3">
             <label for="student-id-filter" class="form-label col-4 mb-0 me-3 mode-text">Matricola studente</label>
             <input type="text" class="form-control border-mode-text" name="student-id" id="student-id-filter" maxlength="10" />
