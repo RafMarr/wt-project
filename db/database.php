@@ -1131,6 +1131,64 @@ class DatabaseHelper {
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function get_valid_events(?string $category_filter): array {
+        $query = 'SELECT * FROM events WHERE ((Type = "A periodo" AND EndDate >= CURDATE()) OR (Type = "Programmato" AND CONCAT(StartDate, " ", StartTime) >= CURRENT_TIMESTAMP()))';
+        if ($category_filter !== null) {
+            $query .= ' AND Category = ?';
+        }
+        $stmt = $this->db->prepare($query);
+        if ($category_filter !== null) {
+            $stmt->bind_param('s', $category_filter);
+        }
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function get_expired_events(?string $category_filter): array {
+        $query = 'SELECT * FROM events WHERE EventID NOT IN (SELECT EventID FROM events WHERE (Type = "A periodo" AND EndDate >= CURDATE()) OR (Type = "Programmato" AND CONCAT(StartDate, " ", StartTime) >= CURRENT_TIMESTAMP()))';
+        if ($category_filter !== null) {
+            $query .= ' AND Category = ?';
+        }
+        $stmt = $this->db->prepare($query);
+        if ($category_filter !== null) {
+            $stmt->bind_param('s', $category_filter);
+        }
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function get_events_categories(): array {
+        $query = 'SELECT DISTINCT Category FROM events';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function is_event_id_valid(int $event_id): bool {
+        $query = 'SELECT EXISTS(SELECT 1 FROM events WHERE EventID = ? LIMIT 1)';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $event_id);
+        $stmt->execute();
+
+        $stmt->bind_result($is_id_valid);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$is_id_valid;
+    }
+
+    public function get_event(int $event_id): array {
+        $query = 'SELECT * FROM events WHERE EventID = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $event_id);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>
