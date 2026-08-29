@@ -1189,6 +1189,25 @@ class DatabaseHelper {
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    /**
+     * Deletes the event whose id is `$event_id`.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function delete_event(int $event_id): bool {
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'DELETE FROM events WHERE EventID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $event_id);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

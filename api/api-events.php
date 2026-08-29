@@ -28,12 +28,12 @@ if ($action === "filter") {
         echo json_encode($result);
         exit();
     }
-} /* TODO: implement add, edit and delete actions */ /* else if ($action === "delete" && isset($_POST['job-post-id'])) {
+} else if ($action === "delete" && isset($_POST['event-id']) && $dbh->checkAdmin($_SESSION['idutente'])) {
 
     header("Content-Type: application/json");
-    echo json_encode($dbh->delete_job_post($_POST['job-post-id']));
+    echo json_encode($dbh->delete_event($_POST['event-id']));
     exit();
-} else if ($action === "add" && $dbh->checkAdmin($_SESSION['idutente'])
+} /* TODO: implement add and edit actions else if ($action === "add" && $dbh->checkAdmin($_SESSION['idutente'])
  && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['contract-type'])
  && isset($_POST['description']) && isset($_POST['working-time']) && isset($_POST['enterprise-address'])
  && isset($_POST['hourly-salary']) && isset($_POST['author-phone-number']) && isset($_POST['author-email'])
