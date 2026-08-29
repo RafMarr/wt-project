@@ -3,11 +3,11 @@ const savedTheme = localStorage.getItem("user-theme");
 if (savedTheme) {
     if (savedTheme == "custom") {
         const mainColor = localStorage.getItem("custom-main-color");
-        const whiteColor = localStorage.getItem("custom-main-color");
-        const bgLightColor = localStorage.getItem("custom-main-color");
-        const textLightColor = localStorage.getItem("custom-main-color");
-        const bgDarkColor = localStorage.getItem("custom-main-color");
-        const textDarkColor = localStorage.getItem("custom-main-color");
+        const whiteColor = localStorage.getItem("custom-white-color");
+        const bgLightColor = localStorage.getItem("custom-bg-light-color");
+        const textLightColor = localStorage.getItem("custom-text-light-color");
+        const bgDarkColor = localStorage.getItem("custom-bg-dark-color");
+        const textDarkColor = localStorage.getItem("custom-text-dark-color");
 
         document.documentElement.style.setProperty("--custom-main", mainColor);
         document.documentElement.style.setProperty("--custom-main-rgb", formatHexToRGB(mainColor));

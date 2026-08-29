@@ -45,7 +45,7 @@
     --secondary-accordion-arrow-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ECF9D8' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
     /* Palette Tema Custom Chiaro */
-    --custom-main: darkblue;
+    --custom-main: darkred;
     --custom-main-rgb: 0, 0, 139;
     --custom-white: white;
     --custom-white-rgb: 255, 255, 255;
@@ -237,6 +237,10 @@
 
 .preview-theme-secondary {
     background: linear-gradient(to right, var(--secondary-green) 50%, var(--secondary-white) 50%);
+}
+
+.preview-theme-custom {
+    background: linear-gradient(to right, var(--custom-main) 50%, var(--custom-white) 50%);
 }
 
 .preview-theme-card {
