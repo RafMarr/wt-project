@@ -6,7 +6,7 @@ use UniboWebApp;
 
 create table ACCOUNTS (
      Email varchar(100) not null,
-     Password varchar(30) not null,
+     Password varchar(128) not null,
      PermissionType varchar(30) not null,
      constraint IDACCOUNT primary key (Email),
      constraint PSW_LENGTH check (length(Password) >= 8),
