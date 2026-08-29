@@ -110,22 +110,23 @@
                     </svg>
                 </button>
             </div>
-            <div class="modal-body row justify-content-center row-gap-4">
-                <label for="custom-main-color" class="form-label col-7">Colore di sfondo Principale</label>
+            <div id="custom-color-inputs-container" class="modal-body row justify-content-center row-gap-4">
+                <p class="text-center">Per un buon contrasto si indica un valore di almeno 4.5.</p>
+                <label for="custom-main-color" class="form-label col-7 my-auto">Colore di sfondo Principale</label>
                 <input id="custom-main-color" type="color" class="form-control-color col-5" />
-                <label for="custom-white-color" class="form-label col-7">Colore contenuto Principale</label>
+                <label for="custom-white-color" class="form-label col-7 my-auto">Colore contenuto Principale</label>
                 <input id="custom-white-color" type="color" class="form-control-color col-5" />
-                <p id="contrasto-principale"></p>
-                <label for="custom-bg-light-color" class="form-label col-7">Colore di sfondo tema chiaro</label>
+                <p class="text-center" id="contrasto-principale"></p>
+                <label for="custom-bg-light-color" class="form-label col-7 my-auto">Colore di sfondo tema chiaro</label>
                 <input id="custom-bg-light-color" type="color" class="form-control-color col-5" />
-                <label for="custom-text-light-color" class="form-label col-7">Colore del testo tema chiaro</label>
+                <label for="custom-text-light-color" class="form-label col-7 my-auto">Colore del testo tema chiaro</label>
                 <input id="custom-text-light-color" type="color" class="form-control-color col-5" />
-                <p id="contrasto-tema-chiaro"></p>
-                <label for="custom-bg-dark-color" class="form-label col-7">Colore di sfondo tema scuro</label>
+                <p class="text-center" id="contrasto-tema-chiaro"></p>
+                <label for="custom-bg-dark-color" class="form-label col-7 my-auto">Colore di sfondo tema scuro</label>
                 <input id="custom-bg-dark-color" type="color" class="form-control-color col-5" />
-                <label for="custom-text-dark-color" class="form-label col-7">Colore del testo tema scuro</label>
+                <label for="custom-text-dark-color" class="form-label col-7 my-auto">Colore del testo tema scuro</label>
                 <input id="custom-text-dark-color" type="color" class="form-control-color col-5" />
-                <p id="contrasto-tema-scuro"></p>
+                <p class="text-center" id="contrasto-tema-scuro"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn mode-danger" data-bs-dismiss="modal">Annulla</button>

@@ -9,17 +9,19 @@ if (savedTheme) {
         const bgDarkColor = localStorage.getItem("custom-bg-dark-color");
         const textDarkColor = localStorage.getItem("custom-text-dark-color");
 
-        document.documentElement.style.setProperty("--custom-main", mainColor);
-        document.documentElement.style.setProperty("--custom-main-rgb", formatHexToRGB(mainColor));
-        document.documentElement.style.setProperty("--custom-white", whiteColor);
-        document.documentElement.style.setProperty("--custom-white-rgb", formatHexToRGB(whiteColor));
-        document.documentElement.style.setProperty("--custom-bg-light", bgLightColor);
-        document.documentElement.style.setProperty("--custom-bg-light-rgb", formatHexToRGB(bgLightColor));
-        document.documentElement.style.setProperty("--custom-text-light", textLightColor);
-        document.documentElement.style.setProperty("--custom-text-light-rgb", formatHexToRGB(textLightColor));
-        document.documentElement.style.setProperty("--custom-bg-dark", bgDarkColor);
-        document.documentElement.style.setProperty("--custom-text-dark", textDarkColor);
-        document.documentElement.style.setProperty("--custom-text-dark-rgb", formatHexToRGB(textDarkColor));
+        if (mainColor && whiteColor && bgLightColor && textLightColor && bgDarkColor && textDarkColor) {
+            document.documentElement.style.setProperty("--custom-main", mainColor);
+            document.documentElement.style.setProperty("--custom-main-rgb", formatHexToRGB(mainColor));
+            document.documentElement.style.setProperty("--custom-white", whiteColor);
+            document.documentElement.style.setProperty("--custom-white-rgb", formatHexToRGB(whiteColor));
+            document.documentElement.style.setProperty("--custom-bg-light", bgLightColor);
+            document.documentElement.style.setProperty("--custom-bg-light-rgb", formatHexToRGB(bgLightColor));
+            document.documentElement.style.setProperty("--custom-text-light", textLightColor);
+            document.documentElement.style.setProperty("--custom-text-light-rgb", formatHexToRGB(textLightColor));
+            document.documentElement.style.setProperty("--custom-bg-dark", bgDarkColor);
+            document.documentElement.style.setProperty("--custom-text-dark", textDarkColor);
+            document.documentElement.style.setProperty("--custom-text-dark-rgb", formatHexToRGB(textDarkColor));
+        }
     }
     document.documentElement.setAttribute("data-theme", savedTheme);
 }
