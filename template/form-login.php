@@ -10,6 +10,9 @@
       <input type="password" class="form-control" name="password-utente" id="password-utente" />
     </div>
     <div id="messaggio-errore" class="d-none form-error" aria-live="polite"></div>
-    <button type="submit" class="btn btn-primary theme-bg-text border-0">Accedi</button>
+    <div class="d-flex justify-content-end column-gap-3">
+        <a class="btn mode-danger" href="preview.php">Annulla</a>
+        <button type="submit" class="btn theme-bg-text">Accedi</button>
+    </div>
   </form>
 </div>

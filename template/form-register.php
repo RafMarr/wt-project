@@ -45,7 +45,9 @@
         <?php endforeach; ?>
       </select>
     </div>
-
-    <button type="submit" class="btn btn-primary theme-bg-text border-0">Registrati</button>
+    <div class="d-flex justify-content-end column-gap-3">
+        <a class="btn mode-danger" href="preview.php">Annulla</a>
+        <button type="submit" class="btn theme-bg-text">Registrati</button>
+    </div>
   </form>
 </div>
