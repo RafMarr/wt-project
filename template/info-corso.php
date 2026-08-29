@@ -14,7 +14,7 @@
             <ul class="list-style-none">
                 <?php foreach($templateParams["course-info"]["course-profs"] as $docente): ?>
                     <li class="mb-2">
-                        <p class="mb-1"><strong>Email:</strong> <?php echo $docente["Email"]; ?></p>
+                        <p class="mb-1"><strong>Email:</strong> <a class="mode-text" href="mailto:<?php echo $docente["Email"]; ?>"><?php echo $docente["Email"]; ?></a></p>
                         <p class="mb-1"><strong>Sito Web:</strong> <a class="mode-link-color" href="<?php echo $docente["WebsiteAddress"]; ?>">Sito personale</a></p>
                     </li>
                 <?php endforeach; ?>
