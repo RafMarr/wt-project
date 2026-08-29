@@ -13,7 +13,7 @@
         </div>
         <div class="mb-3 text-start">
             <label for="password-nuova" class="form-label">Nuova Password</label>
-            <input type="password" class="form-control" name="password-nuova" id="password-nuova" aria-describedby="errore-password-nuova" required="" />
+            <input type="password" class="form-control" name="password-nuova" id="password-nuova" aria-describedby="errore-password-nuova" required="" maxlength="<?php echo $passwordMaxLength; ?>" />
             <div id="errore-password-nuova" class="invalid-feedback" aria-live="polite">
             </div>
         </div>

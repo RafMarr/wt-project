@@ -6,21 +6,21 @@
             <form id="form-aggiungi-admin" action="account.php?action=register-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">
                     <label for="nome" class="form-label">Nome <span class="mandatory">*</span></label>
-                    <input type="text" class="form-control" name="nome" id="nome" required=""/>
+                    <input type="text" class="form-control" name="nome" id="nome" required="" maxlength="<?php echo $nameMaxLength ?>" />
                 </div>
                 <div class="mb-3 text-start">
                     <label for="cognome" class="form-label">Cognome <span class="mandatory">*</span></label>
-                    <input type="text" class="form-control" name="cognome" id="cognome" required=""/>
+                    <input type="text" class="form-control" name="cognome" id="cognome" required="" maxlength="<?php echo $surnameMaxLength ?>" />
                 </div>
                 <div class="mb-3 text-start">
                     <label for="email-utente" class="form-label">Email <span class="mandatory">*</span></label>
-                    <input type="email" class="form-control" name="email-utente" id="email-utente" aria-describedby="errore-email" required=""/>
+                    <input type="email" class="form-control" name="email-utente" id="email-utente" aria-describedby="errore-email" required="" maxlength="<?php echo $emailMaxLength ?>" />
                     <div id="errore-email" class="invalid-feedback" aria-live="polite">
                     </div>
                 </div>
                 <div class="mb-3 text-start">
                     <label for="password-utente" class="form-label">Password <span class="mandatory">*</span></label>
-                    <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" aria-describedby="errore-password" required=""/>
+                    <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" aria-describedby="errore-password" required="" maxlength="<?php echo $passwordMaxLength ?>" />
                     <div id="errore-password" class="invalid-feedback" aria-live="polite">
                     </div>
                 </div>

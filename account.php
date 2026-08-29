@@ -19,6 +19,10 @@ if ($dbh->checkAdmin($_SESSION["idutente"])) {
     $templateParams["admin"] = "admin/profilo-admin-section.php";
     $templateParams["js"][] = "./js/profilo-admin.js";
     $templateParams["utenti"] = $dbh->getAccountsExceptCurrent($_SESSION["idutente"]);
+    $nameMaxLength = $dbh->get_string_field_max_length("admins", "Name");
+    $surnameMaxLength = $dbh->get_string_field_max_length("admins", "Surname");
+    $emailMaxLength = $dbh->get_string_field_max_length("accounts", "Email");
+    $passwordMaxLength = $dbh->get_string_field_max_length("accounts", "Password");
 }
 else {
     $templateParams["NumeroMatricola"] = $profileInfo["IdNumber"];
@@ -30,10 +34,18 @@ if (isset($_GET["action"])) {
             if (isset($_POST["nome"]) && isset($_POST["cognome"]) && isset($_POST["email-utente"]) && isset($_POST["password-utente"]) && isset($_POST["conferma-password"])) {
                 if ($_POST["password-utente"] != $_POST["conferma-password"]) {
                     $templateParams["errore"] = "Errore! Le password non coincidono!";
+                } else if (strlen($_POST['nome']) > $nameMaxLength) {
+                    $templateParams["errore"] = "Errore! Il nome deve essere di massimo " . $nameMaxLength . " caratteri!";
+                } else if (strlen($_POST['cognome']) > $surnameMaxLength) {
+                    $templateParams["errore"] = "Errore! Il cognome deve essere di massimo " . $surnameMaxLength . " caratteri!";
                 } else if ($dbh->checkEmailRegistered($_POST['email-utente'])) {
-                $templateParams["errore"] = "Errore! L'Email è già registrata!";
+                    $templateParams["errore"] = "Errore! L'Email è già registrata!";
+                } else if (strlen($_POST['email-utente']) > $emailMaxLength) {
+                    $templateParams["errore"] = "Errore! Il cognome deve essere di massimo " . $emailMaxLength . " caratteri!";
                 } else if (strlen($_POST['password-utente']) < 8 || !preg_match("#[0-9]+#", $_POST['password-utente']) || !preg_match("#[A-Z]+#", $_POST['password-utente']) || !preg_match("#[a-z]+#", $_POST['password-utente'])) {
                     $templateParams["errore"] = "Errore! La password deve essere di almeno 8 caratteri, inclusa 1 maiuscola, 1 minuscola e 1 numero!";
+                } else if (strlen($_POST['password-utente']) > $passwordMaxLength) {
+                    $templateParams["errore"] = "Errore! Il cognome deve essere di massimo " . $passwordMaxLength . " caratteri!";
                 }
                 else {
                     $dbh->registerAdmin($_POST["nome"], $_POST["cognome"], $_POST["email-utente"], $_POST["password-utente"]);
@@ -63,6 +75,7 @@ if (isset($_GET["action"])) {
     }
     else if ($_GET["action"] === "change-password") {
 
+        $passwordMaxLength = $dbh->get_string_field_max_length("accounts", "Password");
         if (isset($_POST["password-corrente"]) && isset($_POST["password-nuova"]) && isset($_POST["conferma-password"])) {
             if ($_POST["password-nuova"] != $_POST["conferma-password"]) {
                 $templateParams["errore"] = "Errore! Le password non coincidono!";
@@ -70,6 +83,8 @@ if (isset($_GET["action"])) {
                 $templateParams["errore"] = "Errore! La password corrente non coincide con quella inserita!";
             } else if (strlen($_POST['password-nuova']) < 8 || !preg_match("#[0-9]+#", $_POST['password-nuova']) || !preg_match("#[A-Z]+#", $_POST['password-nuova']) || !preg_match("#[a-z]+#", $_POST['password-nuova'])) {
                 $templateParams["errore"] = "Errore! La password deve essere di almeno 8 caratteri, inclusa 1 maiuscola, 1 minuscola e 1 numero!";
+            } else if (strlen($_POST['password-nuova']) > $passwordMaxLength) {
+                $templateParams["errore"] = "Errore! La password deve essere di massimo " . $passwordMaxLength . " caratteri!";
             }
             else {
                 $dbh->changePassword($_POST["password-nuova"], $_SESSION["idutente"]);

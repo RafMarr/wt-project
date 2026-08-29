@@ -38,7 +38,7 @@ selectType.addEventListener("change", async () => {
         return;
     }
 
-    labelLuogo.innerHTML = valore.charAt(0).toUpperCase() + valore.slice(1).toLowerCase();
+    labelLuogo.innerHTML = valore.charAt(0).toUpperCase() + valore.slice(1).toLowerCase() +  ` <span class="mandatory">*</span>`;
 
     const type = valore;
     const url = "api/api-get-places.php";

@@ -25,13 +25,20 @@ if ($dbh->checkAdmin($_SESSION["idutente"])) {
 else if (isset($_GET["action"])) {
     if ($_GET["action"] === "send-report") {
 
+        $tipoMaxLength = $dbh->get_string_field_max_length("reports", "Type");
+        $descMaxLength = $dbh->get_string_field_max_length("reports", "Description");
         if (isset($_POST["tipo-segnalazione"]) && isset($_POST["type-select"]) && isset($_POST["place-select"]) && isset($_POST["descrizione-segnalazione"])) {
 
-            // if (!validateReport())
-
-            $dbh->addReport($_POST["tipo-segnalazione"], $_POST["type-select"], $_POST["place-select"], $_POST["descrizione-segnalazione"], $dbh->getStudentID($_SESSION["idutente"])["IdNumber"]);
-            header("location: report.php");
-            exit();
+            if (strlen($_POST["tipo-segnalazione"]) > $tipoMaxLength) {
+                $templateParams["errore"] = "Errore! Il tipo deve essere di massimo " . $tipoMaxLength . " caratteri!";
+            } else if (strlen($_POST["descrizione-segnalazione"]) > $descMaxLength) {
+                $templateParams["errore"] = "Errore! La descrizione deve essere di massimo " . $descMaxLength . " caratteri!";
+            }
+            else {
+                $dbh->addReport($_POST["tipo-segnalazione"], $_POST["type-select"], $_POST["place-select"], $_POST["descrizione-segnalazione"], $dbh->getStudentID($_SESSION["idutente"])["IdNumber"]);
+                header("location: report.php");
+                exit();
+            }
         }
 
         $templateParams["titolo"] = "Fai una Segnalazione";

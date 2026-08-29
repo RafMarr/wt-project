@@ -5,21 +5,21 @@
   <form action="login.php?action=register" method="POST" class="col-10 col-md-6 needs-validation">
     <div class="mb-3 text-start">
       <label for="nome" class="form-label">Nome <span class="mandatory">*</span></label>
-      <input type="text" class="form-control" name="nome" id="nome" required=""/>
+      <input type="text" class="form-control" name="nome" id="nome" required="" maxlength="<?php echo $nameMaxLength ?>" />
     </div>
     <div class="mb-3 text-start">
       <label for="cognome" class="form-label">Cognome <span class="mandatory">*</span></label>
-      <input type="text" class="form-control" name="cognome" id="cognome" required=""/>
+      <input type="text" class="form-control" name="cognome" id="cognome" required="" maxlength="<?php echo $surnameMaxLength ?>"/>
     </div>
     <div class="mb-3 text-start">
       <label for="email-utente" class="form-label">Email <span class="mandatory">*</span></label>
-      <input type="email" class="form-control" name="email-utente" id="email-utente" required="" aria-describedby="errore-email"/>
+      <input type="email" class="form-control" name="email-utente" id="email-utente" required="" maxlength="<?php echo $emailMaxLength ?>" aria-describedby="errore-email"/>
       <div id="errore-email" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
     <div class="mb-3 text-start">
       <label for="password-utente" class="form-label">Password <span class="mandatory">*</span></label>
-      <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" required="" aria-describedby="errore-password"/>
+      <input type="password" class="form-control" name="password-utente" id="password-utente" minlength="8" required="" maxlength="<?php echo $passwordMaxLength ?>" aria-describedby="errore-password"/>
       <div id="errore-password" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="mb-3 text-start">
       <label for="matricola" class="form-label">Numero di Matricola <span class="mandatory">*</span></label>
-      <input type="text" class="form-control" name="matricola" id="matricola" required="" aria-describedby="errore-matricola"/>
+      <input type="text" class="form-control" name="matricola" id="matricola" required="" maxlength="<?php echo $matricolaMaxLength ?>" aria-describedby="errore-matricola"/>
       <div id="errore-matricola" class="invalid-feedback" aria-live="polite">
       </div>
     </div>
