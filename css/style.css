@@ -44,6 +44,24 @@
     --secondary-text-dark-rgb: var(--secondary-bg-light-rbg);
     --secondary-accordion-arrow-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ECF9D8' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 
+    /* Palette Tema Custom Chiaro */
+    --custom-main: darkblue;
+    --custom-main-rgb: 0, 0, 139;
+    --custom-white: white;
+    --custom-white-rgb: 255, 255, 255;
+    --custom-bg-light: var(--custom-white);
+    --custom-bg-light-rbg: var(--custom-white-rgb);
+    --custom-text-light: #201D1D;
+    --custom-text-light-rgb: 32, 29, 29;
+    --custom-accordion-arrow-light: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000000' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+    /* Palette Tema Custom Scuro */
+    --custom-bg-dark: var(--custom-text-light);
+    --custom-text-dark: var(--custom-bg-light);
+    --custom-text-dark-rgb: var(--custom-bg-light-rbg);
+    --custom-accordion-arrow-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+
     /* -- Dichiarazione variabili del tema -- */
 
     /* Tema Corrente impostato al default */
@@ -94,6 +112,21 @@
     --current-mode-theme-text-dark-rgb: var(--secondary-text-dark-rgb);
     --current-mode-accordion-arrow-light: var(--secondary-accordion-arrow-light);
     --current-mode-accordion-arrow-dark: var(--secondary-accordion-arrow-dark);
+}
+/* Selezionato il tema custom */
+:root[data-theme="custom"] {
+    --current-theme-bg: var(--custom-main);
+    --current-theme-bg-rgb: var(--custom-main-rgb);
+    --current-theme-text: var(--custom-white);
+    --current-theme-text-rgb: var(--custom-white-rgb);
+    --current-mode-theme-bg-light: var(--custom-bg-light);
+    --current-mode-theme-text-light: var(--custom-text-light);
+    --current-mode-theme-text-light-rgb: var(--custom-text-light-rgb);
+    --current-mode-theme-bg-dark: var(--custom-bg-dark);
+    --current-mode-theme-text-dark: var(--custom-text-dark);
+    --current-mode-theme-text-dark-rgb: var(--custom-text-dark-rgb);
+    --current-mode-accordion-arrow-light: var(--custom-accordion-arrow-light);
+    --current-mode-accordion-arrow-dark: var(--custom-accordion-arrow-dark);
 }
 
 @media (prefers-color-scheme: dark) {
