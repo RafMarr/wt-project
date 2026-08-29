@@ -1,6 +1,7 @@
 <div class="container-fluid row justify-content-center text-center p-0 m-0">
     <section>
         <h1>Fai una Segnalazione</h1>
+        <p>* Indica i campi obbligatori.</p>
     </section>    
 
     <form action="report.php?action=send-report" method="POST" class="col-10 col-md-6">

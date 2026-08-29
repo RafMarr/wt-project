@@ -3,6 +3,7 @@
     <div class="row justify-content-evenly">
         <section class="border-mode-text border-3 border-solid rounded col-10 col-md-5 justify-content-center justify-content-md-start p-2 m-0 mb-3">
             <h3>Aggiungi Account Admin</h3>
+            <p>* Indica i campi obbligatori.</p>
             <form id="form-aggiungi-admin" action="account.php?action=register-admin" method="POST" class="needs-validation">
                 <div class="mb-3 text-start">
                     <label for="nome" class="form-label">Nome <span class="mandatory">*</span></label>
