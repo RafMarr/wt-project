@@ -48,19 +48,15 @@ create table EVENTS (
      Category varchar(50) not null, -- value of "Categoria" filter. Its values can be: "Sconti", "Conferenze", "Eventi esterni", ...
      Type varchar(100) not null,
      Title varchar(256) not null,
-     Description varchar(500),
+     Description varchar(500) not null,
      Place varchar(256),
-     StartDate date,
+     StartDate date not null,
      EndDate date,
      StartTime time,
      EndTime time,
-     constraint EVENTS_TYPE_CHECK check (Type in ('A scadenza', 'A periodo', 'Programmato')),
-     constraint EXPIRING_EVENT_CHECK check (Type <> 'A scadenza' or (Type = 'A scadenza' and (StartDate is null and EndDate is not null and
-                                                                                              StartTime is null and EndTime is null))),
-     constraint PERIOD_EVENT_CHECK check (Type <> 'A periodo' or (Type = 'A periodo' and (StartDate is not null and EndDate is not null and
-																						  StartTime is null and EndTime is null))),
-     constraint SCHEDULED_EVENT_CHECK check (Type <> 'Programmato' or (Type = 'Programmato' and (StartDate is not null and EndDate is null and
-                                                                                                 StartTime is not null and EndTime is not null))),
+     constraint EVENTS_TYPE_CHECK check (Type in ('A periodo', 'Programmato')),
+     constraint PERIOD_EVENT_CHECK check (Type <> 'A periodo' or (Type = 'A periodo' and (EndDate is not null and StartTime is null and EndTime is null))),
+     constraint SCHEDULED_EVENT_CHECK check (Type <> 'Programmato' or (Type = 'Programmato' and (EndDate is null and StartTime is not null and EndTime is not null))),
      constraint IDEVENT primary key (EventID));
 
 create table JOB_POSTS (
