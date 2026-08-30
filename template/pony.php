@@ -81,7 +81,7 @@ if (isset($templateParams['booking-successful'])) {
 </section>
 <section id="available-ponies" class="text-center col-10 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mx-auto">
 </section>
-<aside class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
+<div class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
     <div class="offcanvas-header">
         <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra ricerca</h2>
         <button type="button" class="close-btn mode-text" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
@@ -104,7 +104,7 @@ if (isset($templateParams['booking-successful'])) {
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>
     </div>
-</aside>
+</div>
 <div class="modal fade" id="hippodromeModal" tabindex="-1" aria-hidden="true" role="dialog" aria-labelledby="hippodromeModalTitle">
     <div class="modal-dialog">
         <div class="modal-content mode-gray mode-text">

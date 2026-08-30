@@ -75,7 +75,7 @@ if (isset($templateParams['operation-successful'])) {
 </section>
 <section id="hidden-ponies" class="mt-4">
 </section>
-<aside class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
+<div class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
     <div class="offcanvas-header">
         <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra ricerca</h2>
         <button type="button" class="close-btn mode-text" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
@@ -98,7 +98,7 @@ if (isset($templateParams['operation-successful'])) {
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>
     </div>
-</aside>
+</div>
 <div class="modal fade" id="hide-pony-modal" tabindex="-1" aria-hidden="true" role="dialog" aria-labelledby="hide-pony-modal-title">
     <div class="modal-dialog">
         <div class="modal-content mode-gray mode-text">

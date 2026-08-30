@@ -60,7 +60,7 @@ if (isset($templateParams['operation-successful'])) {
         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
     </svg>
 </button>
-<aside class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
+<div class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
     <div class="offcanvas-header">
         <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra annunci</h2>
         <button type="button" class="close-btn mode-text" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
@@ -97,7 +97,7 @@ if (isset($templateParams['operation-successful'])) {
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>
     </div>
-</aside>
+</div>
 <div class="modal fade" id="delete-job-post-modal" tabindex="-1" aria-hidden="true" role="dialog" aria-labelledby="delete-job-post-modal-title">
     <div class="modal-dialog">
         <div class="modal-content mode-gray mode-text">

@@ -27,7 +27,7 @@
     </svg>
 </button>
 
-<aside class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
+<div class="offcanvas offcanvas-start mode-gray p-2 pb-3" tabindex="-1" id="filtersMenu" aria-labelledby="filtersTitle">
     <div class="offcanvas-header">
         <h2 class="offcanvas-title text-center mode-text" id="filtersTitle">Filtra prenotazioni</h2>
         <button type="button" class="close-btn mode-text" data-bs-dismiss="offcanvas" aria-label="Chiudi filtri">
@@ -69,4 +69,4 @@
             <button type="button" class="btn mt-4 theme-bg-text" id="resetFiltersBtn">Azzera filtri</button>
         </div>
     </div>
-</aside>
+</div>
