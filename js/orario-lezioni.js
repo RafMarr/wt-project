@@ -38,7 +38,7 @@ function updateDivLessons() {
 
 async function fetchLessons() {
     const date = inputDate.value;
-    let year = parseInt(selectAnno.value);
+    const year = parseInt(selectAnno.value);
     lessons = [];
     updateDivLessons();
 
