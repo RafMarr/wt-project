@@ -30,7 +30,7 @@
             </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse border border-1 border-mode-gray" data-bs-parent="#accordionModalitaEsame">
-            <div class="accordion-body mode-bg-text">
+            <div class="accordion-body mode-bg-text text-start">
                 <!-- normalizer_normalize può essere usato per normalizzare in FORM C le stringhe del db.
                  su XAMPP va abilitata l'estenzione intl in php.ini -->
                 <p><?php echo $templateParams["course-info"]["ExamMethod"]; ?></p>
@@ -46,7 +46,7 @@
             </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse border border-1 border-mode-gray" data-bs-parent="#accordionMaterialeDidattico">
-            <div class="accordion-body mode-bg-text">
+            <div class="accordion-body mode-bg-text text-start">
                 <p><?php echo $templateParams["course-info"]["TeachingMaterial"]; ?></p>
             </div>
             </div>
