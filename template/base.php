@@ -29,6 +29,9 @@
     }
     ?>
     <main id="main-content" class="pt-3 pb-5 mt-1">
+        <?php if (isset($templateParams["errore"])): ?>
+            <p><?php echo $templateParams["errore"]; ?></p>
+        <?php endif; ?>
         <?php
         if(isset($templateParams["nome"])){
             require($templateParams["nome"]);
