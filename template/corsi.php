@@ -33,6 +33,7 @@
           if (isset($templateParams["admin"])) $templateParams["section"]["h2"] .= " triennale";
           $templateParams["section"]["target"] = "collapseOne";
           $templateParams["section"]["year"] = 1;
+          $templateParams["section"]["degree-type"] = "Laurea triennale";
           require("corsi-section-small.php");
           
           $templateParams["section"]["id"] = "accordionSecondoAnno";
@@ -40,6 +41,7 @@
           if (isset($templateParams["admin"])) $templateParams["section"]["h2"] .= " triennale";
           $templateParams["section"]["target"] = "collapseTwo";
           $templateParams["section"]["year"] = 2;
+          $templateParams["section"]["degree-type"] = "Laurea triennale";
           require("corsi-section-small.php");
           
           if (isset($templateParams["admin"]) || $templateParams["degree-type"] === "Laurea triennale") {
@@ -48,6 +50,7 @@
             if (isset($templateParams["admin"])) $templateParams["section"]["h2"] .= " triennale";
             $templateParams["section"]["target"] = "collapseThree";
             $templateParams["section"]["year"] = 3;
+            $templateParams["section"]["degree-type"] = "Laurea triennale";
             require("corsi-section-small.php");
           }
           ?>
@@ -57,12 +60,14 @@
             $templateParams["section"]["h2"] = "Primo anno magistrale";
             $templateParams["section"]["target"] = "collapseFour";
             $templateParams["section"]["year"] = 1;
+            $templateParams["section"]["degree-type"] = "Laurea magistrale";
             require("corsi-section-small.php");
 
             $templateParams["section"]["id"] = "accordionQuintoAnno";
             $templateParams["section"]["h2"] = "Secondo anno magistrale";
             $templateParams["section"]["target"] = "collapseFive";
             $templateParams["section"]["year"] = 2;
+            $templateParams["section"]["degree-type"] = "Laurea magistrale";
             require("corsi-section-small.php");
           }
           ?>
