@@ -15,7 +15,10 @@ typePeriodRadioBtn.addEventListener('change', () => {
     endDateContainer.classList.remove("d-none")
     endDateInput.setAttribute("required", "")
     timesContainer.classList.add("d-none")
-    timesInputs.forEach(i => { i.removeAttribute("required") })
+    timesInputs.forEach(i => {
+        i.removeAttribute("required")
+        i.value = ""
+    })
 })
 
 typeProgrammedRadioBtn.addEventListener('change', () => {
@@ -24,6 +27,7 @@ typeProgrammedRadioBtn.addEventListener('change', () => {
     startDateContainer.classList.remove("d-none")
     endDateContainer.classList.add("d-none")
     endDateInput.removeAttribute("required")
+    endDateInput.value = ""
     timesContainer.classList.remove("d-none")
     timesInputs.forEach(i => { i.setAttribute("required", "") })
 })

@@ -1227,8 +1227,7 @@ class DatabaseHelper {
         ?string $start_time,
         ?string $end_time): bool {
 
-        // TODO: effettuare qui i controlli sui parametri in input?
-        if ($this->checkAdmin($_SESSION['idutente'])) {
+        if ($this->checkAdmin($_SESSION['idutente']) && (($end_date === null) || ($start_date < $end_date))) {
             $query = 'INSERT INTO events(Category, Type, Title, Description, Place, StartDate, EndDate, StartTime, EndTime) values (?, ?, ?, ?, ?, ?, ?, ?, ?)';
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('sssssssss', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time);
@@ -1258,8 +1257,7 @@ class DatabaseHelper {
         ?string $end_time,
         int $event_id): bool {
 
-        // TODO: effettuare qui i controlli sui parametri in input?
-        if ($this->checkAdmin($_SESSION['idutente'])) {
+        if ($this->checkAdmin($_SESSION['idutente']) && (($end_date === null) || ($start_date < $end_date))) {
             $query = 'UPDATE events SET Category = ?, Type = ?, Title = ?, Description = ?, Place = ?, StartDate = ?, EndDate = ?, StartTime = ?, EndTime = ? WHERE EventID = ?';
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('sssssssssi', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time, $event_id);
