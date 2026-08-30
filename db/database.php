@@ -1131,6 +1131,142 @@ class DatabaseHelper {
 
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function get_valid_events(?string $category_filter): array {
+        $query = 'SELECT * FROM events WHERE ((Type = "A periodo" AND EndDate >= CURDATE()) OR (Type = "Programmato" AND CONCAT(StartDate, " ", StartTime) >= CURRENT_TIMESTAMP()))';
+        if ($category_filter !== null) {
+            $query .= ' AND Category = ?';
+        }
+        $stmt = $this->db->prepare($query);
+        if ($category_filter !== null) {
+            $stmt->bind_param('s', $category_filter);
+        }
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function get_expired_events(?string $category_filter): array {
+        $query = 'SELECT * FROM events WHERE EventID NOT IN (SELECT EventID FROM events WHERE (Type = "A periodo" AND EndDate >= CURDATE()) OR (Type = "Programmato" AND CONCAT(StartDate, " ", StartTime) >= CURRENT_TIMESTAMP()))';
+        if ($category_filter !== null) {
+            $query .= ' AND Category = ?';
+        }
+        $stmt = $this->db->prepare($query);
+        if ($category_filter !== null) {
+            $stmt->bind_param('s', $category_filter);
+        }
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function get_events_categories(): array {
+        $query = 'SELECT DISTINCT Category FROM events';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function is_event_id_valid(int $event_id): bool {
+        $query = 'SELECT EXISTS(SELECT 1 FROM events WHERE EventID = ? LIMIT 1)';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $event_id);
+        $stmt->execute();
+
+        $stmt->bind_result($is_id_valid);
+        $stmt->fetch();
+        $stmt->close();
+
+        return (bool)$is_id_valid;
+    }
+
+    public function get_event(int $event_id): array {
+        $query = 'SELECT * FROM events WHERE EventID = ?';
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $event_id);
+        $stmt->execute();
+
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Deletes the event whose id is `$event_id`.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function delete_event(int $event_id): bool {
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'DELETE FROM events WHERE EventID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $event_id);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Creates a new event with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function add_event(
+        string $category,
+        string $type,
+        string $title,
+        string $description,
+        ?string $place,
+        string $start_date,
+        ?string $end_date,
+        ?string $start_time,
+        ?string $end_time): bool {
+
+        if ($this->checkAdmin($_SESSION['idutente']) && (($end_date === null) || ($start_date < $end_date))) {
+            $query = 'INSERT INTO events(Category, Type, Title, Description, Place, StartDate, EndDate, StartTime, EndTime) values (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssssss', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Edits the event whose id is `$event_id` with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function edit_event(
+        string $category,
+        string $type,
+        string $title,
+        string $description,
+        ?string $place,
+        string $start_date,
+        ?string $end_date,
+        ?string $start_time,
+        ?string $end_time,
+        int $event_id): bool {
+
+        if ($this->checkAdmin($_SESSION['idutente']) && (($end_date === null) || ($start_date < $end_date))) {
+            $query = 'UPDATE events SET Category = ?, Type = ?, Title = ?, Description = ?, Place = ?, StartDate = ?, EndDate = ?, StartTime = ?, EndTime = ? WHERE EventID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssssssi', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time, $event_id);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

@@ -27,7 +27,7 @@ document.querySelector('#resetFiltersBtn').addEventListener('click', () => {
        and so must be done the request to the server */
     let fetchJobPosts = false
 
-    if (!categoryFilter.value !== "all") {
+    if (categoryFilter.value !== "all") {
         categoryFilter.value = "all"
         fetchJobPosts = true
     }

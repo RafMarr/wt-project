@@ -57,7 +57,7 @@ function generateJobPostsCards(jobPosts) {
     jobPosts.forEach(jp => {
         cards += `
         <div class="col">
-            <article id="${jp["JobPostID"]}" class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
+            <article id="job-post-${jp["JobPostID"]}" class="d-md-flex flex-md-column p-4 pb-3 h-100 mode-container rounded-2 border border-2">
                 <h2 class="p-0 m-0 mb-2 fs-3">${jp["Title"]}</h2>
                 <div class="text-start">
                     <p class="mb-1"><span class="fw-bold">Data inserimento:</span> ${Temporal.PlainDate.from(jp["InsertionDate"]).toLocaleString("it-it")}</p>
