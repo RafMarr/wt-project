@@ -65,7 +65,7 @@ document.querySelectorAll('input[name="pony-availability"]').forEach(i => {
 })
 
 function generateReservationsCards(reservations) {
-    cards = ""
+    let cards = ""
     reservations.forEach(r => {
         cards += `
         <div class="col">

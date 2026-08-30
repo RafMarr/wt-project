@@ -101,7 +101,7 @@ function setDeletionButtonsClickEventListener() {
 }
 
 function generateJobPostsCards(jobPosts) {
-    cards = ""
+    let cards = ""
     jobPosts.forEach(jp => {
         cards += `
         <div class="col">

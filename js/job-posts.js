@@ -53,7 +53,7 @@ document.querySelectorAll('input[name="contract-type"]').forEach(i => {
 })
 
 function generateJobPostsCards(jobPosts) {
-    cards = ""
+    let cards = ""
     jobPosts.forEach(jp => {
         cards += `
         <div class="col">

@@ -114,7 +114,7 @@ function setDeletionButtonsClickEventListener() {
 }
 
 function generateReservationsCards(reservations) {
-    cards = ""
+    let cards = ""
     reservations.forEach(r => {
         cards += `
         <div class="col">
