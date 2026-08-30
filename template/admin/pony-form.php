@@ -5,11 +5,11 @@
     <p>* Indica i campi obbligatori.</p>
     <form action="pony-form-handler.php" method="POST" enctype="multipart/form-data" class="col-10 col-md-6">
         <div class="mb-3 text-start">
-            <label for="name" class="form-label">Nome *</label>
+            <label for="name" class="form-label">Nome <span class="mandatory">*</span></label>
             <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Name") ?>" class="form-control border-mode-text" name="name" id="name" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['Name'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
-            <label class="form-label" for="breed">Razza *</label>
+            <label class="form-label" for="breed">Razza <span class="mandatory">*</span></label>
             <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Breed") ?>" list="breeds" class="form-control border-mode-text" name="breed" id="breed" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['Breed'] . "\"" : "" ?> required />
             <datalist id="breeds">
                 <?php foreach($templateParams['breeds'] as $breed): ?>
@@ -18,11 +18,11 @@
             </datalist>
         </div>
         <div class="mb-3 text-start">
-            <label class="form-label" for="hourly-fee">Tariffa oraria (€) *</label>
+            <label class="form-label" for="hourly-fee">Tariffa oraria (€) <span class="mandatory">*</span></label>
             <input type="number" min="0" max="99.99" step="0.01" class="form-control border-mode-text" name="hourly-fee" id="hourly-fee" <?php echo $templateParams['action'] === 'edit-pony' ? "value=\"" . $templateParams['pony']['HourlyFee'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
-            <label class="form-label" for="image">Immagine pony <?php echo $templateParams['action'] === 'add-pony' ? "*" : "" ?></label>
+            <label class="form-label" for="image">Immagine pony <?php echo $templateParams['action'] === 'add-pony' ? '<span class="mandatory">*</span>' : "" ?></label>
             <input class="form-control border-mode-text" type="file" name="image" id="image" <?php echo $templateParams['action'] === 'add-pony' ? "required" : "" ?>/>
         </div>
         <?php if ($templateParams['action'] === 'edit-pony'): ?>

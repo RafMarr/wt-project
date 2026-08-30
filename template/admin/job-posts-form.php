@@ -5,15 +5,15 @@
     <p>* Indica i campi obbligatori.</p>
     <form action="api/api-job-posts.php" method="POST" class="col-10 col-md-6">
         <div class="mb-3 text-start">
-            <label for="title" class="form-label">Titolo annuncio *</label>
+            <label for="title" class="form-label">Titolo annuncio <span class="mandatory">*</span></label>
             <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Title") ?>" class="form-control border-mode-text" name="title" id="title" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Title'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
-            <label for="author" class="form-label">Nome impresa/azienda *</label>
+            <label for="author" class="form-label">Nome impresa/azienda <span class="mandatory">*</span></label>
             <input type="text" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Author") ?>" class="form-control border-mode-text" name="author" id="author" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['Author'] . "\"" : "" ?> required />
         </div>
         <fieldset class="mb-3 text-start">
-            <legend class="fs-6">Tipologia contratto *</legend>
+            <legend class="fs-6">Tipologia contratto <span class="mandatory">*</span></legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="contract-type" id="contract-type-full-time" value="Full-time" required <?php echo ($templateParams['action'] === "edit" && $templateParams['job-post']['ContractType'] === "Full-time" ? "checked" : "") ?> />
                 <label class="form-check-label" for="contract-type-full-time">Full-time</label>
@@ -24,31 +24,31 @@
             </div>
         </fieldset>
         <div class="mb-3 text-start">
-            <label for="description" class="form-label">Descrizione annuncio *</label>
+            <label for="description" class="form-label">Descrizione annuncio <span class="mandatory">*</span></label>
             <textarea rows="6" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "Description") ?>" class="form-control border-mode-text" name="description" id="description" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["Description"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
-            <label for="working-time" class="form-label">Orari di lavoro *</label>
+            <label for="working-time" class="form-label">Orari di lavoro <span class="mandatory">*</span></label>
             <textarea rows="4" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "WorkingTime") ?>" class="form-control border-mode-text" name="working-time" id="working-time" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["WorkingTime"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
-            <label for="enterprise-address" class="form-label">Indirizzo impresa/azienda *</label>
+            <label for="enterprise-address" class="form-label">Indirizzo impresa/azienda <span class="mandatory">*</span></label>
             <textarea rows="3" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "EnterpriseAddress") ?>" class="form-control border-mode-text" name="enterprise-address" id="enterprise-address" required><?php if ($templateParams['action'] === "edit"): ?><?php echo $templateParams['job-post']["EnterpriseAddress"] ?><?php endif; ?></textarea>
         </div>
         <div class="mb-3 text-start">
-            <label class="form-label" for="hourly-salary">Paga oraria (€) *</label>
+            <label class="form-label" for="hourly-salary">Paga oraria (€) <span class="mandatory">*</span></label>
             <input type="number" min="0" max="99.99" step="0.01" class="form-control border-mode-text" name="hourly-salary" id="hourly-salary" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['HourlySalary'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
-            <label for="author-phone-number" class="form-label">Recapito telefonico impresa/azienda *</label>
+            <label for="author-phone-number" class="form-label">Recapito telefonico impresa/azienda <span class="mandatory">*</span></label>
             <input type="tel" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "AuthorPhoneNumber") ?>" class="form-control border-mode-text" name="author-phone-number" id="author-phone-number" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorPhoneNumber'] . "\"" : "" ?> required />
         </div>
         <div class="mb-3 text-start">
-            <label for="author-email" class="form-label">Indirizzo email impresa/azienda *</label>
+            <label for="author-email" class="form-label">Indirizzo email impresa/azienda <span class="mandatory">*</span></label>
             <input type="email" maxlength="<?php echo $dbh->get_string_field_max_length(DB_TABLE_NAME, "AuthorEmail") ?>" class="form-control border-mode-text" name="author-email" id="author-email" <?php echo $templateParams['action'] === 'edit' ? "value=\"" . $templateParams['job-post']['AuthorEmail'] . "\"" : "" ?> required />
         </div>
         <fieldset class="mb-3 text-start">
-            <legend class="fs-6">L'annuncio è rivolto ad uno specifico corso di laurea? *</legend>
+            <legend class="fs-6">L'annuncio è rivolto ad uno specifico corso di laurea? <span class="mandatory">*</span></legend>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="degree-course-choice" id="degree-course-choice-yes" value="yes" required <?php echo ($templateParams['action'] === "edit" && $templateParams['job-post']['DegreeCourseID'] !== null ? "checked" : "") ?> />
                 <label class="form-check-label" for="degree-course-choice-yes">Sì</label>
@@ -60,7 +60,7 @@
         </fieldset>
 
         <div id="degree-course-select-container" class="mb-3 text-start <?php if (($templateParams['action'] === "add") || ($templateParams['action'] === 'edit' && $templateParams['job-post']['DegreeCourseID'] === null)): ?><?php echo "d-none" ?><?php endif; ?>">
-            <label for="degree-course" class="form-label mode-text">Specificare il corso di laurea a cui è rivolto l'annuncio *</label>
+            <label for="degree-course" class="form-label mode-text">Specificare il corso di laurea a cui è rivolto l'annuncio <span class="mandatory">*</span></label>
             <select class="form-select border-mode-text" name="degree-course" id="degree-course" <?php echo ($templateParams['action'] === "edit" && $templateParams['job-post']['DegreeCourseID'] !== null ? "required" : "") ?>>
                 <option value="" <?php if (($templateParams['action'] === "add") || ($templateParams['action'] === 'edit' && $templateParams['job-post']['DegreeCourseID'] === null)): ?> selected <?php endif;?>>Selezionare un corso di laurea</option>
                 <?php foreach($templateParams["degree-courses"] as $dc): ?>
