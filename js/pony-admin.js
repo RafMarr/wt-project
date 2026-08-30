@@ -255,7 +255,7 @@ async function setHidePonyModalContent(ponyArticleID) {
     <p>Il pony non sarà più visibile dagli studenti e dunque non sarà a disposizione per eventuali prenotazioni.</p>`
     if (await hasFutureReservations(ponyID)) {
         modalBody.innerHTML += `<div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="delete-future-reservations-checkbox">
+            <input class="form-check-input" type="checkbox" value="" id="delete-future-reservations-checkbox" />
             <label class="form-check-label" for="delete-future-reservations-checkbox">
                 Elimina le prenotazioni future per questo pony
             </label>
