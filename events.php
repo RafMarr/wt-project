@@ -20,12 +20,14 @@ if ($dbh->checkStudent($_SESSION['idutente'])) {
             $templateParams["nome"] = "template/admin/events-form.php";
             $templateParams["js"] = array("js/admin-events-form.js");
             $templateParams["action"] = $_GET['action'];
+            $templateParams["categories"] = $dbh->get_events_categories();
         } else if ($action === "edit" && isset($_GET['event-id']) && $dbh->is_event_id_valid($_GET['event-id'])) {
             $templateParams["titolo"] = "Modifica evento";
             $templateParams["nome"] = "template/admin/events-form.php";
             $templateParams["js"] = array("js/admin-events-form.js");
             $templateParams["action"] = $_GET['action'];
             $templateParams["event"] = $dbh->get_event($_GET['event-id'])[0];
+            $templateParams["categories"] = $dbh->get_events_categories();
         } else {
             header("location: events.php");
         }

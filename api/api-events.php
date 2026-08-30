@@ -33,54 +33,71 @@ if ($action === "filter") {
     header("Content-Type: application/json");
     echo json_encode($dbh->delete_event($_POST['event-id']));
     exit();
-} /* TODO: implement add and edit actions else if ($action === "add" && $dbh->checkAdmin($_SESSION['idutente'])
- && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['contract-type'])
- && isset($_POST['description']) && isset($_POST['working-time']) && isset($_POST['enterprise-address'])
- && isset($_POST['hourly-salary']) && isset($_POST['author-phone-number']) && isset($_POST['author-email'])
- && isset($_POST['degree-course-choice'])) {
+} else if ($action === "add" && $dbh->checkAdmin($_SESSION['idutente'])
+ && isset($_POST['category']) && isset($_POST['type']) && isset($_POST['title'])
+ && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['start-date'])
+ && isset($_POST['end-date']) && isset($_POST['start-time']) && isset($_POST['end-time'])) {
 
+    $category = htmlspecialchars(trim($_POST['category']));
+    $type = htmlspecialchars(trim($_POST['type']));
     $title = htmlspecialchars(trim($_POST['title']));
-    $author = htmlspecialchars(trim($_POST['author']));
     $description = htmlspecialchars(trim($_POST['description']));
-    $working_time = htmlspecialchars(trim($_POST['working-time']));
-    $enterprise_address = htmlspecialchars(trim($_POST['enterprise-address']));
-    $author_phone_number = htmlspecialchars(trim($_POST['author-phone-number']));
-    $author_email = htmlspecialchars(trim($_POST['author-email']));
-    $degree_course_id = null;
-    if ($_POST['degree-course-choice'] === "yes" && isset($_POST['degree-course'])) {
-        $degree_course_id = $_POST['degree-course'];
+    $place = htmlspecialchars(trim($_POST['place']));
+    if (strlen($place) === 0) {
+        $place = null;
+    }
+    $start_date = $_POST['start-date'];
+    $end_date = null;
+    if (strlen($_POST['end-date']) > 0) {
+        $end_date = $_POST['end-date'];
+    }
+    $start_time = null;
+    if (strlen($_POST['start-time']) > 0) {
+        $start_time = $_POST['start-time'];
+    }
+    $end_time = null;
+    if (strlen($_POST['end-time']) > 0) {
+        $end_time = $_POST['end-time'];
     }
 
-    $addition_successful = $dbh->add_job_post($title, $author, $description, $working_time,
-        $enterprise_address, $_POST['hourly-salary'], $_POST['contract-type'], $author_phone_number,
-        $author_email, $degree_course_id);
+    $addition_successful = $dbh->add_event($category, $type, $title, $description,
+        $place, $start_date, $end_date, $start_time, $end_time);
         
-    header('location: ../job-posts.php?operation-successful=' . ($addition_successful ? "true" : "false"));
+    header('location: ../events.php?operation-successful=' . ($addition_successful ? "true" : "false"));
     exit();
 
 } else if ($action === "edit" && $dbh->checkAdmin($_SESSION['idutente'])
- && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['contract-type'])
- && isset($_POST['description']) && isset($_POST['working-time']) && isset($_POST['enterprise-address'])
- && isset($_POST['hourly-salary']) && isset($_POST['author-phone-number']) && isset($_POST['author-email'])
- && isset($_POST['degree-course-choice']) && isset($_POST['job-post-id'])) {
+ && isset($_POST['category']) && isset($_POST['type']) && isset($_POST['title'])
+ && isset($_POST['description']) && isset($_POST['place']) && isset($_POST['start-date'])
+ && isset($_POST['end-date']) && isset($_POST['start-time']) && isset($_POST['end-time'])
+ && isset($_POST['event-id'])) {
 
+    $category = htmlspecialchars(trim($_POST['category']));
+    $type = htmlspecialchars(trim($_POST['type']));
     $title = htmlspecialchars(trim($_POST['title']));
-    $author = htmlspecialchars(trim($_POST['author']));
     $description = htmlspecialchars(trim($_POST['description']));
-    $working_time = htmlspecialchars(trim($_POST['working-time']));
-    $enterprise_address = htmlspecialchars(trim($_POST['enterprise-address']));
-    $author_phone_number = htmlspecialchars(trim($_POST['author-phone-number']));
-    $author_email = htmlspecialchars(trim($_POST['author-email']));
-    $degree_course_id = null;
-    if ($_POST['degree-course-choice'] === "yes" && isset($_POST['degree-course'])) {
-        $degree_course_id = $_POST['degree-course'];
+    $place = htmlspecialchars(trim($_POST['place']));
+    if (strlen($place) === 0) {
+        $place = null;
+    }
+    $start_date = $_POST['start-date'];
+    $end_date = null;
+    if (strlen($_POST['end-date']) > 0) {
+        $end_date = $_POST['end-date'];
+    }
+    $start_time = null;
+    if (strlen($_POST['start-time']) > 0) {
+        $start_time = $_POST['start-time'];
+    }
+    $end_time = null;
+    if (strlen($_POST['end-time']) > 0) {
+        $end_time = $_POST['end-time'];
     }
 
-    $edit_successful = $dbh->edit_job_post($title, $author, $description, $working_time,
-        $enterprise_address, $_POST['hourly-salary'], $_POST['contract-type'], $author_phone_number,
-        $author_email, $degree_course_id, $_POST['job-post-id']);
+    $edit_successful = $dbh->edit_event($category, $type, $title, $description,
+        $place, $start_date, $end_date, $start_time, $end_time, (int)$_POST['event-id']);
         
-    header('location: ../job-posts.php?operation-successful=' . ($edit_successful ? "true" : "false"));
+    header('location: ../events.php?operation-successful=' . ($edit_successful ? "true" : "false"));
     exit();
-} */
+}
 ?>

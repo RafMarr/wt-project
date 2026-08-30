@@ -1208,6 +1208,67 @@ class DatabaseHelper {
             return false;
         }
     }
+
+    /**
+     * Creates a new event with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function add_event(
+        string $category,
+        string $type,
+        string $title,
+        string $description,
+        ?string $place,
+        string $start_date,
+        ?string $end_date,
+        ?string $start_time,
+        ?string $end_time): bool {
+
+        // TODO: effettuare qui i controlli sui parametri in input?
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'INSERT INTO events(Category, Type, Title, Description, Place, StartDate, EndDate, StartTime, EndTime) values (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssssss', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Edits the event whose id is `$event_id` with the provided values.
+     * This function can be only executed by admins. If the logged user is a
+     * student and somehow they manage to execute this function, it does nothing
+     * and returns `false`.
+     * @return bool `true` on success, `false` on failure
+     */
+    public function edit_event(
+        string $category,
+        string $type,
+        string $title,
+        string $description,
+        ?string $place,
+        string $start_date,
+        ?string $end_date,
+        ?string $start_time,
+        ?string $end_time,
+        int $event_id): bool {
+
+        // TODO: effettuare qui i controlli sui parametri in input?
+        if ($this->checkAdmin($_SESSION['idutente'])) {
+            $query = 'UPDATE events SET Category = ?, Type = ?, Title = ?, Description = ?, Place = ?, StartDate = ?, EndDate = ?, StartTime = ?, EndTime = ? WHERE EventID = ?';
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssssssssi', $category, $type, $title, $description, $place, $start_date, $end_date, $start_time, $end_time, $event_id);
+
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
