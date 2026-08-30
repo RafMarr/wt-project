@@ -10,26 +10,22 @@
                 <button type="button" data-bs-target="#carosello" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 <button type="button" data-bs-target="#carosello" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 <button type="button" data-bs-target="#carosello" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                <button type="button" data-bs-target="#carosello" data-bs-slide-to="5" aria-label="Slide 6"></button>
             </div>
             <div class="carousel-inner rounded-4">
                 <div class="carousel-item active">
-                <img src="./upload/img/Campus Cesena 1.jpeg" class="d-block w-100" alt="" />
+                <img src="./upload/img/CampusCesena1.jpeg" class="d-block w-100" alt="" />
                 </div>
                 <div class="carousel-item">
-                <img src="./upload/img/Campus Cesena 2.jpeg" class="d-block w-100" alt="" />
+                <img src="./upload/img/CampusCesena2.jpeg" class="d-block w-100" alt="" />
                 </div>
                 <div class="carousel-item">
-                <img src="./upload/img/Campus Cesena 3.jpg" class="d-block w-100" alt="" />
+                <img src="./upload/img/CampusCesena3.jpg" class="d-block w-100" alt="" />
                 </div>
                 <div class="carousel-item">
-                <img src="./upload/img/Campus Cesena 4.jpg" class="d-block w-100" alt="" />
+                <img src="./upload/img/CampusCesena4.jpg" class="d-block w-100" alt="" />
                 </div>
                 <div class="carousel-item">
-                <img src="./upload/img/Campus Cesena 5.jpeg" class="d-block w-100" alt="" />
-                </div>
-                <div class="carousel-item">
-                <img src="./upload/img/Campus Cesena 6.jpeg" class="d-block w-100" alt="" />
+                <img src="./upload/img/CampusCesena5.jpeg" class="d-block w-100" alt="" />
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carosello" data-bs-slide="prev">
