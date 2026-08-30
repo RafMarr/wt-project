@@ -30,7 +30,7 @@
                 Verde Margherita
             </label>
             <input class="check-btn" type="radio" id="custom" name="theme" value="custom" />
-            <label class="col-4 col-md-3 col-xxl-2 preview-theme-card" for="custom">
+            <label class="col-5 col-md-3 col-xxl-2 preview-theme-card" for="custom">
                 <span class="d-block preview-theme preview-theme-custom"></span>
                 Personalizzato
             </label>
