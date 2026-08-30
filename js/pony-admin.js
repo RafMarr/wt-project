@@ -384,7 +384,7 @@ async function fetchPonies(day = null, startTime = null, endTime = null, priceFi
                 ${generatePoniesCards(hiddenPonies)}
             </div>`
         } else {
-            hiddenPoniesSection.innerHTML = ''
+            hiddenPoniesSection.innerHTML = '<h2 class="text-center fs-3 mb-4">Pony nascosti</h2>'
         }
         document.querySelectorAll('button[data-bs-target="#hide-pony-modal"]').forEach(b => {
             const ponyArticleID = b.parentElement.parentElement.id
